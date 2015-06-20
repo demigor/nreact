@@ -18,7 +18,7 @@ namespace NReact
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
           <NClock FS={ Props.FontSize } />
           <Button Click={ (RoutedEventHandler)ClickMe } Content={"Click me" + ((int)Props.FontSize)} HorizontalAlignment="Center" Foreground="Red" />
-          <NClock FS={ 60D - Props.FontSize } />
+          <NClock FS={ 60.0 - Props.FontSize } />
         </StackPanel>;
     }
   }
