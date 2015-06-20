@@ -7,7 +7,7 @@ using Windows.System.Threading;
 
 namespace NReact
 {
-  class NDispatcher
+  public class NDispatcher
   {
     public static readonly NDispatcher Default = new NDispatcher();
 
@@ -50,7 +50,7 @@ namespace NReact
     void Enqueue(NTask task)
     {
 #if DUMP
-      Debug.WriteLine("Enqueue " + task);
+      Debug.WriteLine("Enqueue Task");
 #endif
       while (true)
       {
@@ -68,11 +68,6 @@ namespace NReact
     public void Enqueue(Action task)
     {
       Enqueue(new NTask { Action = task });
-    }
-
-    internal void EnqueueUpdate(NComponent component)
-    {
-      Enqueue(component.UpdateCore);
     }
 
     class NTask
