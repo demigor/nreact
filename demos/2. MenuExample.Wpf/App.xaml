@@ -1,0 +1,25 @@
+﻿<Application x:Class="Navigation.Wpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Startup="Application_Startup">
+  <Application.MainWindow>
+    <Window Title="NReact Timer Demo" />
+  </Application.MainWindow>
+  <Application.Resources>
+    <ResourceDictionary>
+      <Style x:Key="Unfocused" TargetType="Button">
+        <Setter Property="Padding" Value="20,10" />
+        <Setter Property="FontSize" Value="14"/>
+      </Style>
+      <Style x:Key="Focused" TargetType="Button" BasedOn="{StaticResource Unfocused}">
+        <Setter Property="Background" Value="#41c7c2" />
+        <Setter Property="Foreground" Value="White"/>
+      </Style>
+
+      <Style x:Key="P" TargetType="TextBlock">
+        <Setter Property="Padding" Value="15,12" />
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+      </Style>
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>
