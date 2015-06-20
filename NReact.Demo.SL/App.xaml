@@ -2,6 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              x:Class="NReact.SL.App" Startup="Application_Startup">
   <Application.RootVisual>
-    <UserControl x:Name="root" FontFamily="Segoe UI" FontSize="12"/>
+    <UserControl FontFamily="Segoe UI" FontSize="12"/>
   </Application.RootVisual>
 </Application>
