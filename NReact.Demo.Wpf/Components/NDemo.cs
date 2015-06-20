@@ -15,7 +15,7 @@ namespace NReact
 
     public override object GetDefaultProps()
     {
-      return new { FontSize = 12D }.AsDynamic();
+      return new { FontSize = 12.0 };
     }
 
     Timer _timer;
@@ -33,7 +33,7 @@ namespace NReact
     void TickSize(object state)
     {
       var fs = Props.FontSize + 0.5;
-      if (fs > 50) fs = 10d;
+      if (fs > 50) fs = 10.0;
 
       SetProps(new { FontSize = fs });
     }
