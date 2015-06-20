@@ -9,12 +9,12 @@ namespace NReact
 
     public override object GetDefaultProps()
     {
-      return new { FS = 36D }.AsDynamic();
+      return new { FS = 36.0 };
     }
 
     protected override object GetInitialState()
     {
-      return new { Time = DateTime.Now, Tick = 0 }.AsDynamic();
+      return new { Time = DateTime.Now, Tick = 0 };
     }
 
     public override void ComponentDidMount()
