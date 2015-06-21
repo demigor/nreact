@@ -10,6 +10,7 @@ Implemented:
 * Dynamic typing for Component's Props and State (NDynamic)
 * Several Type Converters including enums, colors, brushes and resources (NConverters)
 * Simple Flux Dispatcher (NDispatcher)
+* Nuget Package including support for Store, WPF and Silverlight apps and CSX -> C# transform MSBuild task (NReact)
 
 To to:
 * Xaml-like Visual Studio CSX syntax transform including syntax highlighting and debugging.
@@ -19,3 +20,7 @@ To to:
 
 Existence questions:
 * Why do one need NReact?
+
+How to install:
+* Build from these sources
+* or Nuget NReact Package (install-package nreact -pre)
