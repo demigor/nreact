@@ -1,8 +1,8 @@
 # NReact
-Please check official React/Flux resources to undestand underlying concepts.
-
 React/Flux principles in C#/Xaml application. Experimental playground. 
 See various demos.
+
+Please check official React/Flux resources to undestand underlying concepts.
 
 Implemented:
 * CSX - C# syntax extension (aka React JSX). CSX -> C# transform MSBuild task and standalone executable (NReact.Csx)
