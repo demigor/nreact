@@ -23,4 +23,4 @@ Existence questions:
 
 How to install:
 * Build from these sources
-* or Nuget NReact Package (install-package nreact -pre)
+* Install Nuget NReact Package (install-package nreact -pre)
