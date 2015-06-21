@@ -16,6 +16,7 @@ To to:
 * Xaml-like Visual Studio CSX syntax transform including syntax highlighting and debugging.
 * Optimise Diff-algorythm for Virtual Xaml
 * Experiment with statically typed Component's Props and State 
+* Dynamic in-app CSX compilation using embeddable compiler (Mono.CSharp, Roslyn) 
 * More type converters
 
 Existence questions:
