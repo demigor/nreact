@@ -25,7 +25,8 @@ class TodoList : NComponent
     
     return 
       New(typeof(StackPanel), null, 
-list.Select((i,idx) => New(typeof(TextBlock), new { Key = idx, Text = "* " + i })) );
+       list.Select((i,idx) => New(typeof(TextBlock), new { Key = idx, Text = "* " + i })) 
+      );
   }
 }
 
@@ -55,10 +56,12 @@ class TodoApp : NComponent
   {
     return 
       New(typeof(StackPanel), new { HorizontalAlignment = "Center" }, 
-New(typeof(TextBlock), new { Text = "TODO", FontSize = 24.0, HorizontalAlignment = "Center" }), 
-New(typeof(TodoList), new { Items = State.Items }), 
-New(typeof(StackPanel), new { Orientation = "Horizontal" }, 
-New(typeof(TextBox), new { Text = State.Text, TextChanged = (TextChangedEventHandler)OnChange, Width = 200.0 }), 
-New(typeof(Button), new { Click = (RoutedEventHandler)OnAdd, Content = "Add #" + (State.Items.Length + 1) })));
+        New(typeof(TextBlock), new { Text = "TODO", FontSize = 24.0, HorizontalAlignment = "Center" }), 
+        New(typeof(TodoList), new { Items = State.Items }), 
+        New(typeof(StackPanel), new { Orientation = "Horizontal" }, 
+           New(typeof(TextBox), new { Text = State.Text, TextChanged = (TextChangedEventHandler)OnChange, Width = 200.0 }), 
+           New(typeof(Button), new { Click = (RoutedEventHandler)OnAdd, Content = "Add #" + (State.Items.Length + 1) })
+        )
+      );
   }
 }

@@ -2480,7 +2480,8 @@ GroupClause
 .
 
 TagExpression 
-=                          (. SuspendOut(); int attributes = 0, children = 0; .)
+=                          (. SuspendOut();
+                              int attributes = 0, children = 0; .)
   "<" ident                (. var ident = t.val; .) 
    { "." 
      ident                 (. ident += "." + t.val; .)
@@ -2493,14 +2494,22 @@ TagExpression
     "/>"                     
     |
     (">"                   
-      {                    (. OutLine(", "); .)
+                           (. ResumeOut(); .)
+      {                    (. Out(", "); .)
         (TagExpression 
          |
-         ("{"              (. ResumeOut(); .)
-           Expression      (. SuspendOut(); .)
-          "}")
+         (                 
+                           (. SuspendOut(); .)
+          "{"              
+                           (. ResumeOut(); .)
+           Expression      
+                           (. SuspendOut(); .)
+          "}"              
+                           (. ResumeOut(); .)
+         )
         )                  (. children++; .)
-      }                    (. SuspendOut(); .) 
+      }                    
+                           (. SuspendOut(); .) 
       "</" 
       ident                (. var closingTag = t.val; .)
       { "." 
@@ -2508,7 +2517,8 @@ TagExpression
       }
       ">"                  (. if (ident != closingTag) Error(string.Format("Open/close XML tag mismatch. Expected {0}, found: {1}", ident, closingTag)); .)
     )
-  )                        (. Out(")"); ResumeOut(); .)
+  )                        (. Out(")"); 
+                              ResumeOut(); .)
 .
 
 TagAttribute

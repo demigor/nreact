@@ -43,6 +43,6 @@ public partial class NTimer : NComponent
   public override NElement Render()
   {
     return 
-      New(typeof(TextBlock), new { Text = (State.Now - State.Start).ToString("s'.'f") , HorizontalAlignment = "Center", VerticalAlignment = "Center", FontSize = 24.5 });
+      New(typeof(TextBlock), new { Text =  (State.Now - State.Start).ToString("s'.'f") , HorizontalAlignment = "Center", VerticalAlignment = "Center", FontSize = 24.5 });
   }
 }

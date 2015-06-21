@@ -3299,7 +3299,8 @@ Stack tryResults = new Stack();
 	}
 
 	void TagExpression() {
-		SuspendOut(); int attributes = 0, children = 0; 
+		SuspendOut();
+		int attributes = 0, children = 0; 
 		Expect(103);
 		Expect(1);
 		var ident = t.val; 
@@ -3319,16 +3320,19 @@ Stack tryResults = new Stack();
 			Get();
 		} else if (la.kind == 96) {
 			Get();
+			ResumeOut(); 
 			while (la.kind == 99 || la.kind == 103) {
-				OutLine(", "); 
+				Out(", "); 
 				if (la.kind == 103) {
 					TagExpression();
 				} else {
+					SuspendOut(); 
 					Get();
 					ResumeOut(); 
 					Expression();
 					SuspendOut(); 
 					Expect(115);
+					ResumeOut(); 
 				}
 				children++; 
 			}
@@ -3344,7 +3348,8 @@ Stack tryResults = new Stack();
 			Expect(96);
 			if (ident != closingTag) Error(string.Format("Open/close XML tag mismatch. Expected {0}, found: {1}", ident, closingTag)); 
 		} else SynErr(207);
-		Out(")"); ResumeOut(); 
+		Out(")"); 
+		ResumeOut(); 
 	}
 
 	void ImplicitLambdaExpression() {
