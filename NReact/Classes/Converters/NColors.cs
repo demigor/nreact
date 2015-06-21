@@ -406,7 +406,7 @@ namespace NReact.Converters
       return Color.FromArgb((byte)a, (byte)r, (byte)g, (byte)b);
     }
 
-    public static bool Convert(object obj, Type target, out object result)
+    public static bool Convert(object obj, Type target, ref object result)
     {
       result = null;
 
@@ -415,18 +415,16 @@ namespace NReact.Converters
         return false;
 
       if (target == typeof(Color))
-      {
         result = ParseColor(color);
-        return true;
-      }
-
-      if (target == typeof(Brush))
-      {
+      else
         result = new SolidColorBrush(ParseColor(color));
-        return true;
-      }
 
-      return false;
+      return true;
+    }
+
+    public static Type[] GetSupportedTypes()
+    {
+      return new[] { typeof(Brush), typeof(Color) };
     }
   }
 }

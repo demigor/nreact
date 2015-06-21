@@ -4,7 +4,7 @@ namespace NReact.Converters
 {
   public static class NEnums
   {
-    public static bool Convert(object source, Type target, out object result)
+    public static bool Convert(object source, Type target, ref object result)
     {
       if (target.IsEnum())
       {
@@ -15,7 +15,6 @@ namespace NReact.Converters
           return true;
         }   
       }
-      result = null;
       return false;
     }
   }

@@ -11,16 +11,15 @@ namespace NReact.Converters
 {
   public static class NResources
   {
-    public static bool Convert(object source, Type target, out object result)
+    public static Type[] GetSupportedTypes()
     {
-      if (target == typeof(DataTemplate) || target == typeof(ControlTemplate) || target == typeof(Style))
-      {
-        result = Application.Current.Resources[source];
-        return true;
-      }
+      return new[] { typeof(DataTemplate), typeof(ControlTemplate), typeof(Style) };
+    }
 
-      result = null;
-      return false;
+    public static bool Convert(object source, Type target, ref object result)
+    {
+      result = Application.Current.Resources[source];
+      return true;
     }
   }
 }
