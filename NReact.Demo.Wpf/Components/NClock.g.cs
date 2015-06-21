@@ -19,7 +19,8 @@ namespace NReact
     {
       return
         New(typeof(Grid), new { HorizontalAlignment = "Center", VerticalAlignment = "Center" }, 
-New(typeof(TextBlock), new { FontSize = Props.FS, Text = string.Format("{0:o} #{1}", State.Time, State.Tick)  }));
+          New(typeof(TextBlock), new { FontSize = Props.FS, Text =  string.Format("{0:o} #{1}", State.Time, State.Tick)  })
+        );
     }
   }
 }

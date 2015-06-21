@@ -19,9 +19,10 @@ namespace NReact
     {
       return 
         New(typeof(StackPanel), new { VerticalAlignment = "Center", HorizontalAlignment = "Center" }, 
-New(typeof(NClock), new { FS = Props.FontSize  }), 
-New(typeof(Button), new { Click = (RoutedEventHandler)ClickMe , Content = "Click me" + ((int)Props.FontSize), HorizontalAlignment = "Center", Foreground = "Red" }), 
-New(typeof(NClock), new { FS = 60.0 - Props.FontSize  }));
+          New(typeof(NClock), new { FS =  Props.FontSize  }), 
+          New(typeof(Button), new { Click =  (RoutedEventHandler)ClickMe , Content = "Click me" + ((int)Props.FontSize), HorizontalAlignment = "Center", Foreground = "Red" }), 
+          New(typeof(NClock), new { FS =  60.0 - Props.FontSize  })
+        );
     }
   }
 }

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.1-alpha</version>
+        <version>0.0.1.2-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -21,9 +21,7 @@ Experimental version to play with React/Flux principles in familiar C#/Xaml worl
         <file src="..\tools\NReact.Csx.exe" target="build\NReact.Csx.exe" />
         <file src="..\tools\NReact.targets" target="build\NReact.targets" />
         <file src="..\bin\Release.Wpf\NReact.dll" target="lib\net40\NReact.dll" />
-        <file src="..\bin\Release.Xaml\NReact.dll" target="lib\netcore451\NReact.dll" />
-        <file src="lib\portable-wp8+win8\_._" target="lib\portable-wp8+win8\_._" />
+        <file src="..\bin\Release.Xaml\NReact.dll" target="lib\portable-wp8+win8\NReact.dll" />
         <file src="..\bin\Release.SL\NReact.dll" target="lib\sl50\NReact.dll" />
-        <file src="..\bin\Release.Xaml\NReact.dll" target="lib\wpa81\NReact.dll" />
     </files>
 </package>

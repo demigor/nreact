@@ -2,6 +2,8 @@
 
 namespace NReact.Csx
 {
+
+
   public partial class Parser
   {
     public StringBuilder _sb = new StringBuilder();
@@ -23,10 +25,11 @@ namespace NReact.Csx
 
     void ResumeOut()
     {
-      if (_active) return;
+      if (_active) 
+        return;
       _active = true;
 
-      _start = la.pos;
+      _start = t.pos + t.val.Length;
     }
 
     void SuspendOut()
@@ -46,16 +49,6 @@ namespace NReact.Csx
     void Out(string str)
     {
       _sb.Append(str);
-    }
-    
-    void OutLine(string str)
-    {
-      _sb.AppendLine(str);
-    }
-
-    void OutLine()
-    {
-      _sb.AppendLine();
     }
 
     void Out(string format, params object[] args)
