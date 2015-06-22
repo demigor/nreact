@@ -5,6 +5,7 @@
     <Description>NReact Component Template</Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
+    <Icon>NReactComponent.ico</Icon>
   </TemplateData>
   <TemplateContent>
     <References />
