@@ -54,6 +54,11 @@ namespace NReact.Csx
         }
       }
 
+#if DEBUG
+      Console.ReadLine();
+#endif
+
+
       if (errors > 0)
         Environment.Exit(1);
     }
@@ -89,8 +94,8 @@ namespace NReact.Csx
           return 0;
         }
 
+        WriteLine("{0} -> Errors: {1}", source, parser.Errors.Count);
         WriteLine(err.ToString());
-        WriteLine("Errors: {0}", parser.Errors.Count);
       }
       catch (Exception e)
       {

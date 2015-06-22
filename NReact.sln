@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Csx", "NReact.Csx\NReact.Csx.csproj", "{15580D90-F98C-4526-A715-57998FA083F1}"
 EndProject
@@ -41,6 +41,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. MenuExample.Wpf", "demos\2. MenuExample.Wpf\2. MenuExample.Wpf.csproj", "{9E761F7C-A91A-4F00-9ED1-3F01EC012453}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0. Todo.Wpf", "demos\0. Todo.Wpf\0. Todo.Wpf.csproj", "{97DAD547-52EA-4F8D-87FA-C78A87C98BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. OrderForm.Wpf", "demos\3. OrderForm.Wpf\3. OrderForm.Wpf.csproj", "{BB8683C4-33FC-4303-815F-316CDA4D5465}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +102,10 @@ Global
 		{97DAD547-52EA-4F8D-87FA-C78A87C98BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97DAD547-52EA-4F8D-87FA-C78A87C98BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97DAD547-52EA-4F8D-87FA-C78A87C98BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8683C4-33FC-4303-815F-316CDA4D5465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8683C4-33FC-4303-815F-316CDA4D5465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8683C4-33FC-4303-815F-316CDA4D5465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8683C4-33FC-4303-815F-316CDA4D5465}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,5 +123,6 @@ Global
 		{F1C545B2-0563-4F9C-8C32-498D4FF0C42B} = {F329F383-42B4-4BBC-BD79-C29B05C516F3}
 		{9E761F7C-A91A-4F00-9ED1-3F01EC012453} = {F329F383-42B4-4BBC-BD79-C29B05C516F3}
 		{97DAD547-52EA-4F8D-87FA-C78A87C98BB7} = {F329F383-42B4-4BBC-BD79-C29B05C516F3}
+		{BB8683C4-33FC-4303-815F-316CDA4D5465} = {F329F383-42B4-4BBC-BD79-C29B05C516F3}
 	EndGlobalSection
 EndGlobal

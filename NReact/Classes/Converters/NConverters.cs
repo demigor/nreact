@@ -18,6 +18,7 @@ namespace NReact.Converters
       Register(NColors.Convert, NColors.GetSupportedTypes());
       Register(NEnums.Convert, typeof(object));
       Register(NResources.Convert, NResources.GetSupportedTypes());
+      Register(NThickness.Convert, NThickness.GetSupportedTypes());
 
       Register(ConvertToBoolean, typeof(bool));
       Register(ConvertToByte, typeof(byte));
@@ -35,7 +36,6 @@ namespace NReact.Converters
       Register(ConvertToUInt16, typeof(ushort));
       Register(ConvertToUInt32, typeof(uint));
       Register(ConvertToUInt64, typeof(ulong));
-
     }
 
     static Entry _default;

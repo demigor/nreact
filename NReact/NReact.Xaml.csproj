@@ -41,6 +41,7 @@
     <Compile Include="Classes\Converters\NConverters.cs" />
     <Compile Include="Classes\Converters\NEnums.cs" />
     <Compile Include="Classes\Converters\NResources.cs" />
+    <Compile Include="Classes\Converters\NThickness.cs" />
     <Compile Include="Classes\NComponent.cs" />
     <Compile Include="Classes\NDynamic.cs" />
     <Compile Include="Classes\NDynamicConverter.cs" />
