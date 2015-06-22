@@ -62,7 +62,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TodoApp.g.cs" />
+    <Compile Include="TodoApp.g.cs">
+      <DependentUpon>TodoApp.csx</DependentUpon>
+    </Compile>
     <None Include="packages.config" />
     <None Include="TodoApp.csx" />
   </ItemGroup>

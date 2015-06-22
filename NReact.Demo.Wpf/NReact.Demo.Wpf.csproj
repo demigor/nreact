@@ -63,18 +63,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\NClock.cs" />
-    <Compile Include="Components\NClock.g.cs" />
-    <Compile Include="Components\NDemo.cs" />
-    <Compile Include="Components\NDemo.g.cs" />
+    <Compile Include="NClock.csx.cs">
+      <DependentUpon>NClock.csx</DependentUpon>
+    </Compile>
+    <Compile Include="NClock.g.cs">
+      <DependentUpon>NClock.csx</DependentUpon>
+    </Compile>
+    <Compile Include="NDemo.csx.cs">
+      <DependentUpon>NDemo.csx</DependentUpon>
+    </Compile>
+    <Compile Include="NDemo.g.cs">
+      <DependentUpon>NDemo.csx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Components\NClock.csx" />
-    <None Include="Components\NDemo.csx" />
+    <None Include="NClock.csx" />
+    <None Include="NDemo.csx" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

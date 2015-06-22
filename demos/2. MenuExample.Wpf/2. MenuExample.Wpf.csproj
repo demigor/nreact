@@ -61,7 +61,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NMenuExample.g.cs" />
+    <Compile Include="NMenuExample.g.cs">
+      <DependentUpon>NMenuExample.csx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -36,17 +36,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\NReact.Demo.Wpf\Components\NClock.cs">
-      <Link>Components\NClock.cs</Link>
+    <Compile Include="..\NReact.Demo.Wpf\NClock.csx.cs">
+      <Link>NClock.csx.cs</Link>
+      <DependentUpon>NClock.csx</DependentUpon>
     </Compile>
-    <Compile Include="..\NReact.Demo.Wpf\Components\NClock.g.cs">
-      <Link>Components\NClock.g.cs</Link>
+    <Compile Include="..\NReact.Demo.Wpf\NClock.g.cs">
+      <Link>NClock.g.cs</Link>
+      <DependentUpon>NClock.csx</DependentUpon>
     </Compile>
-    <Compile Include="..\NReact.Demo.Wpf\Components\NDemo.cs">
-      <Link>Components\NDemo.cs</Link>
+    <Compile Include="..\NReact.Demo.Wpf\NDemo.csx.cs">
+      <Link>NDemo.csx.cs</Link>
+      <DependentUpon>NDemo.csx</DependentUpon>
     </Compile>
-    <Compile Include="..\NReact.Demo.Wpf\Components\NDemo.g.cs">
-      <Link>Components\NDemo.g.cs</Link>
+    <Compile Include="..\NReact.Demo.Wpf\NDemo.g.cs">
+      <Link>NDemo.g.cs</Link>
+      <DependentUpon>NDemo.csx</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -75,11 +79,11 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\NReact.Demo.Wpf\Components\NClock.csx">
-      <Link>Components\NClock.csx</Link>
+    <None Include="..\NReact.Demo.Wpf\NClock.csx">
+      <Link>NClock.csx</Link>
     </None>
-    <None Include="..\NReact.Demo.Wpf\Components\NDemo.csx">
-      <Link>Components\NDemo.csx</Link>
+    <None Include="..\NReact.Demo.Wpf\NDemo.csx">
+      <Link>NDemo.csx</Link>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

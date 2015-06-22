@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-using NReact;
 
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -16,6 +15,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 #endif
+
+using NReact;
 
 class TodoList : NComponent
 {
