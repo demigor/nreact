@@ -1,0 +1,15 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>NReactComponent.csx</DefaultName>
+    <Name>NReact Component</Name>
+    <Description>NReact Component Template</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+  </TemplateData>
+  <TemplateContent>
+    <References />
+    <ProjectItem OpenInEditor="false" SubType="Code" TargetFileName="$fileinputname$.csx" ReplaceParameters="true">NReactComponent.csx</ProjectItem>
+    <ProjectItem OpenInEditor="true" SubType="Code" TargetFileName="$fileinputname$.csx\$fileinputname$.csx.cs" ReplaceParameters="true">NReactComponent.csx.cs</ProjectItem>
+    <ProjectItem OpenInEditor="false" SubType="Code" TargetFileName="$fileinputname$.csx\$fileinputname$.g.cs" ReplaceParameters="true">NReactComponent.g.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

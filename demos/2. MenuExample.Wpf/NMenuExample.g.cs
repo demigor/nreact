@@ -36,10 +36,8 @@ public class NMenuExample: NComponent
     return 
       New(typeof(StackPanel), new { HorizontalAlignment = "Center", VerticalAlignment = "Center" }, 
         New(typeof(StackPanel), new { Orientation = "Horizontal" }, 
-        
-          items.Select((m,index) =>
-                New(typeof(Button), new { Content = m, Style = State.Focused == index ? "Focused" : "Unfocused", Click =  (RoutedEventHandler)((s,e)=>Clicked(index))  }))
-        
+         items.Select((m,index) =>
+            New(typeof(Button), new { Content = m, Style = State.Focused == index ? "Focused" : "Unfocused", Click = (RoutedEventHandler)((s,e) => Clicked(index)) }))
         ), 
         New(typeof(TextBlock), new { Style = "P", Text = "Selected: " + Props.Items[State.Focused] })
       );

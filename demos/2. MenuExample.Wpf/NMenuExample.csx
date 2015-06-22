@@ -33,10 +33,8 @@ public class NMenuExample: NComponent
     return 
       <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-        {
-          items.Select((m,index) =>
-                <Button Content={m} Style={State.Focused == index ? "Focused" : "Unfocused"} Click={ (RoutedEventHandler)((s,e)=>Clicked(index)) }/>)
-        }
+        { items.Select((m,index) =>
+            <Button Content={m} Style={State.Focused == index ? "Focused" : "Unfocused"} Click={(RoutedEventHandler)((s,e) => Clicked(index))}/>)}
         </StackPanel>
         <TextBlock Style="P" Text={"Selected: " + Props.Items[State.Focused]} />
       </StackPanel>;
