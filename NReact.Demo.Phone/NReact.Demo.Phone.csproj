@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="NReact">
-      <HintPath>..\packages\NReact.0.0.1-alpha\lib\portable-wp8+win8\NReact.dll</HintPath>
+      <HintPath>..\packages\NReact.0.0.1.2-alpha\lib\portable-wp8+win8\NReact.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
@@ -95,12 +95,12 @@
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <Import Project="..\packages\NReact.0.0.1-alpha\build\NReact.targets" Condition="Exists('..\packages\NReact.0.0.1-alpha\build\NReact.targets')" />
+  <Import Project="..\packages\NReact.0.0.1.2-alpha\build\NReact.targets" Condition="Exists('..\packages\NReact.0.0.1.2-alpha\build\NReact.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NReact.0.0.1-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NReact.0.0.1-alpha\build\NReact.targets'))" />
+    <Error Condition="!Exists('..\packages\NReact.0.0.1.2-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NReact.0.0.1.2-alpha\build\NReact.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
