@@ -26,7 +26,7 @@ public class NMenuExample: NComponent
     SetState(new { Focused = index });
   }
 
-  public override NElement Render() 
+  public override object Render() 
   {
     var items = (IEnumerable<string>)Props.Items;
 

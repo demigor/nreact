@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.1.3-alpha</version>
+        <version>0.0.1.5-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -18,10 +18,13 @@
         <tags>React Flux Xaml NReact Native</tags>
     </metadata>
     <files>
-        <file src="build\NReact.Csx.exe" target="build\NReact.Csx.exe" />
-        <file src="build\NReact.targets" target="build\NReact.targets" />
-        <file src="lib\net40\NReact.dll" target="lib\net40\NReact.dll" />
-        <file src="lib\portable-wp8+win8\NReact.dll" target="lib\portable-wp8+win8\NReact.dll" />
-        <file src="lib\sl50\NReact.dll" target="lib\sl50\NReact.dll" />
+        <file src="..\tools\NReact.Csx.exe" target="build\NReact.Csx.exe" />
+        <file src="..\tools\NReact.targets" target="build\NReact.targets" />
+        <file src="..\bin\Release.Wpf\NReact.dll" target="lib\net40\NReact.dll" />
+        <file src="..\bin\Release.Wpf\NReact.xml" target="lib\net40\NReact.xml" />
+        <file src="..\bin\Release.Xaml\NReact.dll" target="lib\portable-wpa81+win81\NReact.dll" />
+        <file src="..\bin\Release.Xaml\NReact.xml" target="lib\portable-wpa81+win81\NReact.xml" />
+        <file src="..\bin\Release.SL\NReact.dll" target="lib\sl50\NReact.dll" />
+        <file src="..\bin\Release.SL\NReact.xml" target="lib\sl50\NReact.xml" />
     </files>
 </package>

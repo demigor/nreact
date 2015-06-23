@@ -2,12 +2,12 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("0.0.1.3")]
-[assembly: AssemblyFileVersion("0.0.1.3")]
+[assembly: AssemblyVersion("0.0.1.5")]
+[assembly: AssemblyFileVersion("0.0.1.5")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NReact")]
+[assembly: AssemblyProduct("NReact for C#/Xaml")]
 [assembly: AssemblyCopyright("Copyright © 2015 Lex Lavnikov")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

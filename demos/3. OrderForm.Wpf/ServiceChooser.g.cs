@@ -31,14 +31,14 @@ public partial class ServiceChooser : NComponent
     SetState( new { Total = State.Total + price });
   }
 
-  public override NElement Render() 
+  public override object Render() 
   {
      IEnumerable items = Props.Items;
      var services = from dynamic s in items 
                     select New(typeof(Service), new { Name = s.Name, Price = s.Price, Active = s.Active, AddTotal = (Action<int>)AddTotal });
 
      return New(typeof(StackPanel), new { HorizontalAlignment = "Center", VerticalAlignment = "Center" }, 
-              New(typeof(TextBlock), new { FontSize = "24", Text = "Our services" }), 
+              New(typeof(TextBlock), new { FontSize = "18", Text = "Our services" }), 
 
               New(typeof(StackPanel), null, 
                 services
@@ -65,7 +65,7 @@ public class Service: NComponent
     ((Action<int>)Props.AddTotal)(active ? Props.Price : -Props.Price);
   }
 
-  public override NElement Render() 
+  public override object Render() 
   {
     return  New(typeof(Button), new { Style = State.Active ? "Active" : null, Padding = "8,4", Click = (RoutedEventHandler)ClickHandler, Content = Props.Name + " $" + Props.Price });
   }

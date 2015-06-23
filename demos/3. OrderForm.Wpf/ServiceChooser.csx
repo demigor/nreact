@@ -28,7 +28,7 @@ public partial class ServiceChooser : NComponent
     SetState( new { Total = State.Total + price });
   }
 
-  public override NElement Render() 
+  public override object Render() 
   {
      IEnumerable items = Props.Items;
      var services = from dynamic s in items 
@@ -62,7 +62,7 @@ public class Service: NComponent
     ((Action<int>)Props.AddTotal)(active ? Props.Price : -Props.Price);
   }
 
-  public override NElement Render() 
+  public override object Render() 
   {
     return  <Button Style={State.Active ? "Active" : null} 
                     Padding="8,4"

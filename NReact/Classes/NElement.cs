@@ -78,6 +78,7 @@ namespace NReact
 
     public dynamic Refs { get { return _refs; } }
     internal NDynamic _refs;
+
     public dynamic Props { get { return _props; } }
     public NElement[] Children { get { return _children; } }
 

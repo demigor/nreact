@@ -31,7 +31,7 @@
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <LinkedServerProject>
     </LinkedServerProject>
-    <NuGetPackageImportStamp>ba259078</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>43f1d79d</NuGetPackageImportStamp>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -63,8 +63,8 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
-    <Reference Include="NReact, Version=0.0.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReact.0.0.1.2-alpha\lib\sl50\NReact.dll</HintPath>
+    <Reference Include="NReact, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NReact.0.0.1.5-alpha\lib\sl50\NReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows" />
@@ -124,11 +124,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\NReact.0.0.1.2-alpha\build\NReact.targets" Condition="Exists('..\packages\NReact.0.0.1.2-alpha\build\NReact.targets')" />
+  <Import Project="..\packages\NReact.0.0.1.5-alpha\build\NReact.targets" Condition="Exists('..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NReact.0.0.1.2-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NReact.0.0.1.2-alpha\build\NReact.targets'))" />
+    <Error Condition="!Exists('..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NReact.0.0.1.5-alpha\build\NReact.targets'))" />
   </Target>
 </Project>

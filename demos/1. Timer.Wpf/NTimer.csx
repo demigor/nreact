@@ -37,7 +37,7 @@ public partial class NTimer : NComponent
     SetState(new { Now = DateTime.Now });
   }
 
-  public override NElement Render()
+  public override object Render()
   {
     return 
       <TextBlock Text={ (State.Now - State.Start).ToString("s'.'f") } HorizontalAlignment="Center" VerticalAlignment="Center" FontSize={24.5}/>;

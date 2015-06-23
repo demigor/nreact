@@ -17,7 +17,7 @@ using NReact;
 
 public partial class NClock : NComponent
 {
-  public override NElement Render()
+  public override object Render()
   {
     return
       <Grid HorizontalAlignment="Center" VerticalAlignment="Center">

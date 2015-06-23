@@ -107,7 +107,7 @@ namespace NReact
     internal NDynamic _newState, _newProps;
     internal bool _newForceUpdate;
 
-    public abstract NElement Render();
+    public abstract object Render();
 
     internal NElement UI { get { return _ui ?? (_ui = RenderCore()); } }
     NElement _ui;
@@ -130,15 +130,24 @@ namespace NReact
       CurrentOwner = this;
       try
       {
-        return Render();
+        return Convert(Render());
       }
       finally
       {
         CurrentOwner = save;
       }
 #else
-      return Render();
+      return Convert(Render());
 #endif
+    }
+
+    static NElement Convert(object source)
+    {
+      var result = source as NElement;
+      if (result != null)
+        return result;
+
+      return Text(string.Concat(source));
     }
 
     internal override void Unmount()
@@ -171,7 +180,7 @@ namespace NReact
       if (update)
       {
         var oldUI = _ui;
-        var newUI = Render();
+        var newUI = RenderCore();
 
         var patch = NPatch.Patch(oldUI, ref newUI);
         _ui = newUI;

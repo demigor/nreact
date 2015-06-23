@@ -20,7 +20,7 @@ using NReact;
 
 public partial class NDemo 
 {
-  public override NElement Render()
+  public override object Render()
   {
     return 
       New(typeof(StackPanel), new { VerticalAlignment = "Center", HorizontalAlignment = "Center" }, 

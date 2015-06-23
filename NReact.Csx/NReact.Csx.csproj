@@ -41,6 +41,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\NReact\Properties\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
     <Compile Include="cs.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

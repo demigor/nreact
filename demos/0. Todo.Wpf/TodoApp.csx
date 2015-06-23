@@ -17,7 +17,7 @@ using NReact;
 
 class TodoList : NComponent
 {
-  public override NElement Render()
+  public override object Render()
   {
  	  var list = (IEnumerable<string>)Props.Items;
     
@@ -50,7 +50,7 @@ class TodoApp : NComponent
     SetState(new { Items = AppendElement(State.Items, State.Text), Text = "" });
   }
 
-  public override NElement Render()
+  public override object Render()
   {
     return 
       <StackPanel HorizontalAlignment="Center">
