@@ -22,6 +22,39 @@ To to:
 Existence questions:
 * Why do one need NReact?
 
+```javascript
+class TodoList : NComponent
+{
+  public override object Render()
+  {
+    IEnumerable<string> list = Props.Items;
+    
+    return 
+      <StackPanel>
+      { list.Select((i, idx) => <TextBlock Key={idx} Text={"* " + i}/>) }
+      </StackPanel>;
+  }
+}
+
+class TodoApp : NComponent
+{
+  public override object Render()
+  {
+    return 
+      <StackPanel HorizontalAlignment="Center">
+        <TextBlock Text="TODO" FontSize="24" HorizontalAlignment="Center"/>
+        <TodoList Items={State.Items}/>
+        <StackPanel Orientation="Horizontal">
+           <TextBox Text={State.Text} TextChanged={(TextChangedEventHandler)OnChange} Width="200"/>
+           <Button Click={(RoutedEventHandler)OnAdd} Content={"Add #" + (State.Items.Length + 1)}/>
+        </StackPanel>
+      </StackPanel>;
+  }
+}
+  
+Application.Current.MainWindow.Render(<TodoApp/>);
+```
+
 How to install:
 * Build from these sources
 * Install Nuget NReact Package (install-package nreact -pre)
