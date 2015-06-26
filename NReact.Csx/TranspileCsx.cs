@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace NReact.Csx
 {
@@ -16,8 +17,15 @@ namespace NReact.Csx
       _writeLine(format, args);
     }
 
+    public ITaskItem[] TemplateFiles { get; set; }
+    public ITaskItem[] SourceCodeFiles { get; set; }
+    [Output]
+    public ITaskItem[] GeneratedSourceCodeFiles { get; set; }
+
     [Required]
-    public string SourceDir { get; set; }
+    public string OutputPath { get; set; }
+    [Required]
+    public string ProjectPath { get; set; }
 
     public override bool Execute()
     {
@@ -25,7 +33,30 @@ namespace NReact.Csx
 
       Log.LogMessage("Starting NReact.TranspileCsx");
       var stopwatch = Stopwatch.StartNew();
-      var errors = TranspileDir(SourceDir);
+      var errors = 0;
+
+      if (TemplateFiles != null)
+      {
+        var result = new List<ITaskItem>();
+
+        foreach (var i in TemplateFiles)
+        {
+          var file = i.GetMetadata("FullPath");
+          var target = Path.Combine(OutputPath, i.GetMetadata("RelativeDir"));
+          var targetDir = Path.Combine(ProjectPath, target);
+          if (!Directory.Exists(targetDir))
+            Directory.CreateDirectory(targetDir);
+          
+          target = Path.Combine(target, Path.ChangeExtension(Path.GetFileNameWithoutExtension(file), ".g.cs"));
+
+          Transpile(file, Path.Combine(ProjectPath, target));
+
+          result.Add(new TaskItem { ItemSpec = target });
+        }
+
+        GeneratedSourceCodeFiles = result.ToArray();
+      }
+
       Log.LogMessage("NReact.TranspileCsx completed in {0}", stopwatch.Elapsed);
       return errors == 0;
     }
@@ -45,7 +76,7 @@ namespace NReact.Csx
         {
           var dir = (File.GetAttributes(f) & FileAttributes.Directory) != 0;
 
-          errors += dir ? TranspileDir(f) : Transpile(f);
+          errors += dir ? TranspileDir(f) : Transpile(f, Path.GetDirectoryName(f));
         }
         catch (FileNotFoundException)
         {
@@ -73,7 +104,7 @@ namespace NReact.Csx
       return result;
     }
 
-    static int Transpile(string source)
+    static int Transpile(string source, string target = null)
     {
       try
       {
@@ -88,9 +119,12 @@ namespace NReact.Csx
         if (parser.Errors.Count == 0)
         {
           var cs = parser.Result;
-          var target = Path.ChangeExtension(source, ".g.cs");
+
+          if (target == null)
+            target = Path.ChangeExtension(source, ".g.cs");
+
           File.WriteAllText(target, cs);
-          WriteLine("{0} -> {1}", source, Path.GetFileName(target));
+          WriteLine("{0} -> {1}", source, target);
           return 0;
         }
 

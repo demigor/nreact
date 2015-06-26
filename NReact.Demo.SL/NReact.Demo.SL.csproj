@@ -21,7 +21,7 @@
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
     <XapFilename>NReact.SL.Demo.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>NReact.SL.App</SilverlightAppEntry>
+    <SilverlightAppEntry>NReact.Demo.SL.App</SilverlightAppEntry>
     <TestPageFileName>NReact.SLTestPage.html</TestPageFileName>
     <CreateTestPage>true</CreateTestPage>
     <ValidateXaml>true</ValidateXaml>
@@ -31,7 +31,7 @@
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <LinkedServerProject>
     </LinkedServerProject>
-    <NuGetPackageImportStamp>43f1d79d</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>189acd2e</NuGetPackageImportStamp>
   </PropertyGroup>
   <!-- This property group is only here to support building this project using the 
        MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
@@ -63,10 +63,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib" />
-    <Reference Include="NReact, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NReact.0.0.1.5-alpha\lib\sl50\NReact.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
@@ -81,16 +77,8 @@
       <Link>NClock.csx.cs</Link>
       <DependentUpon>NClock.csx</DependentUpon>
     </Compile>
-    <Compile Include="..\NReact.Demo.Wpf\NClock.g.cs">
-      <Link>NClock.g.cs</Link>
-      <DependentUpon>NClock.csx</DependentUpon>
-    </Compile>
     <Compile Include="..\NReact.Demo.Wpf\NDemo.csx.cs">
       <Link>NDemo.csx.cs</Link>
-      <DependentUpon>NDemo.csx</DependentUpon>
-    </Compile>
-    <Compile Include="..\NReact.Demo.Wpf\NDemo.g.cs">
-      <Link>NDemo.g.cs</Link>
       <DependentUpon>NDemo.csx</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -104,19 +92,25 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\NReact.Demo.Wpf\NClock.csx">
+    <CsxTranspiler Include="..\NReact.Demo.Wpf\NClock.csx">
       <Link>NClock.csx</Link>
-    </None>
-    <None Include="..\NReact.Demo.Wpf\NDemo.csx">
+    </CsxTranspiler>
+    <CsxTranspiler Include="..\NReact.Demo.Wpf\NDemo.csx">
       <Link>NDemo.csx</Link>
-    </None>
-    <None Include="packages.config" />
+    </CsxTranspiler>
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\OutOfBrowserSettings.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NReact\NReact.SL.csproj">
+      <Project>{99a41f2b-733f-4f5a-8fe6-8c678cc87998}</Project>
+      <Name>NReact.SL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <Import Project="..\tools\NReact.targets" Condition="Exists('..\tools\NReact.targets')" />
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
@@ -124,11 +118,4 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\NReact.0.0.1.5-alpha\build\NReact.targets" Condition="Exists('..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NReact.0.0.1.5-alpha\build\NReact.targets'))" />
-  </Target>
 </Project>

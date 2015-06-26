@@ -1,7 +1,3 @@
-﻿<Application
-    x:Class="NReact.Xaml.Demo.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:NReact.Xaml.Demo">
-
+﻿<Application x:Class="NReact.Demo.Xaml.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 </Application>

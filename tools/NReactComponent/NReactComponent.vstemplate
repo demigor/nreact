@@ -2,15 +2,13 @@
   <TemplateData>
     <DefaultName>NReactComponent.csx</DefaultName>
     <Name>NReact Component</Name>
-    <Description>NReact Component Template</Description>
+    <Description>An empty NReact component definition</Description>
     <ProjectType>CSharp</ProjectType>
-    <SortOrder>10</SortOrder>
+    <SortOrder>90</SortOrder>
     <Icon>NReactComponent.ico</Icon>
   </TemplateData>
   <TemplateContent>
-    <References />
-    <ProjectItem OpenInEditor="false" SubType="Code" TargetFileName="$fileinputname$.csx" ReplaceParameters="true">NReactComponent.csx</ProjectItem>
+    <ProjectItem OpenInEditor="false" SubType="CsxTranspiler" TargetFileName="$fileinputname$.csx" ReplaceParameters="true">NReactComponent.csx</ProjectItem>
     <ProjectItem OpenInEditor="true" SubType="Code" TargetFileName="$fileinputname$.csx\$fileinputname$.csx.cs" ReplaceParameters="true">NReactComponent.csx.cs</ProjectItem>
-    <ProjectItem OpenInEditor="false" SubType="Code" TargetFileName="$fileinputname$.csx\$fileinputname$.g.cs" ReplaceParameters="true">NReactComponent.g.cs</ProjectItem>
   </TemplateContent>
 </VSTemplate>

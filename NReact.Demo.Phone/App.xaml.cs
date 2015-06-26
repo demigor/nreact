@@ -1,6 +1,9 @@
 ﻿using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
+//to allow NReact reflect on anonymous types in this assembly
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("NReact")]
+
 namespace NReact.Phone.Demo
 {
   public sealed partial class App : Application

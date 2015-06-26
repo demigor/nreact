@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.1.5-alpha</version>
+        <version>0.0.1.7-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -26,5 +26,10 @@
         <file src="..\bin\Release.Xaml\NReact.xml" target="lib\portable-wpa81+win81\NReact.xml" />
         <file src="..\bin\Release.SL\NReact.dll" target="lib\sl50\NReact.dll" />
         <file src="..\bin\Release.SL\NReact.xml" target="lib\sl50\NReact.xml" />
+        <file src="..\tools\NReactComponent\NReactComponent.csx" target="tools\NReactComponent\NReactComponent.csx" />
+        <file src="..\tools\NReactComponent\NReactComponent.csx.cs" target="tools\NReactComponent\NReactComponent.csx.cs" />
+        <file src="..\tools\NReactComponent\NReactComponent.ico" target="tools\NReactComponent\NReactComponent.ico" />
+        <file src="..\tools\NReactComponent\NReactComponent.vstemplate" target="tools\NReactComponent\NReactComponent.vstemplate" />
+        <file src="tools\install.ps1" target="tools\install.ps1" />
     </files>
 </package>

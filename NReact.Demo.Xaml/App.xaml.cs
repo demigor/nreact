@@ -1,7 +1,10 @@
 ﻿using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
-namespace NReact.Xaml.Demo
+//to allow NReact reflect on anonymous types in this assembly
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("NReact")]
+
+namespace NReact.Demo.Xaml
 {
   public partial class App : Application
   {
@@ -9,6 +12,7 @@ namespace NReact.Xaml.Demo
     {
       InitializeComponent();
     }
+
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
       base.OnLaunched(args);

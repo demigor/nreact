@@ -1,7 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace NReact.SL
+//to allow NReact reflect on anonymous types in this assembly
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("NReact")]
+
+namespace NReact.Demo.SL
 {
   public partial class App : Application
   {

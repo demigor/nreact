@@ -15,6 +15,10 @@ using System.Windows.Media;
 
 using NReact;
 
+
+//to allow NReact reflect on anonymous types in this assembly
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("NReact")]
+
 namespace $rootnamespace$
 {
   public partial class $safeitemname$ : NComponent

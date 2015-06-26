@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <NuGetPackageImportStamp>0d626df3</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>8aa2b3ce</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NReact, Version=0.0.1.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\NReact.0.0.1.5-alpha\lib\net40\NReact.dll</HintPath>
+    <Reference Include="NReact, Version=0.0.1.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NReact.0.0.1.7-alpha\lib\net40\NReact.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,10 +62,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ServiceChooser.g.cs">
-      <DependentUpon>ServiceChooser.csx</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppDesigner Include="Properties\" />
@@ -74,16 +70,18 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <CsxTranspiler Include="ServiceChooser.csx" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ServiceChooser.csx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\NReact.0.0.1.5-alpha\build\NReact.targets" Condition="Exists('..\..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" />
+  <Import Project="..\..\packages\NReact.0.0.1.7-alpha\build\NReact.targets" Condition="Exists('..\..\packages\NReact.0.0.1.7-alpha\build\NReact.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\NReact.0.0.1.5-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NReact.0.0.1.5-alpha\build\NReact.targets'))" />
+    <Error Condition="!Exists('..\..\packages\NReact.0.0.1.7-alpha\build\NReact.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NReact.0.0.1.7-alpha\build\NReact.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
