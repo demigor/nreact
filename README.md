@@ -11,11 +11,11 @@ Implemented:
 * Several Type Converters including enums, colors, brushes and resources (NConverters)
 * Simple Flux Dispatcher (NDispatcher)
 * Nuget Package including support for Store, WPF and Silverlight apps and CSX -> C# transform MSBuild task (NReact)
+* Key-based Diff-algorithm for Virtual Xaml (NPatch)
 
 To to:
 * Dynamic in-app CSX compilation using embeddable compiler (Mono.CSharp, Roslyn) 
 * Xaml-like Visual Studio CSX syntax transform including syntax highlighting and debugging.
-* Optimise Diff-algorithm for Virtual Xaml
 * Experiment with statically typed Component's Props and State 
 * More type converters
 
