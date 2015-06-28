@@ -13,7 +13,11 @@ namespace NReact
   public abstract class NComponent : NElement
   {
     public override string DisplayName { get { return "c:" + GetType().Name; } }
+    
     internal override Type InnerType { get { return GetType(); } }
+
+    internal override NElement[] GetChildren() { return _empty; }
+    
     internal new void Setup(NDynamic props, IEnumerable children)
     {
       base.Setup(DefaultProps() + props, children);
@@ -50,6 +54,7 @@ namespace NReact
     {
       SetState(state.AsDynamic());
     }
+
     protected void ReplaceState<T>(T state) where T : class
     {
       ReplaceState(state.AsDynamic());
@@ -67,9 +72,8 @@ namespace NReact
 
     protected void Update()
     {
-      NDispatcher.Default.Enqueue(_update ?? (_update = UpdateCore));
+      NDispatcher.Default.Enqueue(UpdateCore);
     }
-    Action _update;
 
     public void ForceUpdate()
     {
@@ -153,7 +157,6 @@ namespace NReact
     internal override void Unmount()
     {
       Target = null;
-      base.Unmount();
     }
 
     internal void UpdateCore()
@@ -182,7 +185,7 @@ namespace NReact
         var oldUI = _ui;
         var newUI = RenderCore();
 
-        var patch = NPatch.Patch(oldUI, ref newUI);
+        var patch = NPatch.Make(oldUI, ref newUI);
         _ui = newUI;
         if (patch == null) return;
 

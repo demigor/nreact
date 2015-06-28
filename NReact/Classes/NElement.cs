@@ -38,7 +38,9 @@ namespace NReact
         }
       }
 
-      if (_children.Length == 0)
+      var children = GetChildren();
+
+      if (children.Length == 0)
         sb.Append(" />");
 
       else
@@ -47,9 +49,9 @@ namespace NReact
 
         indent++;
 
-        for (int i = 0, c = _children.Length; i < c; i++)
+        for (int i = 0, c = children.Length; i < c; i++)
         {
-          _children[i].ToString(sb, indent);
+          children[i].ToString(sb, indent);
           sb.AppendLine();
         }
 
@@ -61,14 +63,15 @@ namespace NReact
         sb.Append(">");
       }
     }
-
+  
     public abstract string DisplayName { get; }
     internal abstract Type InnerType { get; }
 
     internal static readonly NElement[] _empty = new NElement[0];
 
-    internal NElement[] _children = _empty;
-    internal NDynamic _props = NDynamic.Empty;
+    internal abstract NElement[] GetChildren();
+
+    internal object _id = string.Empty;
 
     public object Key { get { return _key; } }
     internal object _key;
@@ -80,19 +83,14 @@ namespace NReact
     internal NDynamic _refs;
 
     public dynamic Props { get { return _props; } }
-    public NElement[] Children { get { return _children; } }
+    internal NDynamic _props = NDynamic.Empty;
 
-    internal virtual void Unmount()
-    {
-      if (_children != null)
-        for (int i = 0, c = _children.Length; i < c; i++)
-          _children[i].Unmount();
-    }
+    internal abstract void Unmount();
 
     static readonly int _keyKey = NDynamic.GetKey("Key");
     static readonly int _keyRef = NDynamic.GetKey("Ref");
 
-    internal void Setup(NDynamic props, IEnumerable children)
+    internal NElement[] Setup(NDynamic props, IEnumerable children)
     {
       if (props != null)
       {
@@ -107,8 +105,27 @@ namespace NReact
         _props = props.Seal();
       }
 
+      var result = _empty;
+
       if (children != null)
-        _children = children.OfType<object>().SelectMany(Converter).ToArray();
+      {
+        result = children.OfType<object>().SelectMany(Converter).ToArray();
+        if (result.Length > 0)
+        {
+          for (var i = 0; i < result.Length; i++)
+          {
+            var c = result[i];
+            var k = c._key;
+
+            if (k != null)
+              c._id = k;
+            else
+              c._id = -i;
+          }
+        }
+      }
+
+      return result;
     }
 
     public static NElement New(Type type, NDynamic props = null, IEnumerable children = null)

@@ -1,316 +1,522 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
-using System.Text;
-
 #if NETFX_CORE
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 #else
-using System.Windows;
 using System.Windows.Controls;
 #endif
 
 namespace NReact
 {
-  abstract class NPatch
+  enum ListChange
   {
-    internal NPatch _next;
-    public int Index;
+    Create,  // new element
+    Destroy, // destroy element
+    Move,    // from greater index to lesser
+    MRemove, // remove to memory
+    MInsert, // insert from memory
+    Update,  // update properties/nested only
+  }
 
+  class ListChanger : LList<ListChanger>.Item
+  {
+    public ListChange Kind;
+    public int Idx, From;
+    public NElement Element;
+    public NPatch Patch;
+    public ListChanger MLink;
+    public object Memory;
+
+    public object ApplyState(object uiElement)
+    {
+      if (Patch != null)
+        Patch.ApplyState(uiElement);
+
+      return uiElement;
+    }
+
+#if DEBUG
     public override string ToString()
     {
-      var sb = new StringBuilder();
-
-      ToString(sb);
-
-      return sb.ToString();
-    }
-
-    public virtual void ToString(StringBuilder sb, int indent = 0)
-    {
-      sb.AppendFormat("{0,4}    {1}", Index, new string(' ', indent * 2));
-    }
-
-    public static NPatch Patch(NElement oldUI, ref NElement newUI)
-    {
-      return Patch(0, oldUI, ref newUI).Simplify();
-    }
-
-    public static NPatch Patch(int idx, NElement oldUI, ref NElement newUI)
-    {
-      if (oldUI == null || oldUI.InnerType != newUI.InnerType)
-        return Replace(idx, oldUI, newUI);
-
-      var newProps = newUI._props;
-
-      var comp = oldUI as NComponent;
-      if (comp != null)
+      switch (Kind)
       {
-        newUI = oldUI;
-        comp.ReplaceProps(newProps);
-        return null;
+        case ListChange.Update:
+          return string.Format("Update: #{0} ({1})", Idx, Element);
+
+        case ListChange.Create:
+          return string.Format("Insert: #{0} ({1})", Idx, Element);
+
+        case ListChange.Destroy:
+          return string.Format("Remove: #{0} ({1})", Idx, Element);
+
+        case ListChange.Move:
+          return string.Format("Move: #{0}->#{1} ({2})", From, Idx, Element);
+
+        case ListChange.MRemove:
+          return string.Format("MRemove: #{0} ({1})", Idx, Element);
+
+        case ListChange.MInsert:
+          return string.Format("MInsert: #{0} ({1})", Idx, Element);
       }
+      return null;
+    }
+#endif
+  }
 
-      var result = new NUpdateVisualPatch { Index = idx };
+  class PropChanger : LList<PropChanger>.Item
+  {
+    Action<object, object> _setter;
+    object _value;
 
-      var diff = NDynamic.Diff(oldUI._props, newProps);
+    public PropChanger(Action<object, object> setter, object value)
+    {
+      _setter = setter;
+      _value = value;
+    }
 
-      if (!diff.IsEmpty)
-        result.Changes = NSetter.Prepare(oldUI.InnerType, diff);
+    public void Apply(object target)
+    {
+      _setter(target, _value);
+    }
+  }
 
-      result.PatchChildren(oldUI._children, newUI._children);
+  class NPatch
+  {
+    PropChanger _propHead;
+    ListChanger _listHead;
+
+    public static NPatch Make(NElement oldE, ref NElement newE)
+    {
+      var news = new[] { newE };
+
+      try
+      {
+        return Make(new[] { oldE }, news);
+      }
+      finally
+      {
+        newE = news[0];
+      }
+    }
+
+    internal static NPatch Make(NElement[] olds, NElement[] news)
+    {
+      var result = new NPatch();
+
+      result.DiffList(olds, news);
+
+      if (result.IsEmpty)
+        return null;
 
       return result;
     }
 
-    public static NPatch Remove(int i, NElement e)
+    void DiffProps(NElement oldE, NElement newE)
     {
-      return new NReplaceVisualPatch { Index = i, Old = e };
+      _propHead = new NPatchPropertyDiffer().Diff(oldE, newE);
     }
 
-    public static NPatch Insert(int i, NElement e)
+    void DiffList(NElement[] olds, NElement[] news)
     {
-      return new NReplaceVisualPatch { Index = i, New = e };
+      if (olds == NElement._empty && news == NElement._empty) return;
+
+      _listHead = new NPatchChildDiffer().Diff(olds, news);
     }
 
-    public static NPatch Replace(int idx, NElement oldTree, NElement newTree)
+    public object Apply(object uiElement)
     {
-      return new NReplaceVisualPatch { Index = idx, Old = oldTree, New = newTree };
+      var result = new List<object> { uiElement };
+      ApplyList(result);
+      return result[0];
     }
 
-    public abstract NPatch Simplify();
+    void ApplyProps(object uiElement)
+    {
+      for (var i = _propHead; i != null; i = i.Next)
+        i.Apply(uiElement);
+    }
 
-    public abstract UIElement Apply(UIElement target);
+    internal void ApplyList(IList list)
+    {
+      var logic = NPatchLogic.Default;
 
-    public void ApplyAsync(UIElement target)
+      for (var i = _listHead; i != null; i = i.Next)
+      {
+        Debug.WriteLine(i);
+
+        switch (i.Kind)
+        {
+          case ListChange.Update:
+            {
+              i.ApplyState(list[i.Idx]);
+            } break;
+
+          case ListChange.Create:
+            {
+              list.Insert(i.Idx, i.ApplyState(logic.Create(i.Element)));
+            } break;
+
+          case ListChange.MInsert:
+            {
+              list.Insert(i.Idx, i.ApplyState(i.MLink.Memory));
+            } break;
+
+          case ListChange.MRemove:
+            {
+              i.Memory = list[i.Idx];
+              list.RemoveAt(i.Idx);
+            } break;
+
+          case ListChange.Move:
+            {
+              var k = list[i.From];
+              list.RemoveAt(i.From);
+              list.Insert(i.Idx, i.ApplyState(k));
+            } break;
+
+          case ListChange.Destroy:
+            {
+              var x = list[i.Idx];
+              list.RemoveAt(i.Idx);
+              logic.Destroy(i.Element, x);
+            }
+            break;
+        }
+      }
+    }
+
+    internal void ApplyState(object uiElement)
+    {
+      ApplyProps(uiElement);
+
+      if (_listHead != null)
+      {
+        var children = NPatchLogic.Default.GetChildren(uiElement);
+        if (children != null)
+          ApplyList(children);
+      }
+    }
+
+    public void ApplyAsync(object target)
     {
       NExtensions.UIInvoke(i => Apply(i), target);
     }
 
-    internal bool _removeMark;
+    public bool IsEmpty { get { return _listHead == null && _propHead == null; } }
 
-    internal void BackwardRemove(UIElementCollection elements)
+    struct NPatchChildDiffer
     {
-      if (_next != null)
-        _next.BackwardRemove(elements);
+      readonly NPatchLogic _logic;
+      LList<ListChanger> _children;
+      Dictionary<NElement, ListChanger> _cache;
 
-      if (_removeMark)
-        elements.RemoveAt(Index);
-    }
-  }
-
-  class NReplaceVisualPatch : NPatch
-  {
-    public NElement New, Old;
-
-    public override UIElement Apply(UIElement target)
-    {
-      if (Old != null)
-        Old.Unmount();
-
-      if (New != null)
-        return NExtensions.CreateTree(New);
-
-      return null;
-    }
-
-    public override NPatch Simplify()
-    {
-      if (_next != null)
-        _next = _next.Simplify();
-
-      return Old == null && New == null ? _next : this;
-    }
-
-    public override void ToString(StringBuilder sb, int indent = 0)
-    {
-      base.ToString(sb, indent);
-
-      if (New == null)
+      public NPatchChildDiffer(NPatchLogic logic)
       {
-        sb.AppendLine("REMOVE " + Old);
-      }
-      else
-      {
-        if (Old == null)
-          sb.AppendLine("NEW " + New);
-        else
-          sb.AppendLine("REPLACE " + New + " (" + Old + ")");
-      }
-    }
-  }
-
-  class NUpdateVisualPatch : NPatch
-  {
-    public NSetter Changes;
-    public NPatch _head;
-
-    public override UIElement Apply(UIElement target)
-    {
-      NSetter.Execute(Changes, target);
-
-      if (_head != null)
-      {
-        var p = target as Panel;
-        if (p != null)
-          ApplyNested(p.Children);
+        _logic = logic;
+        _cache = new Dictionary<NElement, ListChanger>(logic);
+        _children = new LList<ListChanger>();
       }
 
-      return target;
-    }
-
-    void ApplyNested(UIElementCollection elements)
-    {
-      var ec = elements.Count;
-
-      for (var patch = _head; patch != null; patch = patch._next)
+      public ListChanger Diff(NElement[] olds, NElement[] news)
       {
-        var elementIdx = patch.Index;
-        var oldVisual = elementIdx < ec ? elements[elementIdx] : null;
+        var oldC = olds.Length;
+        var newC = news.Length;
+        var minC = Math.Min(oldC, newC);
+        var logic = NPatchLogic.Default;
 
-        var newVisual = patch.Apply(oldVisual);
-
-        if (newVisual == oldVisual) continue;
-
-        if (oldVisual == null)
-          elements.Insert(elementIdx, newVisual);
-        else if (newVisual != null)
-          elements[elementIdx] = newVisual;
-        else
-          patch._removeMark = true;
-      }
-
-      if (_head != null)
-        _head.BackwardRemove(elements);
-    }
-
-    public override NPatch Simplify()
-    {
-      if (_next != null)
-        _next = _next.Simplify();
-
-      if (_head != null)
-        _head = _head.Simplify();
-
-      if (Changes == null && _head == null)
-        return _next;
-
-      return this;
-    }
-
-    public override void ToString(StringBuilder sb, int indent = 0)
-    {
-      base.ToString(sb, indent);
-
-      if (Changes != null)
-        sb.AppendLine("CHANGE " + Changes);
-      else
-        sb.AppendLine("NESTED");
-
-      indent++;
-
-      for (var i = _head; i != null; i = i._next)
-        i.ToString(sb, indent);
-    }
-
-    public void PatchChildren(NElement[] oldChildren, NElement[] newChildren)
-    {
-      if (oldChildren == newChildren) return;
-
-      var oc = oldChildren.Length;
-      var nc = newChildren.Length;
-
-      if (oc == 0 && nc == 0) return;
-
-      var head = default(NPatch);
-      var last = default(NPatch);
-
-      var cc = oc < nc ? oc : nc;
-
-      for (var i = 0; i < cc; i++)
-      {
-        var oldE = oldChildren[i];
-
-        var child = Patch(i, oldE, ref newChildren[i]);
-        if (child == null) continue;
-
-        Append(ref head, ref last, child);
-      }
-
-      for (var i = oc; i < nc; i++)
-        Append(ref head, ref last, Insert(i, newChildren[i]));
-
-      for (var i = nc; i < oc; i++)
-        Append(ref head, ref last, Remove(i, oldChildren[i]));
-
-      _head = head;
-    }
-
-    static void Append(ref NPatch head, ref NPatch last, NPatch child)
-    {
-      if (last == null)
-        head = child;
-      else
-        last._next = child;
-
-      last = child;
-    }
-  }
-
-  class NSetter
-  {
-    NSetter _next;
-    Action<object, object> _setter;
-    object _value;
-
-#if DEBUG
-    string _dump;
-    public override string ToString()
-    {
-      return _dump;
-    }
-#endif
-
-    public static NSetter Prepare(Type type, NDynamic props)
-    {
-      if (props == null)
-        return null;
-
-      var head = default(NSetter);
-      var last = default(NSetter);
-
-      for (var i = props.Head; i != null; i = i.Next)
-      {
-        var setter = NFactory.GetSetter(type, i.Name);
-        if (setter == null) continue;
-
-        var s = new NSetter
+        for (var i = 0; i < minC; i++)
         {
-          _setter = setter,
-          _value = i.Value
-        };
+          var oldE = olds[i];
+          var newE = news[i];
 
-        if (last == null)
-          head = s;
-        else
-          last._next = s;
+          if (logic.Equals(oldE, newE))
+          {
+            var diff = DiffState(oldE, ref newE);
+            if (diff != null)
+              ChildUpdate(i, oldE, diff);
+            else if (oldE == newE)
+              news[i] = oldE; // put updated old component into new array
+          }
+          else
+          {
+            ChildRemove(i, oldE);
+            ChildInsert(i, newE);
+          }
+        }
 
-        last = s;
+        for (var i = minC; i < oldC; i++)
+          ChildRemove(minC, olds[i]);
+
+        for (var i = minC; i < newC; i++)
+          ChildInsert(i, news[i]);
+
+        Simplify();
+
+        return _children.Head;
       }
 
+      void ChildUpdate(int idx, NElement item, NPatch diff)
+      {
+        var op = new ListChanger { Kind = ListChange.Update, Element = item, Idx = idx, Patch = diff };
+        _children.Add(op);
+      }
+
+      void ChildInsert(int idx, NElement item)
+      {
+        ListChanger op;
+
+        if (_cache.TryGetValue(item, out op) && op.Kind == ListChange.Destroy)
+        {
+          _cache.Remove(item);
+
+          var insert = new ListChanger
+          {
+            Kind = ListChange.MInsert,
+            Element = op.Element,
+            Idx = idx,
+            MLink = op,
+            Patch = DiffState(op.Element, ref item)
+          };
+          op.MLink = insert;
+          op.Kind = ListChange.MRemove;
+          _children.Add(insert);
+        }
+        else
+        {
+          op = new ListChanger { Kind = ListChange.Create, Element = item, Idx = idx };
+          _children.Add(op);
+          _cache[item] = op;
+        }
+      }
+
+      void ChildRemove(int idx, NElement item)
+      {
+        ListChanger op;
+
+        if (_cache.TryGetValue(item, out op) && op.Kind == ListChange.Create)
+        {
+          _cache.Remove(item);
+
+          op.From = idx - 1;  // in this case op (insert) is at exec time always second command (after remove), means we need to correct index
+          op.Kind = ListChange.Move;
+          op.Patch = DiffState(item, ref op.Element);
+          op.Element = item;
+        }
+        else
+        {
+          op = new ListChanger
+          {
+            Kind = ListChange.Destroy,
+            Element = item,
+            Idx = idx
+          };
+          _children.Add(op);
+          _cache[item] = op;
+        }
+      }
+
+      void Simplify()
+      {
+        _children.RemoveWhere(i => (i.Kind == ListChange.Move && i.Idx == i.From && i.Patch == null)
+                                || (i.Kind == ListChange.Update && i.Patch == null));
+      }
+
+      NPatch DiffState(NElement oldE, ref NElement newE)
+      {
+        // no patch for components, just replace props
+        var c = oldE as NComponent;
+        if (c != null)
+        {
+          c.ReplaceProps(newE.Props);
+          newE = oldE;
+          return null;
+        }
+
+        var result = new NPatch();
+
+        result.DiffProps(oldE, newE);
+        result.DiffList(((NXamlElement)oldE).Children, ((NXamlElement)newE).Children);
+
+        if (result.IsEmpty)
+          return null;
+
+        return result;
+      }
+    }
+
+    struct NPatchPropertyDiffer
+    {
+      LList<PropChanger> _changes;
+
+      public PropChanger Diff(NElement oldE, NElement newE)
+      {
+        var diff = NDynamic.Diff(oldE._props, newE._props);
+
+        if (diff.IsEmpty)
+          return null;
+
+        var type = oldE.InnerType;
+
+        for (var i = diff.Head; i != null; i = i.Next)
+        {
+          var setter = NFactory.GetSetter(type, i.Name);
+          if (setter == null) continue;
+
+          _changes.Add(new PropChanger(setter, i.Value));
+        }
+
 #if DEBUG
-      head._dump = props.ToDebugString();
+        //head._dump = props.ToDebugString();
 #endif
 
-      return head;
-    }
-
-    public static void Execute(NSetter head, object target)
-    {
-      for (var i = head; i != null; i = i._next)
-        i._setter(target, i._value);
+        return _changes.Head;
+      }
     }
   }
+
+  class NPatchLogic : IEqualityComparer<NElement>
+  {
+    public static NPatchLogic Default = new NPatchLogic();
+
+    public virtual object Create(NElement element)
+    {
+      return NExtensions.CreateTree(element);
+    }
+
+    public virtual void Destroy(NElement element, object uiElement)
+    {
+      element.Unmount();
+    }
+
+    public virtual IList GetChildren(object uiElement)
+    {
+#if NETFX_CORE
+      var e = uiElement as Panel;
+      if (e == null) return null;
+      return new UIList(e.Children);
+#else
+      var e = uiElement as Panel;
+      if (e == null) return null;
+      return e.Children;
+#endif
+    }
+
+    public bool Equals(NElement x, NElement y)
+    {
+      return object.Equals(x.InnerType, y.InnerType) && object.Equals(x._id, y._id);
+    }
+
+    public int GetHashCode(NElement obj)
+    {
+      return obj.InnerType.GetHashCode() ^ obj._id.GetHashCode();
+    }
+  }
+#if NETFX_CORE
+  class UIList : IList
+  {
+    UIElementCollection _source;
+    public UIList(UIElementCollection source)
+    {
+      _source = source;
+    }
+
+    public void Insert(int index, object value)
+    {
+      _source.Insert(index, (UIElement)value);
+    }
+
+    public void RemoveAt(int index)
+    {
+      _source.RemoveAt(index);
+    }
+
+    public object this[int index]
+    {
+      get
+      {
+        return _source[index];
+      }
+      set
+      {
+        _source[index] = (UIElement)value;
+      }
+    }
+
+
+  #region IList Members
+
+    int IList.Add(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    void IList.Clear()
+    {
+      throw new NotImplementedException();
+    }
+
+    bool IList.Contains(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    int IList.IndexOf(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    bool IList.IsFixedSize
+    {
+      get { throw new NotImplementedException(); }
+    }
+
+    bool IList.IsReadOnly
+    {
+      get { throw new NotImplementedException(); }
+    }
+
+    void IList.Remove(object value)
+    {
+      throw new NotImplementedException();
+    }
+
+    #endregion
+
+  #region ICollection Members
+
+    void ICollection.CopyTo(Array array, int index)
+    {
+      throw new NotImplementedException();
+    }
+
+    int ICollection.Count
+    {
+      get { throw new NotImplementedException(); }
+    }
+
+    bool ICollection.IsSynchronized
+    {
+      get { throw new NotImplementedException(); }
+    }
+
+    object ICollection.SyncRoot
+    {
+      get { throw new NotImplementedException(); }
+    }
+
+    #endregion
+
+  #region IEnumerable Members
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      throw new NotImplementedException();
+    }
+
+    #endregion
+  }
+#endif
 }

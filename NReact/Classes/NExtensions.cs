@@ -75,11 +75,11 @@ namespace NReact
       var p = result as Panel;
       if (p != null)
       {
-        var xamlChildren = p.Children;
-        var vdomChildren = e.Children;
+        var uiChildren = p.Children;
+        var nrChildren = e.Children;
 
-        for (int i = 0, c = vdomChildren.Length; i < c; i++)
-          xamlChildren.Add(CreateTree(vdomChildren[i]) ?? new UserControl());
+        for (int i = 0, c = nrChildren.Length; i < c; i++)
+          uiChildren.Add(CreateTree(nrChildren[i]) ?? new UserControl());
       }
 
       return result;

@@ -11,7 +11,8 @@ namespace NReact
   {
     public static readonly NDispatcher Default = new NDispatcher();
 
-#if !NETFX_CORE
+#if NETFX_CORE
+#else
     Thread _taskProcessor;
 #endif
     AutoResetEvent _signal = new AutoResetEvent(false);
