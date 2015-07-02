@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.1.7-alpha</version>
+        <version>0.0.1.8-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -30,6 +30,5 @@
         <file src="..\tools\NReactComponent\NReactComponent.csx.cs" target="tools\NReactComponent\NReactComponent.csx.cs" />
         <file src="..\tools\NReactComponent\NReactComponent.ico" target="tools\NReactComponent\NReactComponent.ico" />
         <file src="..\tools\NReactComponent\NReactComponent.vstemplate" target="tools\NReactComponent\NReactComponent.vstemplate" />
-        <file src="tools\install.ps1" target="tools\install.ps1" />
     </files>
 </package>
