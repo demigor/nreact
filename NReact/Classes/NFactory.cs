@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 #if NETFX_CORE
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.UI.Xaml.Controls;
 #else
+using System.Windows.Controls;
 using System.Windows.Media;
 #endif
 
@@ -90,20 +93,29 @@ namespace NReact
 #endif
     }
 
-    static Expression CallConverter(Type type, ParameterExpression val)
+    static Expression CallConverter(Type type, Expression val)
     {
       return Expression.Call(typeof(NConverters).GetMethod("Convert").MakeGenericMethod(type), val);
     }
 
     static Action<object, object> CreateSetter(PropertyInfo p)
     {
-#if DEBUG
-      Debug.WriteLine("Making Property Setter {0}.{1} : {2}", p.DeclaringType, p.Name, p.PropertyType);
-#endif
-      var obj = Expression.Parameter(typeof(object));
-      var val = Expression.Parameter(typeof(object));
+      if (!p.CanWrite)
+      {
+        var x = p.PropertyType.GetIListElementType();
 
-      var result = Expression.Lambda<Action<object, object>>(Expression.Assign(Expression.Property(Expression.Convert(obj, p.DeclaringType), p), CallConverter(p.PropertyType, val)), obj, val).Compile();
+        if (x == null || !x.IsClass()) return null;
+
+#if DEBUG
+        Debug.WriteLine("Making List<{3}> Property Setter {0}.{1} : {2}", p.DeclaringType, p.Name, p.PropertyType, x);
+#endif
+
+        var obj = Expression.Parameter(typeof(object));
+        var val = Expression.Parameter(typeof(object));
+
+        var assignList = typeof(NConverters).GetMethod("AssignList").MakeGenericMethod(x);
+
+        var result = Expression.Lambda<Action<object, object>>(Expression.Call(assignList, Expression.Property(Expression.Convert(obj, p.DeclaringType), p), val), obj, val).Compile();
 
 #if DUMP
       return (a, b)
@@ -113,12 +125,36 @@ namespace NReact
           result(a, b);
         };
 #else
-      return result;
+        return result;
 #endif
+      }
+      else
+      {
+#if DEBUG
+        Debug.WriteLine("Making Property Setter {0}.{1} : {2}", p.DeclaringType, p.Name, p.PropertyType);
+#endif
+
+        var obj = Expression.Parameter(typeof(object));
+        var val = Expression.Parameter(typeof(object));
+
+        var result = Expression.Lambda<Action<object, object>>(Expression.Assign(Expression.Property(Expression.Convert(obj, p.DeclaringType), p), CallConverter(p.PropertyType, val)), obj, val).Compile();
+
+#if DUMP
+      return (a, b)
+        =>
+        {
+          Debug.WriteLine("Setting {0}.{1} = {2}", a.GetType().Name, p.Name, b);
+          result(a, b);
+        };
+#else
+        return result;
+#endif
+      }
     }
 
     static Action<object, object> CreateSetter(FieldInfo f)
     {
+      if (f.IsInitOnly) return null;
 #if DEBUG
       Debug.WriteLine("Making Field Setter {0}.{1} : {2}", f.DeclaringType, f.Name, f.FieldType);
 #endif
@@ -126,6 +162,21 @@ namespace NReact
       var val = Expression.Parameter(typeof(object));
 
       return Expression.Lambda<Action<object, object>>(Expression.Assign(Expression.Field(Expression.Convert(obj, f.DeclaringType), f), CallConverter(f.FieldType, val)), obj, val).Compile();
+    }
+
+    static Action<object, object> CreateSetter(MethodInfo m)
+    {
+      var pars = m.GetParameters();
+      if (pars.Length != 2)
+        return null;
+
+#if DEBUG
+      Debug.WriteLine("Making Attached Property Setter {0}.{1} : {2}", m.DeclaringType, m.Name, pars[1].ParameterType);
+#endif
+      var obj = Expression.Parameter(typeof(object));
+      var val = Expression.Parameter(typeof(object));
+
+      return Expression.Lambda<Action<object, object>>(Expression.Call(m, Expression.Convert(obj, pars[0].ParameterType), CallConverter(pars[1].ParameterType, val)), obj, val).Compile();
     }
 
     static Action<object, object> CreateSetter(MemberInfo member)
@@ -138,6 +189,9 @@ namespace NReact
 
       var f = member as FieldInfo;
       if (f != null) return CreateSetter(f);
+
+      var m = member as MethodInfo;
+      if (m != null) return CreateSetter(m);
 
       throw new NotSupportedException();
     }
@@ -201,9 +255,33 @@ namespace NReact
       if (m.Length > 0) return GetSetter(m[0]);
 #endif
 
+      {
+        var i = member.IndexOf('_');
+        if (i >= 0)
+        {
+          var at = GetAttachedType(member.Substring(0, i));
+          if (at != null)
+          {
+            var name = member.Substring(i + 1);
+            var dpSetter = at.GetMethod("Set" + name);//, BindingFlags.Static | BindingFlags.Public);
+
+            if (dpSetter != null)
+              return GetSetter(dpSetter);
+          }
+        }
+      }
+
 #if DEBUG
       Debug.WriteLine("Failed to retrieve {0}.{1} member", type.Name, member);
 #endif
+
+      return null;
+    }
+
+    static Type GetAttachedType(string name)
+    {
+      if (name == "Grid")
+        return typeof(Grid);
 
       return null;
     }

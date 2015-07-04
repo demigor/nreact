@@ -1302,12 +1302,12 @@ PRODUCTIONS
  *--------------------------- Declarations -------------------------------*
  *------------------------------------------------------------------------*/
 
-CS3                                              (. fillContextLitMap(); ResumeOut(); .)
+CS3                                              (. fillContextLitMap(); BeginCapture(Mode.CSharp); .)
 =
   {IF (IsExternAliasDirective()) ExternAliasDirective}
   {UsingDirective}
   {IF (IsGlobalAttrTarget()) GlobalAttributes}
-  {NamespaceMemberDeclaration}                   (. SuspendOut(); .)
+  {NamespaceMemberDeclaration}                   (. Result = EndCapture(); .)
 .
 
 ExternAliasDirective
@@ -2015,7 +2015,7 @@ Expression
                                                                                (. checkForContextSwitch(); .)
   ( QueryExpression 
   | "await" Expression
-  | TagExpression
+  | RootCsxTag
   | IF (IsImplicitTypedLambdaExpression())
     ImplicitLambdaExpression
   | IF (IsExplicitTypedLambdaExpression())
@@ -2479,67 +2479,73 @@ GroupClause
   "group" Expression "by" Expression
 .
 
-TagExpression 
-=                          (. SuspendOut();
-                              int attributes = 0, children = 0; .)
-  "<" ident                (. var ident = t.val; .) 
-   { "." 
-     ident                 (. ident += "." + t.val; .)
+RootCsxTag 
+=                          (. BeginCapture(Mode.Csx); PElement root; 
+                              var indent = la.col;                      .)
+CsxTag<out root>           (. EndCapture(); Out(root, indent);         .)
+.
+
+CsxTag<out PElement result> 
+=                          (. result = new PElement();                 
+                              PElement e; PVerbose v;                  .)
+  "<" CsxName<result>  
+   {                       (. PVerbose attr; .)
+      CsxAttr<out attr>    (. result.Attributes.Add(attr);             .)
    }                       
-                           (. Out("New(typeof({0})", ident); .)
-   {                       (. if (attributes == 0) Out(", new { "); else Out(", "); .)
-      TagAttribute         (. attributes++; .)
-   }                       (. if (attributes == 0) Out(", null"); else Out(" }"); .)
   (
     "/>"                     
     |
     (">"                   
-                           (. ResumeOut(); .)
-      {                    (. Out(", "); .)
-        (TagExpression 
+                           
+      {                    
+        (
+         CsxTag<out e>      (. result.Children.Add(e);                 .) 
          |
-         (                 
-                           (. SuspendOut(); .)
-          "{"              
-                           (. ResumeOut(); .)
-           Expression      
-                           (. SuspendOut(); .)
-          "}"              
-                           (. ResumeOut(); .)
-         )
-        )                  (. children++; .)
+         CsxEmb<out v>      (. result.Children.Add(v);                 .)
+        )
       }                    
-                           (. SuspendOut(); .) 
-      "</" 
-      ident                (. var closingTag = t.val; .)
-      { "." 
-        ident              (. closingTag += "." + t.val; .)
-      }
-      ">"                  (. if (ident != closingTag) Error(string.Format("Open/close XML tag mismatch. Expected {0}, found: {1}", ident, closingTag)); .)
+                                        
+      "</"                 (. var end = new PNode(); .)
+      CsxName<end>
+      ">"                  (. if (result.Name != end.Name) Error(string.Format("Open/close XML namespace mismatch. Expected {0}, found: {1}", result.Name, end.Name)); 
+                              if (result.Ns != end.Ns) Error(string.Format("Open/close XML namespace mismatch. Expected {0}, found: {1}", result.Ns, end.Ns)); .)
     )
-  )                        (. Out(")"); 
-                              ResumeOut(); .)
+  )                        
 .
 
-TagAttribute
-=                          
-  ident                    (. var ident = t.val; .)
-  { "." 
-    ident                  (. ident += "." + t.val; .)
-  } 
+
+CsxEmb<out PVerbose result> 
+=                          (. result = new PVerbose();                 .)
+"{"                        (. BeginCapture(Mode.CSharp);               .) 
+   Expression              (. result.Value = EndCapture();             .)
+"}"
+.              
+                                                                 
+                                                                   
+CsxAttr<out PVerbose result>
+=                          (. result = new PVerbose();                 .)
+  CsxName<result>          
   "="
   (
-   stringCon               (. Out("{0} = {1}", ident, t.val); .)
+   stringCon               (. result.Value = t.val;                    .)
    |
-   "{"                     (. Out("{0} = ", ident); 
-                              ResumeOut(); .)
-
-   Expression
-                           (. SuspendOut(); .)
+   "{"                     (. BeginCapture(Mode.CSharp);               .)
+   Expression              (. result.Value = EndCapture();             .)
    "}"
   )
 .
 
+CsxName<PNode result> 
+= 
+  ident                    (. result.Name = t.val; result.Ns = null;   .) 
+  [
+    ":" ident              (. result.Ns = result.Name; 
+                              result.Name = t.val;                     .)
+  ]
+  { 
+    "." ident              (. result.Name += "." + t.val;              .)
+  }   
+.
 
 END CS3.
 

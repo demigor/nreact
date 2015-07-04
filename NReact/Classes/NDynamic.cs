@@ -90,11 +90,27 @@ namespace NReact
       _sealed = true;
       return this;
     }
+    internal NDynamic Unseal()
+    {
+      _sealed = false;
+      return this;
+    }
 
     void CheckWriteAccess()
     {
       if (_sealed)
         throw new InvalidOperationException();
+    }
+
+    public bool HasProperty(string name)
+    {
+      var key = GetKey(name);
+
+      for (var i = Head; i != null; i = i.Next)
+        if (i.Key == key)
+          return true;
+
+      return false;
     }
 
     internal object GetByKey(int key)
@@ -103,7 +119,16 @@ namespace NReact
         if (i.Key == key)
           return i.Value;
 
-      throw new MemberAccessException();
+      throw new MemberAccessException(GetName(key));
+    }
+
+    internal object TryGetByKey(int key)
+    {
+      for (var i = Head; i != null; i = i.Next)
+        if (i.Key == key)
+          return i.Value;
+
+      return null;
     }
 
     internal object SetByKey(int key, object value)
@@ -154,7 +179,7 @@ namespace NReact
     public static NDynamic Clone(NDynamic source)
     {
       if (source == null)
-        return null;
+        return new NDynamic();
 
       var first = default(Entry);
       var last = default(Entry);
@@ -302,7 +327,14 @@ namespace NReact
     {
       get
       {
-        return GetByKey(GetKey(name));
+        try
+        {
+          return GetByKey(GetKey(name));
+        }
+        catch (MemberAccessException)
+        {
+          throw new MemberAccessException(string.Format("No property {0} defined.", name));
+        }
       }
       set
       {

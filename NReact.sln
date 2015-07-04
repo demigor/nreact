@@ -3,31 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40418.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Csx", "NReact.Csx\NReact.Csx.csproj", "{15580D90-F98C-4526-A715-57998FA083F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Demo.Phone", "NReact.Demo.Phone\NReact.Demo.Phone.csproj", "{81D124F1-1170-4E84-AF46-1BDBAB12E273}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.SL", "NReact\NReact.SL.csproj", "{99A41F2B-733F-4F5A-8FE6-8C678CC87998}"
-	ProjectSection(ProjectDependencies) = postProject
-		{15580D90-F98C-4526-A715-57998FA083F1} = {15580D90-F98C-4526-A715-57998FA083F1}
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{D141D760-62B5-48F7-8CE2-97CD54CB52D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Wpf", "NReact\NReact.Wpf.csproj", "{465032A5-8E02-4529-9E1D-CAED08FEE21B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{15580D90-F98C-4526-A715-57998FA083F1} = {15580D90-F98C-4526-A715-57998FA083F1}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Xaml", "NReact\NReact.Xaml.csproj", "{0EA91CC3-5184-435D-AC7D-6D835B5BB22C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{15580D90-F98C-4526-A715-57998FA083F1} = {15580D90-F98C-4526-A715-57998FA083F1}
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{4FAB013F-7701-48FD-9DB9-2EF2C0B0B314}"
-	ProjectSection(SolutionItems) = preProject
-		tools\NReact.targets = tools\NReact.targets
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demos", "demos", "{F329F383-42B4-4BBC-BD79-C29B05C516F3}"
 EndProject
@@ -55,10 +39,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15580D90-F98C-4526-A715-57998FA083F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15580D90-F98C-4526-A715-57998FA083F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15580D90-F98C-4526-A715-57998FA083F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15580D90-F98C-4526-A715-57998FA083F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81D124F1-1170-4E84-AF46-1BDBAB12E273}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{81D124F1-1170-4E84-AF46-1BDBAB12E273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81D124F1-1170-4E84-AF46-1BDBAB12E273}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -116,7 +96,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{15580D90-F98C-4526-A715-57998FA083F1} = {4FAB013F-7701-48FD-9DB9-2EF2C0B0B314}
 		{81D124F1-1170-4E84-AF46-1BDBAB12E273} = {319E8D39-7686-4211-8F66-941B0E818404}
 		{99A41F2B-733F-4F5A-8FE6-8C678CC87998} = {D141D760-62B5-48F7-8CE2-97CD54CB52D2}
 		{465032A5-8E02-4529-9E1D-CAED08FEE21B} = {D141D760-62B5-48F7-8CE2-97CD54CB52D2}

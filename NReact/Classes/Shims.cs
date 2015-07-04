@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -46,10 +47,45 @@ namespace NReact
     {
       return type.GetTypeInfo().IsEnum;
     }
+
+    public static bool IsClass(this Type type)
+    {
+      return type.GetTypeInfo().IsClass;
+    }
+
+    public static Type GetIListElementType(this Type type)
+    {
+      var list = typeof(IList<>);
+
+      foreach (var i in type.GetTypeInfo().ImplementedInterfaces)
+      {
+        var ti = i.GetTypeInfo();
+        if (ti.IsGenericType && ti.GetGenericTypeDefinition() == list)
+          return ti.GenericTypeArguments[0];
+      }
+
+      return null;
+    }
 #else
+    public static Type GetIListElementType(this Type type)
+    {
+      var list = typeof(IList<>);
+
+      foreach (var i in type.GetInterfaces())
+        if (i.IsGenericType && i.GetGenericTypeDefinition() == list)
+          return i.GetGenericArguments()[0];
+
+      return null;
+    }
+
     public static bool IsEnum(this Type type)
     {
       return type.IsEnum;
+    }
+
+    public static bool IsClass(this Type type)
+    {
+      return type.IsClass;
     }
 
     public static MethodInfo GetNonPublicMethod(this Type type, string name)

@@ -57,5 +57,4 @@ namespace NReact
       return source == null ? null : _ctor(source);
     }
   }
-
 }

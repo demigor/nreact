@@ -1301,7 +1301,7 @@ Stack tryResults = new Stack();
 
   
 	void CS3() {
-		fillContextLitMap(); ResumeOut(); 
+		fillContextLitMap(); BeginCapture(Mode.CSharp); 
 		while (IsExternAliasDirective()) {
 			ExternAliasDirective();
 		}
@@ -1314,7 +1314,7 @@ Stack tryResults = new Stack();
 		while (StartOf(1)) {
 			NamespaceMemberDeclaration();
 		}
-		SuspendOut(); 
+		Result = EndCapture(); 
 	}
 
 	void ExternAliasDirective() {
@@ -2100,7 +2100,7 @@ Stack tryResults = new Stack();
 			Get();
 			Expression();
 		} else if (la.kind == 103) {
-			TagExpression();
+			RootCsxTag();
 		} else if (IsImplicitTypedLambdaExpression()) {
 			ImplicitLambdaExpression();
 		} else if (IsExplicitTypedLambdaExpression()) {
@@ -3298,58 +3298,11 @@ Stack tryResults = new Stack();
 		leaveContext(); 
 	}
 
-	void TagExpression() {
-		SuspendOut();
-		int attributes = 0, children = 0; 
-		Expect(103);
-		Expect(1);
-		var ident = t.val; 
-		while (la.kind == 93) {
-			Get();
-			Expect(1);
-			ident += "." + t.val; 
-		}
-		Out("New(typeof({0})", ident); 
-		while (la.kind == 1) {
-			if (attributes == 0) Out(", new { "); else Out(", "); 
-			TagAttribute();
-			attributes++; 
-		}
-		if (attributes == 0) Out(", null"); else Out(" }"); 
-		if (la.kind == 126) {
-			Get();
-		} else if (la.kind == 96) {
-			Get();
-			ResumeOut(); 
-			while (la.kind == 99 || la.kind == 103) {
-				Out(", "); 
-				if (la.kind == 103) {
-					TagExpression();
-				} else {
-					SuspendOut(); 
-					Get();
-					ResumeOut(); 
-					Expression();
-					SuspendOut(); 
-					Expect(115);
-					ResumeOut(); 
-				}
-				children++; 
-			}
-			SuspendOut(); 
-			Expect(125);
-			Expect(1);
-			var closingTag = t.val; 
-			while (la.kind == 93) {
-				Get();
-				Expect(1);
-				closingTag += "." + t.val; 
-			}
-			Expect(96);
-			if (ident != closingTag) Error(string.Format("Open/close XML tag mismatch. Expected {0}, found: {1}", ident, closingTag)); 
-		} else SynErr(207);
-		Out(")"); 
-		ResumeOut(); 
+	void RootCsxTag() {
+		BeginCapture(Mode.Csx); PElement root; 
+		var indent = la.col;                      
+		CsxTag(out root);
+		EndCapture(); Out(root, indent);         
 	}
 
 	void ImplicitLambdaExpression() {
@@ -3365,7 +3318,7 @@ Stack tryResults = new Stack();
 				}
 			}
 			Expect(117);
-		} else SynErr(208);
+		} else SynErr(207);
 		Expect(87);
 		ImplicitTypedLambdaBody();
 	}
@@ -3484,7 +3437,7 @@ Stack tryResults = new Stack();
 			} else if (la.kind == 96) {
 				Get();
 				Expect(96);
-			} else SynErr(209);
+			} else SynErr(208);
 			Unary();
 			AddExpr();
 		}
@@ -3679,7 +3632,7 @@ Stack tryResults = new Stack();
 					if (type != TypeKind.array) Error("array type expected");
 					isArrayCreation = true;
 					
-				} else SynErr(210);
+				} else SynErr(209);
 			} else if (la.kind == 99) {
 				AnonymousObjectInitializer();
 			} else if (la.kind == 100) {
@@ -3692,7 +3645,7 @@ Stack tryResults = new Stack();
 				Expect(116);
 				ArrayInitializer();
 				isArrayCreation = true; 
-			} else SynErr(211);
+			} else SynErr(210);
 			break;
 		}
 		case 74: {
@@ -3746,7 +3699,7 @@ Stack tryResults = new Stack();
 			Expect(117);
 			break;
 		}
-		default: SynErr(212); break;
+		default: SynErr(211); break;
 		}
 		while (StartOf(30)) {
 			switch (la.kind) {
@@ -3831,7 +3784,7 @@ Stack tryResults = new Stack();
 			Get();
 			break;
 		}
-		default: SynErr(213); break;
+		default: SynErr(212); break;
 		}
 	}
 
@@ -3884,7 +3837,7 @@ Stack tryResults = new Stack();
 				Expression();
 			} else if (la.kind == 99) {
 				ObjectOrCollectionInitializer();
-			} else SynErr(214);
+			} else SynErr(213);
 		} else if (StartOf(31)) {
 			if (StartOf(15)) {
 				Argument();
@@ -3897,7 +3850,7 @@ Stack tryResults = new Stack();
 				}
 				Expect(115);
 			}
-		} else SynErr(215);
+		} else SynErr(214);
 	}
 
 	void ImplicitAnonymousFunctionParameter() {
@@ -3909,7 +3862,7 @@ Stack tryResults = new Stack();
 			Block();
 		} else if (StartOf(19)) {
 			Expression();
-		} else SynErr(216);
+		} else SynErr(215);
 	}
 
 	void FromClause() {
@@ -3931,7 +3884,7 @@ Stack tryResults = new Stack();
 			SelectClause();
 		} else if (la.kind == 138) {
 			GroupClause();
-		} else SynErr(217);
+		} else SynErr(216);
 		if (la.kind == 132) {
 			Get();
 			Expect(1);
@@ -3950,7 +3903,7 @@ Stack tryResults = new Stack();
 			JoinClause();
 		} else if (la.kind == 134) {
 			OrderByClause();
-		} else SynErr(218);
+		} else SynErr(217);
 	}
 
 	void SelectClause() {
@@ -4016,26 +3969,77 @@ Stack tryResults = new Stack();
 		}
 	}
 
-	void TagAttribute() {
+	void CsxTag(out PElement result) {
+		result = new PElement();                 
+		PElement e; PVerbose v;                  
+		Expect(103);
+		CsxName(result);
+		while (la.kind == 1) {
+			PVerbose attr; 
+			CsxAttr(out attr);
+			result.Attributes.Add(attr);             
+		}
+		if (la.kind == 126) {
+			Get();
+		} else if (la.kind == 96) {
+			Get();
+			while (la.kind == 99 || la.kind == 103) {
+				if (la.kind == 103) {
+					CsxTag(out e);
+					result.Children.Add(e);                 
+				} else {
+					CsxEmb(out v);
+					result.Children.Add(v);                 
+				}
+			}
+			Expect(125);
+			var end = new PNode(); 
+			CsxName(end);
+			Expect(96);
+			if (result.Name != end.Name) Error(string.Format("Open/close XML namespace mismatch. Expected {0}, found: {1}", result.Name, end.Name)); 
+			if (result.Ns != end.Ns) Error(string.Format("Open/close XML namespace mismatch. Expected {0}, found: {1}", result.Ns, end.Ns)); 
+		} else SynErr(218);
+	}
+
+	void CsxName(PNode result) {
 		Expect(1);
-		var ident = t.val; 
+		result.Name = t.val; result.Ns = null;   
+		if (la.kind == 89) {
+			Get();
+			Expect(1);
+			result.Ns = result.Name; 
+			result.Name = t.val;                     
+		}
 		while (la.kind == 93) {
 			Get();
 			Expect(1);
-			ident += "." + t.val; 
+			result.Name += "." + t.val;              
 		}
+	}
+
+	void CsxAttr(out PVerbose result) {
+		result = new PVerbose();                 
+		CsxName(result);
 		Expect(88);
 		if (la.kind == 5) {
 			Get();
-			Out("{0} = {1}", ident, t.val); 
+			result.Value = t.val;                    
 		} else if (la.kind == 99) {
 			Get();
-			Out("{0} = ", ident); 
-			ResumeOut(); 
+			BeginCapture(Mode.CSharp);               
 			Expression();
-			SuspendOut(); 
+			result.Value = EndCapture();             
 			Expect(115);
 		} else SynErr(219);
+	}
+
+	void CsxEmb(out PVerbose result) {
+		result = new PVerbose();                 
+		Expect(99);
+		BeginCapture(Mode.CSharp);               
+		Expression();
+		result.Value = EndCapture();             
+		Expect(115);
 	}
 
 
@@ -4307,49 +4311,49 @@ public class Errors
 			case 204: s = "invalid Unary"; break;
 			case 205: s = "invalid AssignmentOperator"; break;
 			case 206: s = "invalid SwitchLabel"; break;
-			case 207: s = "invalid TagExpression"; break;
-			case 208: s = "invalid ImplicitLambdaExpression"; break;
-			case 209: s = "invalid ShiftExpr"; break;
+			case 207: s = "invalid ImplicitLambdaExpression"; break;
+			case 208: s = "invalid ShiftExpr"; break;
+			case 209: s = "invalid Primary"; break;
 			case 210: s = "invalid Primary"; break;
 			case 211: s = "invalid Primary"; break;
-			case 212: s = "invalid Primary"; break;
-			case 213: s = "invalid Literal"; break;
+			case 212: s = "invalid Literal"; break;
+			case 213: s = "invalid MemberOrElementInitializer"; break;
 			case 214: s = "invalid MemberOrElementInitializer"; break;
-			case 215: s = "invalid MemberOrElementInitializer"; break;
-			case 216: s = "invalid ImplicitTypedLambdaBody"; break;
-			case 217: s = "invalid QueryBody"; break;
-			case 218: s = "invalid QueryBodyClause"; break;
-			case 219: s = "invalid TagAttribute"; break;
+			case 215: s = "invalid ImplicitTypedLambdaBody"; break;
+			case 216: s = "invalid QueryBody"; break;
+			case 217: s = "invalid QueryBodyClause"; break;
+			case 218: s = "invalid CsxTag"; break;
+			case 219: s = "invalid CsxAttr"; break;
 
     }
     return s;
   }
 
 
-  public void SynErr(int line, int col, int n) 
+  public virtual void SynErr(int line, int col, int n) 
   {
     ErrorStream.WriteLine(ErrMsgFormat, line, col, GetErrorText(n));
     Count++;
   }
 
-  public void SemErr(int line, int col, string s) 
+  public virtual void SemErr(int line, int col, string s) 
   {
     ErrorStream.WriteLine(ErrMsgFormat, line, col, s);
     Count++;
   }
   
-  public void SemErr(string s) 
+  public virtual void SemErr(string s) 
   {
     ErrorStream.WriteLine(s);
     Count++;
   }
   
-  public void Warning(int line, int col, string s) 
+  public virtual void Warning(int line, int col, string s) 
   {
     ErrorStream.WriteLine(ErrMsgFormat, line, col, s);
   }
   
-  public void Warning(string s) 
+  public virtual void Warning(string s) 
   {
     ErrorStream.WriteLine(s);
   }

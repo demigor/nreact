@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 #else
 using System.Windows.Controls;
+using System.Windows;
 #endif
 
 namespace NReact
@@ -121,9 +122,9 @@ namespace NReact
 
     void DiffList(NElement[] olds, NElement[] news)
     {
-      if (olds == NElement._empty && news == NElement._empty) return;
+      if ((olds ?? NElement._emptyList) == (news ?? NElement._emptyList)) return;
 
-      _listHead = new NPatchChildDiffer().Diff(olds, news);
+      _listHead = new NPatchChildDiffer(NPatchLogic.Default).Diff(olds, news);
     }
 
     public object Apply(object uiElement)
@@ -139,8 +140,16 @@ namespace NReact
         i.Apply(uiElement);
     }
 
+#if DEBUG
+    bool _break;
+#endif
+
     internal void ApplyList(IList list)
     {
+#if DEBUG
+      if (_break)
+        Debugger.Break();
+#endif
       var logic = NPatchLogic.Default;
 
       for (var i = _listHead; i != null; i = i.Next)
@@ -338,7 +347,7 @@ namespace NReact
         var result = new NPatch();
 
         result.DiffProps(oldE, newE);
-        result.DiffList(((NXamlElement)oldE).Children, ((NXamlElement)newE).Children);
+        result.DiffList(((NXamlElement)oldE)._children, ((NXamlElement)newE)._children);
 
         if (result.IsEmpty)
           return null;
@@ -362,6 +371,8 @@ namespace NReact
 
         for (var i = diff.Head; i != null; i = i.Next)
         {
+          if (i.Key == NElement.KeyChildren) continue;
+
           var setter = NFactory.GetSetter(type, i.Name);
           if (setter == null) continue;
 
@@ -399,8 +410,22 @@ namespace NReact
       return new UIList(e.Children);
 #else
       var e = uiElement as Panel;
-      if (e == null) return null;
-      return e.Children;
+      if (e != null)
+        return e.Children;
+
+      var b = uiElement as Border;
+      if (b != null)
+        return new SingleChildList(() => b.Child, i => b.Child = (UIElement)i);
+
+      var c = uiElement as UserControl;
+      if (c != null)
+        return new SingleChildList(() => c.Content, i => c.Content = (UIElement)i);
+
+      var cc = uiElement as ContentControl;
+      if (cc != null)
+        return new SingleChildList(() => cc.Content, i => cc.Content = i);
+
+      return null;
 #endif
     }
 
@@ -413,6 +438,132 @@ namespace NReact
     {
       return obj.InnerType.GetHashCode() ^ obj._id.GetHashCode();
     }
+  }
+
+  class SingleChildList : IList
+  {
+    readonly Func<object> _getter;
+    readonly Action<object> _setter;
+
+    public SingleChildList(Func<object> getter, Action<object> setter)
+    {
+      _getter = getter;
+      _setter = setter;
+    }
+
+    #region IList Members
+
+    public int Add(object value)
+    {
+      if (Count == 0)
+      {
+        _setter(value);
+        return 1;
+      }
+      throw new InvalidOperationException();
+    }
+
+    public void Clear()
+    {
+      _setter(null);
+    }
+
+    public bool Contains(object value)
+    {
+      return _getter() == value;
+    }
+
+    public int IndexOf(object value)
+    {
+      return _getter() == value ? 0 : -1;
+    }
+
+    public void Insert(int index, object value)
+    {
+      if (index == 0)
+        _setter(value);
+      else
+        throw new InvalidOperationException();
+    }
+
+    public bool IsFixedSize
+    {
+      get { return false; }
+    }
+
+    public bool IsReadOnly
+    {
+      get { return false; }
+    }
+
+    public void Remove(object value)
+    {
+      if (value == _getter())
+        _setter(null);
+    }
+
+    public void RemoveAt(int index)
+    {
+      if (index == 0)
+        _setter(null);
+      else
+        throw new InvalidOperationException();
+    }
+
+    public object this[int index]
+    {
+      get
+      {
+        if (index != 0)
+          throw new InvalidOperationException();
+
+        return _getter();
+      }
+      set
+      {
+        if (index != 0)
+          throw new InvalidOperationException();
+
+        _setter(value);
+      }
+    }
+
+    #endregion
+
+    #region ICollection Members
+
+    public void CopyTo(Array array, int index)
+    {
+      throw new NotImplementedException();
+    }
+
+    public int Count
+    {
+      get { return _getter() != null ? 1 : 0; }
+    }
+
+    public bool IsSynchronized
+    {
+      get { return false; }
+    }
+
+    public object SyncRoot
+    {
+      get { return this; }
+    }
+
+    #endregion
+
+    #region IEnumerable Members
+
+    public IEnumerator GetEnumerator()
+    {
+      var x = _getter();
+      if (x != null)
+        yield return x;
+    }
+
+    #endregion
   }
 #if NETFX_CORE
   class UIList : IList
@@ -445,12 +596,12 @@ namespace NReact
       }
     }
 
-
   #region IList Members
 
     int IList.Add(object value)
     {
-      throw new NotImplementedException();
+      _source.Add((UIElement)value);
+      return 0;
     }
 
     void IList.Clear()
@@ -483,7 +634,7 @@ namespace NReact
       throw new NotImplementedException();
     }
 
-    #endregion
+  #endregion
 
   #region ICollection Members
 
@@ -507,7 +658,7 @@ namespace NReact
       get { throw new NotImplementedException(); }
     }
 
-    #endregion
+  #endregion
 
   #region IEnumerable Members
 
@@ -516,7 +667,7 @@ namespace NReact
       throw new NotImplementedException();
     }
 
-    #endregion
+  #endregion
   }
 #endif
 }

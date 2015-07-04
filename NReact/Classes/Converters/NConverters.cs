@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Diagnostics;
 #if NETFX_CORE
 using System.Reflection;
 using Windows.UI;
@@ -19,6 +21,8 @@ namespace NReact.Converters
       Register(NEnums.Convert, typeof(object));
       Register(NResources.Convert, NResources.GetSupportedTypes());
       Register(NThickness.Convert, NThickness.GetSupportedTypes());
+      Register(NFont.Convert, NFont.GetSupportedTypes());
+      Register(NGridLength.Convert, NGridLength.GetSupportedTypes());
 
       Register(ConvertToBoolean, typeof(bool));
       Register(ConvertToByte, typeof(byte));
@@ -200,6 +204,55 @@ namespace NReact.Converters
     {
       result = System.Convert.ToUInt64(value, CultureInfo.InvariantCulture);
       return true;
+    }
+
+    public static void AssignList<T>(IList<T> target, object source) where T : class
+    {
+      target.Clear();
+
+      if (source == null) return;
+
+      {
+        var single = source as NElement;
+        if (single != null)
+        {
+          target.Add(Convert<T>(NExtensions.CreateTree(single)));
+          return;
+        }
+      }
+
+      {
+        var e = source as IEnumerable<NElement>;
+        if (e != null)
+        {
+          foreach (var i in e)
+            target.Add(Convert<T>(NExtensions.CreateTree(i)));
+
+          return;
+        }
+      }
+
+      {
+        var single = source as T;
+        if (single != null)
+        {
+          target.Add(single);
+          return;
+        }
+      }
+
+      {
+        var e = source as IEnumerable;
+        if (e != null)
+        {
+          foreach (var i in e)
+            target.Add(Convert<T>(i));
+
+          return;
+        }
+      }
+
+      Debug.WriteLine("Cannot assign " + target + " with " + source + "value.");
     }
 
     public static T Convert<T>(object value)

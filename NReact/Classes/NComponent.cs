@@ -13,15 +13,13 @@ namespace NReact
   public abstract class NComponent : NElement
   {
     public override string DisplayName { get { return "c:" + GetType().Name; } }
-    
+
     internal override Type InnerType { get { return GetType(); } }
 
-    internal override NElement[] GetChildren() { return _empty; }
-    
-    internal new void Setup(NDynamic props, IEnumerable children)
+    internal override void Setup(NDynamic props, object content)
     {
-      base.Setup(DefaultProps() + props, children);
-      _state = (InitialState() ?? NDynamic.Empty).Seal();
+      base.Setup(DefaultProps() + props, content);
+      SetStateCore(InitialState() ?? NDynamic.Empty);
 #if TrackOwner
       _owner = CurrentOwner;
 #endif
@@ -157,6 +155,12 @@ namespace NReact
     internal override void Unmount()
     {
       Target = null;
+      base.Unmount();
+    }
+
+    internal void SetStateCore(NDynamic state)
+    {
+      _state = state.Seal();
     }
 
     internal void UpdateCore()
@@ -173,8 +177,8 @@ namespace NReact
       var newState = _newState ?? _state;
       var update = _newForceUpdate || ShouldComponentUpdate(newProps, newState);
 
-      _state = newState;
-      _props = newProps;
+      SetPropsCore(newProps);
+      SetStateCore(newState);
 
       _newState = null;
       _newProps = null;
@@ -197,7 +201,7 @@ namespace NReact
       }
     }
 
-    internal UIElement Target
+    internal object Target
     {
       get { return _target; }
       set
@@ -213,6 +217,6 @@ namespace NReact
           ComponentDidMount();
       }
     }
-    UIElement _target;
+    object _target;
   }
 }

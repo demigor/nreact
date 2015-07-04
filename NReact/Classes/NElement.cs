@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 #if NETFX_CORE
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,6 +16,19 @@ namespace NReact
 {
   public abstract class NElement
   {
+    internal static readonly int KeyKey = NDynamic.GetKey("Key");
+    internal static readonly int KeyRef = NDynamic.GetKey("Ref");
+    internal static readonly int KeyChildren = NDynamic.GetKey("Children");
+    internal static readonly NDynamic _emptyProps = EmptyProps();
+    internal static readonly NElement[] _emptyList = new NElement[0];
+
+    static NDynamic EmptyProps()
+    {
+      var result = new NDynamic();
+      result.SetByKey(KeyChildren, _emptyList);
+      return result.Seal();
+    }
+
     public override string ToString()
     {
       var sb = new StringBuilder();
@@ -32,13 +46,15 @@ namespace NReact
       {
         foreach (var i in _props.GetContent())
         {
+          if (i.Key == KeyChildren) continue;
+
           sb.Append(" ");
           sb.Append(i.Name);
           sb.AppendFormat("=\"{0}\"", i.Value);
         }
       }
 
-      var children = GetChildren();
+      var children = _children;
 
       if (children.Length == 0)
         sb.Append(" />");
@@ -63,66 +79,87 @@ namespace NReact
         sb.Append(">");
       }
     }
-  
+
     public abstract string DisplayName { get; }
+
     internal abstract Type InnerType { get; }
-
-    internal static readonly NElement[] _empty = new NElement[0];
-
-    internal abstract NElement[] GetChildren();
-
-    internal object _id = string.Empty;
 
     public object Key { get { return _key; } }
     internal object _key;
+    internal object _id = string.Empty;
 
     public string Ref { get { return _ref; } }
     internal string _ref;
 
-    public dynamic Refs { get { return _refs; } }
-    internal NDynamic _refs;
-
     public dynamic Props { get { return _props; } }
-    internal NDynamic _props = NDynamic.Empty;
+    internal NDynamic _props = _emptyProps;
 
-    internal abstract void Unmount();
+    /// <summary>
+    /// Read-Only Children Array (Do not update)
+    /// </summary>
+    protected NElement[] Children { get { return _children; } }
+    internal NElement[] _children = _emptyList;
 
-    static readonly int _keyKey = NDynamic.GetKey("Key");
-    static readonly int _keyRef = NDynamic.GetKey("Ref");
-
-    internal NElement[] Setup(NDynamic props, IEnumerable children)
+    internal virtual void Unmount()
     {
-      if (props != null)
+      for (int i = 0; i < _children.Length; i++)
+        _children[i].Unmount();
+    }
+
+    internal virtual void Setup(NDynamic props, object content)
+    {
+      if (content != null)
       {
-        object value;
+        if (props == null)
+          props = new NDynamic();
 
-        if (props.RemoveByKey(_keyKey, out value))
-          _key = value;
-
-        if (props.RemoveByKey(_keyRef, out value))
-          _ref = string.Concat(value);
-
-        _props = props.Seal();
+        props.SetByKey(KeyChildren, content); // replacing Children with content
       }
 
-      var result = _empty;
+      if (props != null)
+        SetPropsCore(props);
+    }
 
-      if (children != null)
+    internal void SetPropsCore(NDynamic props)
+    {
+      if (_props == props) return;
+
+      props = props.Unseal();
+
+      object value;
+
+      if (props.RemoveByKey(KeyKey, out value))
+        _key = value;
+
+      if (props.RemoveByKey(KeyRef, out value))
+        _ref = string.Concat(value);
+
+      var content = props.TryGetByKey(KeyChildren);
+
+      _children = content == null ? _emptyList : Materialize(content);
+      props.SetByKey(KeyChildren, _children);
+
+      _props = props.Seal();
+    }
+
+    NElement[] Materialize(object content)
+    {
+      if (content == null)
+        return _emptyList;
+
+      var result = Converter(content).ToArray();
+      if (result.Length == 0)
+        return _emptyList;
+
+      for (var i = 0; i < result.Length; i++)
       {
-        result = children.OfType<object>().SelectMany(Converter).ToArray();
-        if (result.Length > 0)
-        {
-          for (var i = 0; i < result.Length; i++)
-          {
-            var c = result[i];
-            var k = c._key;
+        var c = result[i];
+        var k = c._key;
 
-            if (k != null)
-              c._id = k;
-            else
-              c._id = -i;
-          }
-        }
+        if (k != null)
+          c._id = k;
+        else
+          c._id = -i;
       }
 
       return result;
@@ -136,10 +173,7 @@ namespace NReact
         result.Setup(props, children);
         return result;
       }
-#if DEBUG
-      if (!typeof(UIElement).IsAssignableFrom(type))
-        throw new InvalidOperationException("UIElement or NComponent based type expected");
-#endif
+
       return new NXamlElement(type, props, children);
     }
 
@@ -160,7 +194,7 @@ namespace NReact
 
     public static NElement Text(string text)
     {
-      return new NXamlElement(typeof(TextBlock), new { Text = text }.AsDynamic());
+      return new NXamlElement(typeof(TextBlock), new { Text = text, TextWrapping = TextWrapping.Wrap }.AsDynamic());
     }
 
     static IEnumerable<NElement> Converter(object source)
@@ -195,8 +229,10 @@ namespace NReact
       var ee = source as IEnumerable;
       if (ee != null)
       {
-        foreach (var i in ee.OfType<NElement>())
-          yield return i;
+        foreach (var i in ee)
+          foreach (var r in Converter(i))
+            if (r != null)
+              yield return r;
 
         yield break;
       }

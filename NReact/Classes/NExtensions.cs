@@ -32,7 +32,7 @@ namespace NReact
 
     public static T Render<T>(this UserControl target, T element) where T : NElement
     {
-      target.Content = CreateTree(element);
+      target.Content = CreateTree(element) as UIElement;
 
       return element;
     }
@@ -47,13 +47,13 @@ namespace NReact
 #if SILVERLIGHT
     public static T Render<T>(this Application target, T element) where T : NElement
     {
-      target.RootVisual = CreateTree(element);
+      target.RootVisual = CreateTree(element) as UIElement;
 
       return element;
     }
 #endif
 
-    internal static UIElement CreateTree(NElement e)
+    internal static object CreateTree(NElement e)
     {
       if (e == null)
         return null;
@@ -65,27 +65,28 @@ namespace NReact
       return CreateXaml((NXamlElement)e);
     }
 
-    static UIElement CreateXaml(NXamlElement e)
+    static object CreateXaml(NXamlElement e)
     {
-      var result = (UIElement)NFactory.Create(e._type);
+      var result = NFactory.Create(e._type);
 
       if (e._props != null)
         result.Assign(e._props, e._type);
 
-      var p = result as Panel;
-      if (p != null)
+      var children = e._children;
+      if (children.Length > 0)
       {
-        var uiChildren = p.Children;
-        var nrChildren = e.Children;
-
-        for (int i = 0, c = nrChildren.Length; i < c; i++)
-          uiChildren.Add(CreateTree(nrChildren[i]) ?? new UserControl());
+        var coll = NPatchLogic.Default.GetChildren(result);
+        if (coll != null)
+        {
+          for (int i = 0, c = children.Length; i < c; i++)
+            coll.Add(CreateTree(children[i]) ?? new StackPanel());
+        }
       }
 
       return result;
     }
 
-    public static void Assign(this UIElement xe, NDynamic props, Type type = null)
+    public static void Assign(this object xe, NDynamic props, Type type = null)
     {
       if (type == null)
         type = xe.GetType();
@@ -93,6 +94,9 @@ namespace NReact
       foreach (var i in props.GetContent())
         try
         {
+          if (i.Key == NElement.KeyChildren || i.Key == NElement.KeyRef || i.Key == NElement.KeyKey)
+            continue;
+          
           var setter = NFactory.GetSetter(type, i.Name);
           if (setter != null)
           {

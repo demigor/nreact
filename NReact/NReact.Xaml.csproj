@@ -40,6 +40,8 @@
     <Compile Include="Classes\Converters\NColors.cs" />
     <Compile Include="Classes\Converters\NConverters.cs" />
     <Compile Include="Classes\Converters\NEnums.cs" />
+    <Compile Include="Classes\Converters\NFont.cs" />
+    <Compile Include="Classes\Converters\NGridLength.cs" />
     <Compile Include="Classes\Converters\NResources.cs" />
     <Compile Include="Classes\Converters\NThickness.cs" />
     <Compile Include="Classes\LList.cs" />

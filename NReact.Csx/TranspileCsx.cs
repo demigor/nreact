@@ -10,13 +10,6 @@ namespace NReact.Csx
 {
   public class TranspileCsx : Task
   {
-    static Action<string, object[]> _writeLine = Console.WriteLine;
-
-    public static void WriteLine(string format, params object[] args)
-    {
-      _writeLine(format, args);
-    }
-
     public ITaskItem[] TemplateFiles { get; set; }
     public ITaskItem[] SourceCodeFiles { get; set; }
     [Output]
@@ -27,10 +20,15 @@ namespace NReact.Csx
     [Required]
     public string ProjectPath { get; set; }
 
+    void LogError(ParserError obj)
+    {
+      Log.LogError("Code", "CSX" + obj.Code, "N/A", _currentFile, obj.Line, obj.Column, obj.Line, obj.Column, obj.Message);
+    }
+
+    string _currentFile;
+
     public override bool Execute()
     {
-      _writeLine = Log.LogMessage;
-
       Log.LogMessage("Starting NReact.TranspileCsx");
       var stopwatch = Stopwatch.StartNew();
       var errors = 0;
@@ -38,7 +36,7 @@ namespace NReact.Csx
       if (TemplateFiles != null)
       {
         var result = new List<ITaskItem>();
-
+        var transpiler = new Transpiler { LogError = LogError, LogMessage = Log.LogMessage };
         foreach (var i in TemplateFiles)
         {
           var file = i.GetMetadata("FullPath");
@@ -46,10 +44,13 @@ namespace NReact.Csx
           var targetDir = Path.Combine(ProjectPath, target);
           if (!Directory.Exists(targetDir))
             Directory.CreateDirectory(targetDir);
-          
+
           target = Path.Combine(target, Path.ChangeExtension(Path.GetFileNameWithoutExtension(file), ".g.cs"));
 
-          Transpile(file, Path.Combine(ProjectPath, target));
+          _currentFile = file;
+
+          if (!transpiler.TranspileFile(file, Path.Combine(ProjectPath, target)))
+            errors++;
 
           result.Add(new TaskItem { ItemSpec = target });
         }
@@ -63,10 +64,10 @@ namespace NReact.Csx
 
     public static void Main(string[] args)
     {
-      WriteLine("CSX Transpiler 1.0, Copyright (c) Lex Lavnikov 2015.");
+      Console.WriteLine("CSX Transpiler 1.0, Copyright (c) Lex Lavnikov 2015.");
 
       if (args == null || args.Length == 0)
-        WriteLine("Usage: csx {file|directory}");
+        Console.WriteLine("Usage: csx {file|directory}");
 
       int errors = 0;
 
@@ -76,11 +77,11 @@ namespace NReact.Csx
         {
           var dir = (File.GetAttributes(f) & FileAttributes.Directory) != 0;
 
-          errors += dir ? TranspileDir(f) : Transpile(f, Path.GetDirectoryName(f));
+          errors += dir ? TranspileDir(f) : (Transpile(f, Path.GetDirectoryName(f)) ? 1 : 0);
         }
         catch (FileNotFoundException)
         {
-          WriteLine("File/Directory {0} not found.", f);
+          Console.WriteLine("File/Directory {0} not found.", f);
           errors++;
         }
       }
@@ -88,7 +89,6 @@ namespace NReact.Csx
 #if DEBUG
       Console.ReadLine();
 #endif
-
 
       if (errors > 0)
         Environment.Exit(1);
@@ -99,43 +99,69 @@ namespace NReact.Csx
       var result = 0;
 
       foreach (var f in Directory.EnumerateFiles(path, "*.csx", SearchOption.AllDirectories))
-        result += Transpile(f);
+        if (!Transpile(f))
+          result++;
 
       return result;
     }
 
-    static int Transpile(string source, string target = null)
+    static bool Transpile(string source, string target = null)
+    {
+      return new Transpiler { LogError = ConsoleLogError, LogMessage = Console.WriteLine }.TranspileFile(source, target);
+    }
+
+    static void ConsoleLogError(ParserError obj)
+    {
+      Console.WriteLine("Line {0}, Column {1}, {2}", obj.Line, obj.Column, obj.Message);
+    }
+  }
+
+  public class Transpiler
+  {
+    public Action<ParserError> LogError;
+    public Action<string, object[]> LogMessage = Console.WriteLine;
+
+    public bool TranspileFile(string source, string target = null)
     {
       try
       {
-        var err = new StringBuilder();
         var csx = File.ReadAllText(source);
 
-        var parser = new Parser(csx);
-        parser.Errors.ErrorStream = new StringWriter(err);
-        parser.Parse();
-        parser.Errors.ErrorStream.Flush();
-
-        if (parser.Errors.Count == 0)
+        string result;
+        if (TranspileSource(csx, out result))
         {
-          var cs = parser.Result;
-
           if (target == null)
             target = Path.ChangeExtension(source, ".g.cs");
 
-          File.WriteAllText(target, cs);
-          WriteLine("{0} -> {1}", source, target);
-          return 0;
+          File.WriteAllText(target, result);
+          LogMessage("{0} -> {1}", new[] { source, target });
+          return true;
         }
-
-        WriteLine("{0} -> Errors: {1}", source, parser.Errors.Count);
-        WriteLine(err.ToString());
       }
       catch (Exception e)
       {
-        WriteLine(e.Message);
+        if (LogError == null)
+          LogMessage(e.Message, new object[0]);
+        else
+          LogError(new ParserError { Message = e.Message });
       }
-      return 1;
+      return false;
+    }
+
+    public bool TranspileSource(string csx, out string cs)
+    {
+      cs = null;
+
+      var parser = new Parser(csx) { OnError = LogError };
+      parser.Parse();
+
+      if (parser.Errors.Count == 0)
+      {
+        cs = parser.Result;
+        return true;
+      }
+
+      return false;
     }
   }
 }
