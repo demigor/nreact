@@ -90,6 +90,7 @@ namespace NReact
       _sealed = true;
       return this;
     }
+
     internal NDynamic Unseal()
     {
       _sealed = false;
@@ -102,7 +103,7 @@ namespace NReact
         throw new InvalidOperationException();
     }
 
-    public bool HasProperty(string name)
+    public bool IsDefined(string name)
     {
       var key = GetKey(name);
 
@@ -327,14 +328,7 @@ namespace NReact
     {
       get
       {
-        try
-        {
           return GetByKey(GetKey(name));
-        }
-        catch (MemberAccessException)
-        {
-          throw new MemberAccessException(string.Format("No property {0} defined.", name));
-        }
       }
       set
       {

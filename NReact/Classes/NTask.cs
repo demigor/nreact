@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 #if NETFX_CORE
@@ -10,6 +11,24 @@ namespace NReact
   public class NDispatcher
   {
     public static readonly NDispatcher Default = new NDispatcher();
+    public int ThreadId { get; private set; }
+
+    public static int CurrentThreadId
+    {
+      get
+      {
+#if NETFX_CORE
+        return Environment.CurrentManagedThreadId;
+#else
+        return Thread.CurrentThread.ManagedThreadId;
+#endif
+      }
+    }
+
+    public bool IsOnDispatcher()
+    {
+      return Dispatcher == this;
+    }
 
 #if NETFX_CORE
 #else
@@ -28,8 +47,13 @@ namespace NReact
 #endif
     }
 
+    [ThreadStatic]
+    static object Dispatcher;
+
     void Process(object obj)
     {
+      var updates = _components = new HashSet<NComponent>();
+      Dispatcher = this;
       try
       {
         while (true)
@@ -40,11 +64,20 @@ namespace NReact
 
           if (head != null)
             head.BackwardRun();
+
+          foreach (var i in updates)
+            i.UpdateCore();
+
+          updates.Clear();
         }
       }
       catch
       {
         Debugger.Launch();
+      }
+      finally
+      {
+        Dispatcher = null;
       }
     }
 
@@ -64,6 +97,16 @@ namespace NReact
           break;
         }
       }
+    }
+
+    HashSet<NComponent> _components;
+
+    public void EnqueueUpdate(NComponent component)
+    {
+      if (IsOnDispatcher())
+        _components.Add(component);
+      else
+        Enqueue(component.UpdateCore);
     }
 
     public void Enqueue(Action task)

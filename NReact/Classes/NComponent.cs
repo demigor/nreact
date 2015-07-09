@@ -70,7 +70,7 @@ namespace NReact
 
     protected void Update()
     {
-      NDispatcher.Default.Enqueue(UpdateCore);
+      NDispatcher.Default.EnqueueUpdate(this);
     }
 
     public void ForceUpdate()
@@ -87,7 +87,7 @@ namespace NReact
 
     public void ReplaceProps(NDynamic newProps)
     {
-      _newProps = newProps ?? NDynamic.Empty;
+      _newProps = newProps ?? new NDynamic();
       Update();
     }
 
@@ -99,7 +99,7 @@ namespace NReact
 
     public void ReplaceState(NDynamic newState)
     {
-      _newState = newState ?? NDynamic.Empty;
+      _newState = newState ?? new NDynamic();
       Update();
     }
 
@@ -149,7 +149,7 @@ namespace NReact
       if (result != null)
         return result;
 
-      return Text(string.Concat(source));
+      return TextBlock(string.Concat(source));
     }
 
     internal override void Unmount()

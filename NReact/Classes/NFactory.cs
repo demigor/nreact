@@ -6,10 +6,21 @@ using System.Linq.Expressions;
 using System.Reflection;
 #if NETFX_CORE
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
+using Windows.UI.Xaml.Media.Animation;
+using VSM = Windows.UI.Xaml.VisualStateManager;
+using UIE = Windows.UI.Xaml.UIElement;
+using RE = Windows.UI.Xaml.RoutedEvent;
 #else
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using VSM = System.Windows.VisualStateManager;
+using UIE = System.Windows.UIElement;
+using RE = System.Windows.RoutedEvent;
 #endif
 
 namespace NReact
@@ -257,7 +268,30 @@ namespace NReact
 
       {
         var i = member.IndexOf('_');
-        if (i >= 0)
+        if (i == 0 && typeof(UIE).IsAssignableFrom(type))
+        {
+          switch (member)
+          {
+            case "_KeyDown": return (target, value) => ((UIE)target).AddHandler(UIE.KeyDownEvent, NEvents.ToKeyEventHandler(value), true);
+            case "_KeyUp": return (target, value) => ((UIE)target).AddHandler(UIE.KeyUpEvent, NEvents.ToKeyEventHandler(value), true);
+#if NETFX_CORE
+            case "_PointerCanceled": return (target, value) => ((UIE)target).AddHandler(UIE.PointerCanceledEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerCaptureLost": return (target, value) => ((UIE)target).AddHandler(UIE.PointerCaptureLostEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerEntered": return (target, value) => ((UIE)target).AddHandler(UIE.PointerEnteredEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerExited": return (target, value) => ((UIE)target).AddHandler(UIE.PointerExitedEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerMoved": return (target, value) => ((UIE)target).AddHandler(UIE.PointerMovedEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerPressed": return (target, value) => ((UIE)target).AddHandler(UIE.PointerPressedEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerReleased": return (target, value) => ((UIE)target).AddHandler(UIE.PointerReleasedEvent, NEvents.ToPointerEventHandler(value), true);
+            case "_PointerWheelChanged": return (target, value) => ((UIE)target).AddHandler(UIE.PointerWheelChangedEvent, NEvents.ToPointerEventHandler(value), true);
+#else
+            case "_MouseLeftButtonDown": return (target, value) => ((UIE)target).AddHandler(UIE.MouseLeftButtonDownEvent, NEvents.ToMouseButtonEventHandler(value), true);
+            case "_MouseLeftButtonUp": return (target, value) => ((UIE)target).AddHandler(UIE.MouseLeftButtonUpEvent, NEvents.ToMouseButtonEventHandler(value), true);
+            case "_MouseRightButtonDown": return (target, value) => ((UIE)target).AddHandler(UIE.MouseRightButtonDownEvent, NEvents.ToMouseButtonEventHandler(value), true);
+            case "_MouseRightButtonUp": return (target, value) => ((UIE)target).AddHandler(UIE.MouseRightButtonUpEvent, NEvents.ToMouseButtonEventHandler(value), true);
+#endif
+          }
+        }
+        else if (i > 0)
         {
           var at = GetAttachedType(member.Substring(0, i));
           if (at != null)
@@ -280,10 +314,18 @@ namespace NReact
 
     static Type GetAttachedType(string name)
     {
-      if (name == "Grid")
-        return typeof(Grid);
-
-      return null;
+      switch (name)
+      {
+        case "Grid": return typeof(Grid);
+        case "Canvas": return typeof(Canvas);
+        case "Typography": return typeof(Typography);
+        case "Storyboard": return typeof(Storyboard);
+        case "VisualStateManager": return typeof(VSM);
+#if !NETFX_CORE
+        case "TextOptions": return typeof(TextOptions);
+#endif
+        default: return null;
+      }
     }
 
     public static NDynamic ToDynamic(object obj)

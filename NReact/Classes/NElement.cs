@@ -192,7 +192,7 @@ namespace NReact
       return New(type, props.AsDynamic(), children);
     }
 
-    public static NElement Text(string text)
+    public static NElement TextBlock(string text)
     {
       return new NXamlElement(typeof(TextBlock), new { Text = text, TextWrapping = TextWrapping.Wrap }.AsDynamic());
     }
@@ -218,7 +218,7 @@ namespace NReact
       var s = source as string;
       if (s != null)
       {
-        yield return Text(s);
+        yield return TextBlock(s);
         yield break;
       }
 
@@ -239,7 +239,26 @@ namespace NReact
 
       #endregion
 
-      yield return Text(string.Concat(source));
+      yield return TextBlock(string.Concat(source));
+    }
+
+    public static string Text(object items)
+    {
+      if (items == null) return null;
+
+      var s = items as string;
+      if (s != null) return s;
+
+      return string.Concat(Converter(items).Select(ConvertToString));
+    }
+
+    static string ConvertToString(NElement arg)
+    {
+      var e = arg as NXamlElement;
+      if (e != null && e._type == typeof(TextBlock))
+        return e.Props.Text;
+
+      return string.Empty;
     }
   }
 }

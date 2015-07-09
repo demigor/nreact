@@ -23,6 +23,7 @@ namespace NReact.Converters
       Register(NThickness.Convert, NThickness.GetSupportedTypes());
       Register(NFont.Convert, NFont.GetSupportedTypes());
       Register(NGridLength.Convert, NGridLength.GetSupportedTypes());
+      Register(NEvents.Convert, NEvents.GetSupportedTypes());
 
       Register(ConvertToBoolean, typeof(bool));
       Register(ConvertToByte, typeof(byte));
