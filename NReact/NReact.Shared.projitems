@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>9f6b0bce-408c-4008-80d2-8a8c2c38020d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>NReact.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Bootstrap\NExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\Data\NClassData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\Data\NDataBag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\Data\NDataBagExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\Data\NDataCtor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\Data\NUndefined.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\NClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\NClass.ctors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\NElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Class\NXamlElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NBrushes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NColors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NConverters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NEvents.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NThickness.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dispatcher\NDispatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.ctors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NTypeFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patch\LList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patch\NPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\Version.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NFastRWLock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NProps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NPropsExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NPropsStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Shims\NShims.cs" />
+  </ItemGroup>
+</Project>

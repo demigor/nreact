@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{84C800AD-0C5A-4CCE-A987-28E9973912C6}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NReact</RootNamespace>
+    <AssemblyName>NReact</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug.SL\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SL</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\SL\</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;SL</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core">
+      <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="..\NReact\Bootstrap\NExtensions.cs">
+      <Link>Bootstrap\NExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\Data\NClassData.cs">
+      <Link>Class\Data\NClassData.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\Data\NDataBag.cs">
+      <Link>Class\Data\NDataBag.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\Data\NDataBagExtensions.cs">
+      <Link>Class\Data\NDataBagExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\Data\NDataCtor.cs">
+      <Link>Class\Data\NDataCtor.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\Data\NUndefined.cs">
+      <Link>Class\Data\NUndefined.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\NClass.cs">
+      <Link>Class\NClass.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\NClass.ctors.cs">
+      <Link>Class\NClass.ctors.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\NElement.cs">
+      <Link>Class\NElement.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Class\NXamlElement.cs">
+      <Link>Class\NXamlElement.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Converters\NBrushes.cs">
+      <Link>Converters\NBrushes.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Converters\NColors.cs">
+      <Link>Converters\NColors.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Converters\NConverters.cs">
+      <Link>Converters\NConverters.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Converters\NEvents.cs">
+      <Link>Converters\NEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Converters\NThickness.cs">
+      <Link>Converters\NThickness.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Dispatcher\NDispatcher.cs">
+      <Link>Dispatcher\NDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Factory\NFactory.cs">
+      <Link>Factory\NFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Factory\NFactory.ctors.cs">
+      <Link>Factory\NFactory.ctors.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Factory\NTypeFactory.cs">
+      <Link>Factory\NTypeFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Patch\LList.cs">
+      <Link>Patch\LList.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Patch\NPatch.cs">
+      <Link>Patch\NPatch.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Properties\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NFastRWLock.cs">
+      <Link>Props\NFastRWLock.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NProps.cs">
+      <Link>Props\NProps.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NPropsExtensions.cs">
+      <Link>Props\NPropsExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NPropsStore.cs">
+      <Link>Props\NPropsStore.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Shims\NShims.cs">
+      <Link>Shims\NShims.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
