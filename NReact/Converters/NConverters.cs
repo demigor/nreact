@@ -17,6 +17,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Documents;
 using FStyles = System.Windows.FontStyles;
 using FStretches = System.Windows.FontStretches;
 #endif
@@ -27,55 +28,146 @@ namespace NReact
   {
     internal static readonly CultureInfo XamlCulture = CultureInfo.InvariantCulture;
 
-    public static T ToEnum<T>(object value) where T : struct
+    public static object ToEnum<T>(object value) where T : struct
     {
       if (value is T)
-        return (T)value;
+        return value;
 
       var t = typeof(T);
 
       var s = value as string;
       if (s != null)
-        return (T)Enum.Parse(t, s, true);
+        return Enum.Parse(t, s, true);
 
       if (Enum.IsDefined(t, value))
-        return (T)Enum.ToObject(t, value);
+        return Enum.ToObject(t, value);
 
       throw new InvalidCastException(string.Format("Cannot convert {0} to enum {1}", value, t.FullName));
     }
 
-    public static string ToString(object value)
+    public static T ToEnumT<T>(object value) where T : struct
+    {
+      return (T)ToEnum<T>(value);
+    }
+
+    public static object ToChar(object value)
+    {
+      return ToCharT(value);
+    }
+
+    public static char ToCharT(object value)
+    {
+      return System.Convert.ToChar(value);
+    }
+
+    public static object ToTimeSpan(object value)
+    {
+      return ToTimeSpanT(value);
+    }
+
+    public static TimeSpan ToTimeSpanT(object value)
+    {
+      if (value is TimeSpan)
+        return (TimeSpan)value;
+
+      return TimeSpan.Parse(ToStringT(value));
+    }
+
+    public static object ToDateTimeOffset(object value)
+    {
+      return ToDateTimeOffsetT(value);
+    }
+
+    public static DateTimeOffset ToDateTimeOffsetT(object value)
+    {
+      if (value is DateTimeOffset)
+        return (DateTimeOffset)value;
+
+      return DateTimeOffset.Parse(ToStringT(value));
+    }
+
+    public static object ToDateTimeOffsetN(object value)
+    {
+      return value == null ? null : (DateTimeOffset?)ToDateTimeOffsetT(value);
+    }
+
+    public static object ToUri(object value)
+    {
+      return ToUriT(value);
+    }
+
+    public static Uri ToUriT(object value)
+    {
+      var uri = value as Uri;
+      if (uri != null) return uri;
+
+      return new Uri(ToStringT(value));
+    }
+
+    public static object ToString(object value)
+    {
+      return ToStringT(value);
+    }
+
+    public static string ToStringT(object value)
     {
       return System.Convert.ToString(value);
     }
 
-    public static double ToDouble(object value)
+    public static object ToDouble(object value)
+    {
+      return ToDoubleT(value);
+    }
+
+    public static double ToDoubleT(object value)
     {
       return System.Convert.ToDouble(value, XamlCulture);
     }
 
-    public static int ToInt32(object value)
+    public static object ToSingle(object value)
+    {
+      return ToSingleT(value);
+    }
+
+    public static float ToSingleT(object value)
+    {
+      return System.Convert.ToSingle(value, XamlCulture);
+    }
+
+    public static object ToInt32(object value)
+    {
+      return ToInt32T(value);
+    }
+
+    public static int ToInt32T(object value)
     {
       return System.Convert.ToInt32(value, XamlCulture);
     }
 
-    public static bool ToBool(object value)
+    public static object ToInt32N(object value)
+    {
+      return value == null ? null : ToInt32(value);
+    }
+
+    public static object ToBool(object value)
+    {
+      return ToBoolT(value);
+    }
+
+    public static bool ToBoolT(object value)
     {
       return System.Convert.ToBoolean(value, XamlCulture);
     }
 
-    public static bool? ToBoolN(object value)
+    public static object ToBoolN(object value)
     {
-      if (value == null)
-        return null;
-
-      return System.Convert.ToBoolean(value, XamlCulture);
+      return value == null ? null : ToBool(value);
     }
 
-    public static Point ToPoint(object value)
+    public static object ToPoint(object value)
     {
       if (value is Point)
-        return (Point)value;
+        return value;
 
       var s = value as string;
       if (s != null)
@@ -115,10 +207,10 @@ namespace NReact
       return Application.Current.Resources[key];
     }
 
-    public static Style ToStyle(object value)
+    public static object ToStyle(object value)
     {
       if (value is Style)
-        return (Style)value;
+        return value;
 
       if (value == null)
         return null;
@@ -149,10 +241,28 @@ namespace NReact
     }
 
 #if !NETFX_CORE
-    public static Cursor ToCursor(object value)
+    public static object ToTextDecorations(object value)
+    {
+      if (value == null)
+        return null;
+
+      if (value is TextDecorationCollection)
+        return value;
+
+      var s = value as string;
+      if (s != null)
+        switch (s.ToLower())
+        {
+          case "underline": return TextDecorations.Underline;
+        }
+
+      throw new InvalidCastException();
+    }
+
+    public static object ToCursor(object value)
     {
       if (value is Cursor)
-        return (Cursor)value;
+        return value;
 
 #if !SILVERLIGHT
       if (value is Stream)
@@ -203,7 +313,7 @@ namespace NReact
     }
 #endif
 
-    public static FontFamily ToFontFamily(object value)
+    public static object ToFontFamily(object value)
     {
       var ff = value as FontFamily;
       if (ff != null) return ff;
@@ -214,10 +324,10 @@ namespace NReact
       throw new InvalidCastException();
     }
 
-    public static FontWeight ToFontWeight(object value)
+    public static object ToFontWeight(object value)
     {
       if (value is FontWeight)
-        return (FontWeight)value;
+        return value;
 
 #if !(SILVERLIGHT || NETFX_CORE)
       if (value is int)
@@ -245,10 +355,10 @@ namespace NReact
       throw new InvalidCastException();
     }
 
-    public static FontStretch ToFontStretch(object value)
+    public static object ToFontStretch(object value)
     {
       if (value is FontStretch)
-        return (FontStretch)value;
+        return value;
 
 #if !(SILVERLIGHT || NETFX_CORE)
       if (value is int)
@@ -277,10 +387,10 @@ namespace NReact
       throw new InvalidCastException();
     }
 
-    public static FontStyle ToFontStyle(object value)
+    public static object ToFontStyle(object value)
     {
       if (value is FontStyle)
-        return (FontStyle)value;
+        return value;
 
       var s = value as string;
       if (s != null)
@@ -296,10 +406,10 @@ namespace NReact
       throw new InvalidCastException();
     }
 
-    public static GridLength ToGridLength(object value)
+    public static object ToGridLength(object value)
     {
       if (value is GridLength)
-        return (GridLength)value;
+        return value;
 
       if (value is int)
         return new GridLength((int)value);
@@ -340,7 +450,7 @@ namespace NReact
       throw new InvalidCastException();
     }
 
-    public static double ToLength(object value)
+    public static object ToLength(object value)
     {
       if (value == null)
         return double.NaN;
@@ -356,10 +466,10 @@ namespace NReact
     }
 
 #if !NETFX_CORE
-    public static XmlLanguage ToLanguage(object value)
+    public static object ToLanguage(object value)
     {
       if (value is XmlLanguage)
-        return (XmlLanguage)value;
+        return value;
 
       var s = value as string;
       if (s != null) return XmlLanguage.GetLanguage(s);
@@ -367,5 +477,17 @@ namespace NReact
       throw new InvalidCastException();
     }
 #endif
+
+#if SILVERLIGHT
+    public static FontSource ToFontSourceT(object value)
+    {
+      return value as FontSource;
+    }
+#endif
+
+    public static ResourceDictionary ToResourceDictionaryT(object value)
+    {
+      return value as ResourceDictionary;
+    }
   }
 }

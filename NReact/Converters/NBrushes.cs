@@ -9,24 +9,24 @@ namespace NReact
 {
   static partial class NConverters
   {
-    public static class NBrushes
+    public static Brush ToBrushT(object value)
     {
-      public static Brush Convert(object value)
-      {
-        var result = value as Brush;
-        if (result != null) return result;
+      var result = value as Brush;
+      if (result != null) return result;
 
-        return new SolidColorBrush(NColors.Convert(value));
-      }
+      return new SolidColorBrush(ToColorT(value));
+    }
 
-      public static Brush Convert(object value, Brush oldValue)
-      {
-        var patch = value as NPropPatch;
-        if (patch != null)
-          return (Brush)patch.Apply(oldValue);
+    public static Brush ToBrushT(object value, Brush oldValue)
+    {
+      var patch = value as NPropPatch;
+      if (patch != null)
+        return (Brush)patch.Apply(oldValue);
 
-        return Convert(value);
-      }
+      if (value == NDataBag.UnsetValue)
+        return null;
+
+      return ToBrushT(value);
     }
   }
 }

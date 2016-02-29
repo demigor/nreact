@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("0.0.3.4")]
-[assembly: AssemblyFileVersion("0.0.3.4")]
+[assembly: AssemblyVersion("0.0.3.5")]
+[assembly: AssemblyFileVersion("0.0.3.5")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

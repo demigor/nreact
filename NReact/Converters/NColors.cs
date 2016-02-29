@@ -9,7 +9,30 @@ namespace NReact
 {
   public static partial class NConverters
   {
-    public static class NColors
+    public static object ToColor(object value)
+    {
+      return ToColorT(value);
+    }
+
+    public static Color ToColorT(object value)
+    {
+      if (value is Color)
+        return (Color)value;
+
+      if (value is int)
+        return NColor.ColorFromUInt32(0xFF000000 | (uint)(int)value);
+
+      if (value is uint)
+        return NColor.ColorFromUInt32((uint)value);
+
+      var s = value as string;
+      if (s != null)
+        return NColor.Parse(s);
+
+      throw new InvalidCastException();
+    }
+
+    public static class NColor
     {
       enum KnownColor : uint
       {
@@ -308,24 +331,6 @@ namespace NReact
         }
       }
 
-      public static Color Convert(object value)
-      {
-        if (value is Color)
-          return (Color)value;
-
-        if (value is int)
-          return ColorFromUInt32(0xFF000000 | (uint)(int)value);
-
-        if (value is uint)
-          return ColorFromUInt32((uint)value);
-
-        var s = value as string;
-        if (s != null)
-          return Parse(s);
-
-        throw new InvalidCastException();
-      }
-
       public static Color Parse(string color)
       {
         color = color.Trim();
@@ -348,7 +353,7 @@ namespace NReact
         throw new FormatException("Unrecognized Color Literal");
       }
 
-      static Color ColorFromUInt32(uint argb)
+      public static Color ColorFromUInt32(uint argb)
       {
         return Color.FromArgb(
           (byte)((argb & 0xFF000000) >> 24),

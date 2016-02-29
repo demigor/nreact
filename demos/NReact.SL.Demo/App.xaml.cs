@@ -8,8 +8,10 @@ namespace NReact
     public App()
     {
       InitializeComponent();
-      Host.Settings.MaxFrameRate = 60;
-//      Host.Settings.EnableRedrawRegions = true;
+      //Host.Settings.MaxFrameRate = 60;
+      //Host.Settings.EnableRedrawRegions = true;
+      //Host.Settings.EnableFrameRateCounter = true;
+      //Host.Settings.EnableCacheVisualization = true;
     }
 
     void Application_Startup(object sender, StartupEventArgs e)

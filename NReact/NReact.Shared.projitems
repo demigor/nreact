@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Dispatcher\NDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.ctors.cs" />
+    <None Include="$(MSBuildThisFileDirectory)Factory\NFactory.Xaml.old.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Factory\NTypeFactory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Patch\LList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Patch\NPatch.cs" />

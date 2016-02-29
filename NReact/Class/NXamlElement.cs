@@ -11,11 +11,10 @@ namespace NReact
 
     public override object Key { get { return Props.Get<object>(NProps.Key, null); } set { throw new NotSupportedException(); } }
 
-    public NXamlElement(Type type, NDataCtor props)
+    public NXamlElement(Type type, NDataBag props)
     {
       Type = type;
-      Props = props.Head;
-      //      Children = Props.Get(NProps.Children, _emptyList);
+      Props = props;
     }
 
     internal virtual NTypeFactory GetTypeFactory(NFactory factory)
@@ -23,20 +22,21 @@ namespace NReact
       return factory.GetTypeFactory(Type);
     }
 
-    internal override NDataBag GetProps() { return Props; }
-    internal readonly NDataBag Props;
-    //    internal object[] Children;
+    internal override NDataBag GetProps()
+    {
+      return Props;
+    }
+    internal override void AddProps(NDataCtor props)
+    {
+      for (var i = props.Head; i != null; i = i.Next)
+      {
+        Props = Props.Set(i.Id, i.Value);
+      }
+    }
+    internal NDataBag Props;
 
     internal override void Unmount()
     {
-      //var children = Children;
-
-      //for (var i = 0; i < children.Length; i++)
-      //{
-      //  var o = children[i] as NElement;
-      //  if (o == null) continue;
-      //  o.Unmount();
-      //}
     }
 
     public override NElement RenderInitial()
@@ -52,6 +52,6 @@ namespace NReact
       return NTypeFactory<T>.Default;
     }
 
-    public NXamlElement(NDataCtor props) : base(typeof(T), props) { }
+    public NXamlElement(NDataBag props) : base(typeof(T), props) { }
   }
 }

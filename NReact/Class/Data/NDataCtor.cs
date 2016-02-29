@@ -20,7 +20,29 @@ namespace NReact
       if (Head == null)
         Head = data;
       else
+      {
+        var last = default(NDataBag);
+
+        for (var i = Head; i != null; i = i.Next)
+        {
+          if (i.Id == id)
+          {
+            if (last == null)
+              Head = i.Next;
+            else
+              last.Next = i.Next;
+
+            if (Tail == i)
+              Tail = last;
+
+            break;
+          }
+
+          last = i;
+        }
+
         Tail.Next = data;
+      }
 
       Tail = data;
 

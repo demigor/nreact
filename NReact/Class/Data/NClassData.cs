@@ -59,7 +59,7 @@ namespace NReact
     internal IEnumerable<string> GetKeys()
     {
       for (var i = New; i != null; i = i.Next)
-        yield return NConverters.ToString(i.Key);
+        yield return (string)NConverters.ToString(i.Key);
     }
   }
 

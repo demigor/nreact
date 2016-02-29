@@ -3,8 +3,10 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading;
 #if NETFX_CORE
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 #else
+using System.Windows;
 using System.Windows.Controls;
 #endif
 
@@ -23,6 +25,17 @@ namespace NReact
 
     internal override Type GetInnerType() { return GetType(); }
     internal override NDataBag GetProps() { return _props.New; }
+    internal override void AddProps(NDataCtor props)
+    {
+      var set = false;
+
+      for (var i = props.Head; i != null; i = i.Next)
+        if (_props.Set(i.Id, i.Value))
+          set = true;
+
+      if (set)
+        Update();
+    }
     public override object Key { get { return GetProp(NProps.Key, (object)null); } set { SetProp(NProps.Key, value); } }
     public string Ref { get { return GetProp(NProps.Ref, (string)null); } set { SetProp(NProps.Ref, value); } }
     public object[] Children { get { return GetProp(NProps.Children, EmptyList); } set { SetProp(NProps.Children, value ?? EmptyList); } }
@@ -30,7 +43,7 @@ namespace NReact
     protected virtual void InitState() { }
     protected virtual void InitProps() { }
 
-    protected T GetProp<T>(int key, T @default)
+    public T GetProp<T>(int key, T @default)
     {
       return _props.Get(key, @default);
     }
@@ -40,7 +53,7 @@ namespace NReact
       return _state.Get(key, @default);
     }
 
-    protected void SetProp(int key, object value)
+    public void SetProp(int key, object value)
     {
       if (_props.Set(key, value))
         Update();
@@ -136,7 +149,7 @@ namespace NReact
         NDispatcher.Default.EnqueueUpdate(this);
     }
 
-    public override string DisplayName { get { return "#" + GetType().Name; } }
+    public override string DisplayName { get { return GetType().Name; } }
 
     bool _force;
     internal void UpdateCore()
@@ -222,8 +235,8 @@ namespace NReact
       if (_ui != null)
         return _ui;
 
-      InitState();
       InitProps();
+      InitState();
       Commit();
 
       return _ui = RenderCore();
@@ -234,17 +247,28 @@ namespace NReact
 
     NElement RenderCore()
     {
-      return MakeSingle(Render());
+      var save = SetCurrentOwner(Owner);
+      try
+      {
+        return MakeSingle(Render());
+      }
+      finally
+      {
+        SetCurrentOwner(save);
+      }
     }
 
-    static NElement MakeSingle(object source)
+    NElement MakeSingle(object source)
     {
       if (source == null)
-        return New(typeof(StackPanel), null);
+        return New(typeof(StackPanel), CloneAttachedProps());
 
       var result = source as NElement;
       if (result != null)
+      {
+        result.AddProps(CloneAttachedProps());
         return result;
+      }
 
       var list = Converter(source).ToArray();
       if (list.Length == 0)
@@ -253,7 +277,7 @@ namespace NReact
       if (list.Length == 1)
         return list[0];
 
-      return New(typeof(StackPanel), null, list);
+      return New(typeof(StackPanel), CloneAttachedProps(), list);
     }
 
     public virtual bool ShouldComponentUpdate(NDataBag newProps, NDataBag newState, NDataBag oldProps, NDataBag oldState)
@@ -290,5 +314,16 @@ namespace NReact
         o.Unmount();
       }
     }
+
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]
+    public static object SetCurrentOwner(object owner)
+    {
+      var result = CurrentOwner;
+      CurrentOwner = owner;
+      return result;
+    }
+    public readonly object Owner = CurrentOwner;
+    [ThreadStatic]
+    static object CurrentOwner;
   }
 }

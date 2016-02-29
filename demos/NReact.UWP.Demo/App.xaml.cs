@@ -3,9 +3,6 @@ using Windows.UI.Xaml;
 
 namespace NReact.UWP.Demo
 {
-  /// <summary>
-  /// Provides application-specific behavior to supplement the default Application class.
-  /// </summary>
   sealed partial class App : Application
   {
     public App()

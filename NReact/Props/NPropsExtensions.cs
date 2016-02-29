@@ -7,11 +7,13 @@ using Windows.UI.Text;
 using SW = Windows.UI.Xaml;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 #else
 using System.Windows;
 using SW = System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 #endif
 
@@ -156,6 +158,15 @@ namespace NReact
 
     #endregion
 
+    #region Content overloads
+
+    public static NDataCtor Content(this NDataCtor props, object value)
+    {
+      return props.Add(NProps.Content, value);
+    }
+
+    #endregion
+
     #region ContentAlignment overloads
 
     public static NDataCtor ContentAlignment(this NDataCtor props, HorizontalAlignment value)
@@ -171,6 +182,46 @@ namespace NReact
     #endregion
 
     #region Alignment overloads
+
+    public static NDataCtor AlignRight(this NDataCtor props)
+    {
+      return props.Add(NProps.HorizontalAlignment, SW.HorizontalAlignment.Right);
+    }
+
+    public static NDataCtor AlignLeft(this NDataCtor props)
+    {
+      return props.Add(NProps.HorizontalAlignment, SW.HorizontalAlignment.Left);
+    }
+
+    public static NDataCtor AlignHCenter(this NDataCtor props)
+    {
+      return props.Add(NProps.HorizontalAlignment, SW.HorizontalAlignment.Center);
+    }
+
+    public static NDataCtor AlignHStretch(this NDataCtor props)
+    {
+      return props.Add(NProps.HorizontalAlignment, SW.HorizontalAlignment.Stretch);
+    }
+
+    public static NDataCtor AlignTop(this NDataCtor props)
+    {
+      return props.Add(NProps.VerticalAlignment, SW.VerticalAlignment.Top);
+    }
+
+    public static NDataCtor AlignBottom(this NDataCtor props)
+    {
+      return props.Add(NProps.VerticalAlignment, SW.VerticalAlignment.Bottom);
+    }
+
+    public static NDataCtor AlignVCenter(this NDataCtor props)
+    {
+      return props.Add(NProps.VerticalAlignment, SW.VerticalAlignment.Center);
+    }
+
+    public static NDataCtor AlignVStretch(this NDataCtor props)
+    {
+      return props.Add(NProps.VerticalAlignment, SW.VerticalAlignment.Stretch);
+    }
 
     public static NDataCtor Alignment(this NDataCtor props, HorizontalAlignment value)
     {
@@ -274,12 +325,41 @@ namespace NReact
       return props.Add(NProps.Text, value);
     }
 
+    public static NDataCtor Text(this NDataCtor props, string value)
+    {
+      return props.Add(NProps.Text, value);
+    }
+
     public static NDataCtor Text(this NDataCtor props, string format, params object[] data)
     {
       return props.Add(NProps.Text, string.Format(format, data));
     }
 
     #endregion
+
+    #region Inlines overloads
+
+    public static NDataCtor Inlines(this NDataCtor props, object value)
+    {
+      return props.Add(NProps.Inlines, value);
+    }
+
+    #endregion
+
+    #region Tooltip overloads
+
+    public static NDataCtor Tooltip(this NDataCtor props, object value)
+    {
+      return props.Add(NProps.ToolTipServiceToolTip, value);
+    }
+
+    public static NDataCtor TooltipPlacement(this NDataCtor props, PlacementMode value)
+    {
+      return props.Add(NProps.ToolTipServicePlacement, value);
+    }
+
+    #endregion
+
 
     #region TextAlignment overloads
 
@@ -298,6 +378,17 @@ namespace NReact
     }
 
     #endregion
+
+#if !NETFX_CORE
+    #region TextDecorations overloads
+
+    public static NDataCtor TextDecorations(this NDataCtor props, object value)
+    {
+      return props.Add(NProps.TextDecorations, value);
+    }
+
+    #endregion
+#endif
 
     #region FontFamily overloads
 
@@ -330,6 +421,25 @@ namespace NReact
     }
 
     #endregion
+
+    #region FontStyle overloads
+
+    public static NDataCtor FontStyle(this NDataCtor props, FontStyle value)
+    {
+      return props.Add(NProps.FontStyle, value);
+    }
+
+    #endregion
+
+    #region IsHitTestVisible overloads
+
+    public static NDataCtor IsHitTestVisible(this NDataCtor props, bool value)
+    {
+      return props.Add(NProps.IsHitTestVisible, value);
+    }
+
+    #endregion
+
 
     #region IsReadOnly overloads
 
@@ -458,6 +568,21 @@ namespace NReact
     }
 
     #endregion
+
+    #region StrokeThickness overloads
+
+    public static NDataCtor StrokeThickness(this NDataCtor props, double value)
+    {
+      return props.Add(NProps.StrokeThickness, value);
+    }
+
+    public static NDataCtor StrokeThickness(this NDataCtor props, object value)
+    {
+      return props.Add(NProps.StrokeThickness, value);
+    }
+
+    #endregion
+
 
     #region BorderBrush overloads
 
@@ -635,6 +760,7 @@ namespace NReact
 
     #endregion
 
+#if SILVERLIGHT
     #region ContentChanged overloads
 
     public static NDataCtor ContentChanged(this NDataCtor props, Action value)
@@ -652,14 +778,13 @@ namespace NReact
       return props.Add(NProps.ContentChanged, value);
     }
 
-#if SILVERLIGHT
     public static NDataCtor ContentChanged(this NDataCtor props, ContentChangedEventHandler value)
     {
       return props.Add(NProps.ContentChanged, value);
     }
-#endif
 
     #endregion
+#endif
 
     #region TextChanged overloads
 
@@ -709,6 +834,8 @@ namespace NReact
 
     #endregion
 
+#if !NETFX_CORE
+
     #region _MouseLeftButtonUp overloads
 
     /// <summary>
@@ -736,6 +863,91 @@ namespace NReact
     }
 
     #endregion
+
+    #region _MouseLeftButtonDown overloads
+
+    /// <summary>
+    /// Includes handled events
+    /// </summary>
+    public static NDataCtor _MouseLeftButtonDown(this NDataCtor props, Action value)
+    {
+      return props.Add(NProps._MouseLeftButtonDown, value);
+    }
+
+    /// <summary>
+    /// Includes handled events
+    /// </summary>
+    public static NDataCtor _MouseLeftButtonDown(this NDataCtor props, Action<object> value)
+    {
+      return props.Add(NProps._MouseLeftButtonDown, value);
+    }
+
+    /// <summary>
+    /// Includes handled events
+    /// </summary>
+    public static NDataCtor _MouseLeftButtonDown(this NDataCtor props, EventHandler value)
+    {
+      return props.Add(NProps._MouseLeftButtonDown, value);
+    }
+
+    #endregion
+
+    #region MouseLeftButtonUp overloads
+
+    /// <summary>
+    /// Includes direct events only 
+    /// </summary>
+    public static NDataCtor MouseLeftButtonUp(this NDataCtor props, Action value)
+    {
+      return props.Add(NProps.MouseLeftButtonUp, value);
+    }
+
+    /// <summary>
+    /// Includes direct  events only 
+    /// </summary>
+    public static NDataCtor MouseLeftButtonUp(this NDataCtor props, Action<object> value)
+    {
+      return props.Add(NProps.MouseLeftButtonUp, value);
+    }
+
+    /// <summary>
+    /// Includes direct  events only 
+    /// </summary>
+    public static NDataCtor MouseLeftButtonUp(this NDataCtor props, EventHandler value)
+    {
+      return props.Add(NProps.MouseLeftButtonUp, value);
+    }
+
+    #endregion
+
+    #region MouseLeftButtonDown overloads
+
+    /// <summary>
+    /// Includes direct events only
+    /// </summary>
+    public static NDataCtor MouseLeftButtonDown(this NDataCtor props, Action value)
+    {
+      return props.Add(NProps.MouseLeftButtonDown, value);
+    }
+
+    /// <summary>
+    /// Includes direct events only
+    /// </summary>
+    public static NDataCtor MouseLeftButtonDown(this NDataCtor props, Action<object> value)
+    {
+      return props.Add(NProps.MouseLeftButtonDown, value);
+    }
+
+    /// <summary>
+    /// Includes direct events only
+    /// </summary>
+    public static NDataCtor MouseLeftButtonDown(this NDataCtor props, EventHandler value)
+    {
+      return props.Add(NProps.MouseLeftButtonDown, value);
+    }
+
+    #endregion
+#endif
 
     #endregion
 

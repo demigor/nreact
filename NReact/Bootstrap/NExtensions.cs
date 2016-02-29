@@ -14,6 +14,61 @@ namespace NReact
 {
   public static class NExtensions
   {
+    public static NElement GetRender(DependencyObject obj)
+    {
+      return (NElement)obj.GetValue(RenderProperty);
+    }
+
+    public static void SetRender(DependencyObject obj, NElement value)
+    {
+      obj.SetValue(RenderProperty, value);
+    }
+
+    public static readonly DependencyProperty RenderProperty = DependencyProperty.RegisterAttached("Render", typeof(NElement), typeof(NExtensions), new PropertyMetadata(null, OnRenderChanged));
+
+    static void OnRenderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+      var cc = d as ContentControl;
+      if (cc != null)
+      {
+        cc.Render((NElement)e.NewValue);
+        return;
+      }
+
+#if SILVERLIGHT
+      var uc = d as UserControl;
+      if (uc != null)
+      {
+        uc.Render((NElement)e.NewValue);
+        return;
+      }
+#endif
+
+      var b = d as Border;
+      if (b != null)
+      {
+        b.Render((NElement)e.NewValue);
+        return;
+      }
+
+#if !NETFX_CORE
+      var w = d as Window;
+      if (w != null)
+      {
+        w.Render((NElement)e.NewValue);
+        return;
+      }
+#endif
+
+      throw new NotSupportedException();
+    }
+
+    public static T Render<T>(this Border target, T component) where T : NElement
+    {
+      target.Child = (UIElement)NFactory.Default.Create(component);
+      return component;
+    }
+
     public static T Render<T>(this ContentControl target, T component) where T : NElement
     {
       target.Content = NFactory.Default.Create(component);

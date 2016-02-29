@@ -11,6 +11,7 @@ namespace NReact
     internal abstract void Unmount();
     internal abstract Type GetInnerType();
     internal abstract NDataBag GetProps();
+    internal abstract void AddProps(NDataCtor props);
 
     protected internal static readonly object[] EmptyList = new object[0];
 
@@ -32,10 +33,9 @@ namespace NReact
       sb.Append("<");
       sb.Append(DisplayName);
 
-      var props = GetProps();
       var children = new NElement[0];
 
-      for (var i = props; i != null; i = i.Next)
+      for (var i = GetProps(); i != null; i = i.Next)
       {
         if (i.Id == NProps.Children)
         {
