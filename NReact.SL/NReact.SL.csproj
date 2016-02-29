@@ -139,7 +139,6 @@
     <Compile Include="..\NReact\Shims\NShims.cs">
       <Link>Shims\NShims.cs</Link>
     </Compile>
-    <None Include="Factory\NFactory.SL.old.cs" />
     <Compile Include="Factory\NXamlFactory.SL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
