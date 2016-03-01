@@ -543,8 +543,8 @@ namespace NReact.FactoryBuilder
     {
       try
       {
-        var attributes = type.GetTypeInfo().CustomAttributes;
-        var x = attributes.FirstOrDefault(i => i.AttributeType == typeof(ContentPropertyAttribute));
+        var a = type.GetTypeInfo().CustomAttributes;
+        var x = a.FirstOrDefault(i => i.AttributeType == typeof(ContentPropertyAttribute));
         if (x == null)
           return null;
 
@@ -554,10 +554,6 @@ namespace NReact.FactoryBuilder
       {
         // current Windows build is broken and returns null on ALL GetCustomAttribute calls due to missing metadata of StaticAttribute
       }
-
-      var result = type.GetTypeInfo().GetCustomAttribute<ContentPropertyAttribute>(true)?.Name;
-      if (result != null)
-        return result;
 
 #if UWP
       if (type == typeof(Border) || type == typeof(Popup) || type == typeof(Viewbox) || type == typeof(InlineUIContainer))

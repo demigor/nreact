@@ -1,3 +1,4 @@
+using System;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -106,6 +107,35 @@ namespace NReact
       GenerateColumnDefinition();
       GenerateRowDefinition();
       GenerateToolTipService();
+    }
+
+    public override int GetContentKey(Type type)
+    {
+      if (typeof(NClass).IsAssignableFrom(type)) return NProps.Children;
+      if (typeof(Span).IsAssignableFrom(type)) return NProps.Inlines;
+      if (typeof(Run).IsAssignableFrom(type)) return NProps.Text;
+      if (typeof(InlineUIContainer).IsAssignableFrom(type)) return NProps.Child;
+      if (typeof(Paragraph).IsAssignableFrom(type)) return NProps.Inlines;
+      if (typeof(TimePicker).IsAssignableFrom(type)) return NProps.Header;
+      if (typeof(Hub).IsAssignableFrom(type)) return NProps.Sections;
+      if (typeof(DatePicker).IsAssignableFrom(type)) return NProps.Header;
+      if (typeof(MenuFlyoutItem).IsAssignableFrom(type)) return NProps.Text;
+      if (typeof(HubSection).IsAssignableFrom(type)) return NProps.ContentTemplate;
+      if (typeof(UserControl).IsAssignableFrom(type)) return NProps.Content;
+      if (typeof(ToggleSwitch).IsAssignableFrom(type)) return NProps.Header;
+      if (typeof(ItemsControl).IsAssignableFrom(type)) return NProps.Items;
+      if (typeof(CommandBar).IsAssignableFrom(type)) return NProps.PrimaryCommands;
+      if (typeof(ContentControl).IsAssignableFrom(type)) return NProps.Content;
+      if (typeof(SemanticZoom).IsAssignableFrom(type)) return NProps.ZoomedInView;
+      if (typeof(Viewbox).IsAssignableFrom(type)) return NProps.Child;
+      if (typeof(TextBlock).IsAssignableFrom(type)) return NProps.Inlines;
+      if (typeof(RichTextBlock).IsAssignableFrom(type)) return NProps.Blocks;
+      if (typeof(ContentPresenter).IsAssignableFrom(type)) return NProps.Content;
+      if (typeof(Border).IsAssignableFrom(type)) return NProps.Child;
+      if (typeof(Panel).IsAssignableFrom(type)) return NProps.Children;
+      if (typeof(Popup).IsAssignableFrom(type)) return NProps.Child;
+
+      return NProps.CONTENT;
     }
 
     void GenerateUIElement()
@@ -1604,6 +1634,7 @@ namespace NReact
     public static readonly int SecondaryCommands = Store["SecondaryCommands"];
     public static readonly int SectionHeaderClick = Store["SectionHeaderClick"];
     public static readonly int SectionHeaders = Store["SectionHeaders"];
+    public static readonly int Sections = Store["Sections"];
     public static readonly int SectionsInViewChanged = Store["SectionsInViewChanged"];
     public static readonly int SeekCompleted = Store["SeekCompleted"];
     public static readonly int SelectedBackground = Store["SelectedBackground"];
