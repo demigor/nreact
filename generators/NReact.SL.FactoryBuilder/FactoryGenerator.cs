@@ -543,7 +543,8 @@ namespace NReact.FactoryBuilder
     {
       try
       {
-        var x = type.GetTypeInfo().CustomAttributes.FirstOrDefault(i => i.AttributeType == typeof(ContentPropertyAttribute));
+        var attributes = type.GetTypeInfo().CustomAttributes;
+        var x = attributes.FirstOrDefault(i => i.AttributeType == typeof(ContentPropertyAttribute));
         if (x == null)
           return null;
 
@@ -559,7 +560,7 @@ namespace NReact.FactoryBuilder
         return result;
 
 #if UWP
-      if (type == typeof(Border) || type == typeof(Popup) || type == typeof(Viewbox))
+      if (type == typeof(Border) || type == typeof(Popup) || type == typeof(Viewbox) || type == typeof(InlineUIContainer))
         return "Child";
 
       if (type == typeof(SplitView) || type == typeof(UserControl) || type == typeof(ContentPresenter) || type == typeof(ContentControl))
@@ -577,7 +578,7 @@ namespace NReact.FactoryBuilder
       if (type == typeof(ItemsControl) || type == typeof(MenuFlyoutSubItem))
         return "Items";
 
-      if (type == typeof(TextBlock))
+      if (type == typeof(TextBlock) || type == typeof(Span) || type == typeof(Paragraph))
         return "Inlines";
 
       if (type == typeof(RichTextBlock))
@@ -586,7 +587,7 @@ namespace NReact.FactoryBuilder
       if (type == typeof(TimePicker) || type == typeof(DatePicker) || type == typeof(ToggleSwitch))
         return "Header";
 
-      if (type == typeof(MenuFlyoutItem))
+      if (type == typeof(MenuFlyoutItem) || type == typeof(Run))
         return "Text";
 
       if (type == typeof(CommandBar))

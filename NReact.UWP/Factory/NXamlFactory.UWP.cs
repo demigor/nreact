@@ -132,6 +132,10 @@ namespace NReact
     public override int GetContentKey(Type type)
     {
       if (typeof(NClass).IsAssignableFrom(type)) return NProps.Children;
+      if (typeof(Span).IsAssignableFrom(type)) return NProps.Inlines;
+      if (typeof(Run).IsAssignableFrom(type)) return NProps.Text;
+      if (typeof(InlineUIContainer).IsAssignableFrom(type)) return NProps.Child;
+      if (typeof(Paragraph).IsAssignableFrom(type)) return NProps.Inlines;
       if (typeof(MapControl).IsAssignableFrom(type)) return NProps.Children;
       if (typeof(TimePicker).IsAssignableFrom(type)) return NProps.Header;
       if (typeof(SplitView).IsAssignableFrom(type)) return NProps.Content;
