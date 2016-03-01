@@ -44,7 +44,8 @@ namespace NReact
         {
           subscribe(target, new NEventAdapter(id) { Action = action });
         }
-        else {
+        else 
+        {
           var agg = (Aggregator)dep.GetValue(AggregatorProperty);
           if (agg == null)
             dep.SetValue(AggregatorProperty, agg = new Aggregator());
@@ -131,6 +132,11 @@ namespace NReact
       {
         var e = _event as Action<object, T>;
         if (e != null) { e(sender, args); return; }
+      }
+
+      {
+        var e = _event as Action<object>;
+        if (e != null) { e(sender); return; }
       }
 
       {
