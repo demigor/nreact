@@ -2568,7 +2568,7 @@ namespace NReact
 
     public static NProperty CreateSource() => new NProperty(nameof(NProperties.Source)).
         Property<CaptureElement>(CaptureElement.SourceProperty).
-        Property<Image>(Image.SourceProperty).
+        Property<Image>(Image.SourceProperty, NConverters.ToImageSource).
         Property<MediaElement>(MediaElement.SourceProperty, NConverters.ToUri).
         Property<WebView>(WebView.SourceProperty, NConverters.ToUri);
 

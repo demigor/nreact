@@ -9,7 +9,6 @@ using System.Windows.Shapes;
 
 namespace NReact
 {
-#pragma warning disable CS1591
 
   public partial class NProperties
   {
@@ -1495,7 +1494,7 @@ namespace NReact
         Property<RangeBase>(RangeBase.SmallChangeProperty, NConverters.ToDouble);
 
     public static NProperty CreateSource() => new NProperty(nameof(NProperties.Source)).
-        Property<Image>(Image.SourceProperty).
+        Property<Image>(Image.SourceProperty, NConverters.ToImageSource).
         Property<MediaElement>(MediaElement.SourceProperty, NConverters.ToUri).
         Property<MultiScaleImage>(MultiScaleImage.SourceProperty).
         Property<WebBrowser>((t, v) => t.Source = NConverters.ToUriT(v));
@@ -1712,6 +1711,4 @@ namespace NReact
         Property<Line>(Line.Y2Property, NConverters.ToDouble);
 
   }
-
-#pragma warning restore CS1591
 }

@@ -6,6 +6,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Text;
 using FStyles = Windows.UI.Text.FontStyle;
 using FStretches = Windows.UI.Text.FontStretch;
@@ -17,6 +18,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using FStyles = System.Windows.FontStyles;
 using FStretches = System.Windows.FontStretches;
 #endif
@@ -492,6 +494,28 @@ namespace NReact
     public static ResourceDictionary ToResourceDictionaryT(object value)
     {
       return value as ResourceDictionary;
+    }
+
+    public static object ToImageSource(object value)
+    {
+      return ToImageSourceT(value);
+    }
+
+    public static ImageSource ToImageSourceT(object value)
+    {
+      if (value == null)
+        return null;
+
+      if (value is ImageSource)
+        return (ImageSource)value;
+
+      if (value is string)
+        return new BitmapImage(new Uri((string)value));
+
+      if (value is Uri)
+        return new BitmapImage((Uri)value);
+
+      throw new InvalidCastException();
     }
   }
 }

@@ -417,6 +417,7 @@ namespace NReact
       if (propType == typeof(GridLength)) return "NConverters.ToGridLength";
       if (propType == typeof(CornerRadius)) return "NConverters.ToCornerRadius";
       if (propType == typeof(Uri)) return "NConverters.ToUri";
+      if (propType == typeof(ImageSource)) return "NConverters.ToImageSource";
       if (propType == typeof(Style)) return "NConverters.ToStyle";
       if (propType == typeof(DataTemplate)) return "NConverters.ToDataTemplate";
       if (propType == typeof(ControlTemplate)) return "NConverters.ToControlTemplate";

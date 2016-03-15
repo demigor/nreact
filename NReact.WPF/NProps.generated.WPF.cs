@@ -4008,7 +4008,7 @@ namespace NReact
         Property<PageContent>(PageContent.SourceProperty, NConverters.ToUri).
         Property<NavigationWindow>(NavigationWindow.SourceProperty, NConverters.ToUri).
         Property<Frame>(Frame.SourceProperty, NConverters.ToUri).
-        Property<Image>(Image.SourceProperty).
+        Property<Image>(Image.SourceProperty, NConverters.ToImageSource).
         Property<MediaElement>(MediaElement.SourceProperty, NConverters.ToUri).
         Property<WebBrowser>((t, v) => t.Source = NConverters.ToUriT(v));
 
