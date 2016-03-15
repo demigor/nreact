@@ -115,7 +115,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\NReact.rd.xml" />
   </ItemGroup>
-  <Import Project="..\NReact\NReact2.projitems" Label="Shared" />
+  <Import Project="..\NReact\NReact.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

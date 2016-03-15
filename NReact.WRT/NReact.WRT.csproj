@@ -110,7 +110,7 @@
     <Compile Include="NProps.generated.WRT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <Import Project="..\NReact\NReact2.projitems" Label="Shared" />
+  <Import Project="..\NReact\NReact.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

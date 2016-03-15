@@ -45,11 +45,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NReact.Demo1.UWP", "demos\N
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		NReact\NReact2.projitems*{a398f08a-e1bc-4b37-a5bf-edce1f6f3597}*SharedItemsImports = 4
-		NReact\NReact2.projitems*{a121d686-cfc4-4a9d-af55-d9cb1bf0dcdf}*SharedItemsImports = 4
-		NReact\NReact2.projitems*{0119133b-d40a-49b5-b185-68e883a23779}*SharedItemsImports = 4
-		NReact\NReact2.projitems*{f4ffff5d-0558-4828-9f13-d596515c89c0}*SharedItemsImports = 4
-		NReact\NReact2.projitems*{15fb086d-8a41-4931-8d1f-da0d673e2c23}*SharedItemsImports = 13
+		NReact\NReact.projitems*{a398f08a-e1bc-4b37-a5bf-edce1f6f3597}*SharedItemsImports = 4
+		NReact\NReact.projitems*{a121d686-cfc4-4a9d-af55-d9cb1bf0dcdf}*SharedItemsImports = 4
+		NReact\NReact.projitems*{0119133b-d40a-49b5-b185-68e883a23779}*SharedItemsImports = 4
+		NReact\NReact.projitems*{f4ffff5d-0558-4828-9f13-d596515c89c0}*SharedItemsImports = 4
+		NReact\NReact.projitems*{15fb086d-8a41-4931-8d1f-da0d673e2c23}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
