@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>15fb086d-8a41-4931-8d1f-da0d673e2c23</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>NReact</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NBrushes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NColors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NConverters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NEventAggregator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NThickness.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Differs\NListDiffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Differs\NPropDiffer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dispatcher\NDispatcher.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Elements\NClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Elements\NElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Elements\NPropertyBag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Elements\NUndefined.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Elements\NXaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.Helpers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Factory\NFactory.Render.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patcher\NActionPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patcher\NListPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patcher\NPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patcher\NPatch.Statics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Patcher\NPropPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NContentProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NProps.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Props\NTypedBag.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Ctor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Shims.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Version.cs" />
+  </ItemGroup>
+</Project>

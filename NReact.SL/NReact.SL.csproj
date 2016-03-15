@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{84C800AD-0C5A-4CCE-A987-28E9973912C6}</ProjectGuid>
+    <ProjectGuid>{F0AB26E1-13EC-4883-BAC8-4B6CD2557905}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -28,22 +28,24 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Bin\Debug.SL\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SL</DefineConstants>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\SL\</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;SL</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\SL\NReact.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -52,42 +54,9 @@
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Compile Include="..\NReact\Bootstrap\NExtensions.cs">
-      <Link>Bootstrap\NExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\Data\NClassData.cs">
-      <Link>Class\Data\NClassData.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\Data\NDataBag.cs">
-      <Link>Class\Data\NDataBag.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\Data\NDataBagExtensions.cs">
-      <Link>Class\Data\NDataBagExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\Data\NDataCtor.cs">
-      <Link>Class\Data\NDataCtor.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\Data\NUndefined.cs">
-      <Link>Class\Data\NUndefined.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\NClass.cs">
-      <Link>Class\NClass.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\NClass.ctors.cs">
-      <Link>Class\NClass.ctors.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\NElement.cs">
-      <Link>Class\NElement.cs</Link>
-    </Compile>
-    <Compile Include="..\NReact\Class\NXamlElement.cs">
-      <Link>Class\NXamlElement.cs</Link>
-    </Compile>
     <Compile Include="..\NReact\Converters\NBrushes.cs">
       <Link>Converters\NBrushes.cs</Link>
     </Compile>
@@ -97,50 +66,83 @@
     <Compile Include="..\NReact\Converters\NConverters.cs">
       <Link>Converters\NConverters.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Converters\NEvents.cs">
-      <Link>Converters\NEvents.cs</Link>
+    <Compile Include="..\NReact\Converters\NEventAggregator.cs">
+      <Link>Converters\NEventAggregator.cs</Link>
     </Compile>
     <Compile Include="..\NReact\Converters\NThickness.cs">
       <Link>Converters\NThickness.cs</Link>
     </Compile>
+    <Compile Include="..\NReact\Differs\NListDiffer.cs">
+      <Link>Differs\NListDiffer.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Differs\NPropDiffer.cs">
+      <Link>Differs\NPropDiffer.cs</Link>
+    </Compile>
     <Compile Include="..\NReact\Dispatcher\NDispatcher.cs">
       <Link>Dispatcher\NDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NClass.cs">
+      <Link>Elements\NClass.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NElement.cs">
+      <Link>Elements\NElement.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NPropertyBag.cs">
+      <Link>Elements\NPropertyBag.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NUndefined.cs">
+      <Link>Elements\NUndefined.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NXaml.cs">
+      <Link>Elements\NXaml.cs</Link>
     </Compile>
     <Compile Include="..\NReact\Factory\NFactory.cs">
       <Link>Factory\NFactory.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Factory\NFactory.ctors.cs">
-      <Link>Factory\NFactory.ctors.cs</Link>
+    <Compile Include="..\NReact\Factory\NFactory.Helpers.cs">
+      <Link>Factory\NFactory.Helpers.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Factory\NTypeFactory.cs">
-      <Link>Factory\NTypeFactory.cs</Link>
+    <Compile Include="..\NReact\Factory\NFactory.Render.cs">
+      <Link>Factory\NFactory.Render.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Patch\LList.cs">
-      <Link>Patch\LList.cs</Link>
+    <Compile Include="..\NReact\Patcher\NActionPatch.cs">
+      <Link>Patcher\NActionPatch.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Patch\NPatch.cs">
-      <Link>Patch\NPatch.cs</Link>
+    <Compile Include="..\NReact\Patcher\NListPatch.cs">
+      <Link>Patcher\NListPatch.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Properties\Version.cs">
-      <Link>Properties\Version.cs</Link>
+    <Compile Include="..\NReact\Patcher\NPatch.cs">
+      <Link>Patcher\NPatch.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Props\NFastRWLock.cs">
-      <Link>Props\NFastRWLock.cs</Link>
+    <Compile Include="..\NReact\Patcher\NPatch.Statics.cs">
+      <Link>Patcher\NPatch.Statics.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Patcher\NPropPatch.cs">
+      <Link>Patcher\NPropPatch.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NContentProperty.cs">
+      <Link>Props\NContentProperty.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Props\NProperty.cs">
+      <Link>Props\NProperty.cs</Link>
     </Compile>
     <Compile Include="..\NReact\Props\NProps.cs">
       <Link>Props\NProps.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Props\NPropsExtensions.cs">
-      <Link>Props\NPropsExtensions.cs</Link>
+    <Compile Include="..\NReact\Props\NTypedBag.cs">
+      <Link>Props\NTypedBag.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Props\NPropsStore.cs">
-      <Link>Props\NPropsStore.cs</Link>
+    <Compile Include="..\NReact\Utils\Ctor.cs">
+      <Link>Utils\Ctor.cs</Link>
     </Compile>
-    <Compile Include="..\NReact\Shims\NShims.cs">
-      <Link>Shims\NShims.cs</Link>
+    <Compile Include="..\NReact\Utils\Shims.cs">
+      <Link>Utils\Shims.cs</Link>
     </Compile>
-    <Compile Include="Factory\NXamlFactory.SL.cs" />
+    <Compile Include="..\NReact\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="NProps.generated.SL.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
@@ -150,10 +152,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

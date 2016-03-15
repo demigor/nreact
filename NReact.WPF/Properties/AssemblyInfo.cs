@@ -1,2 +1,6 @@
 ﻿using System.Reflection;
-[assembly: AssemblyTitle("NReact for Windows Presentation Foundation")]
+
+[assembly: AssemblyTitle("NReact for WPF")]
+
+
+

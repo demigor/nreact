@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>NReact</id>
+        <version>0.0.4.0-alpha</version>
+        <title>NReact for C#/Xaml</title>
+        <authors>Lex Lavnikov</authors>
+        <owners>Lex Lavnikov</owners>
+        <licenseUrl>https://raw.githubusercontent.com/demigor/nreact/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/demigor/nreact</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/demigor/nreact/master/Nuget/nreact32.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>React/Flux principles for native C#/Xaml applications (Windows Store, Windows Phone, WPF, Silverlight)</description>
+        <summary>Facebook React/Flux principles for native C#/Xaml applications</summary>
+        <releaseNotes>Experimental version to play with React/Flux principles in familiar C#/Xaml world.</releaseNotes>
+        <copyright>Alexey Lavnikov</copyright>
+        <language>en-US</language>
+        <tags>React Flux Xaml NReact Native</tags>
+    </metadata>
+    <files>
+        <file src="..\bin\WPF\NReact.dll" target="lib\net45\NReact.dll" />
+        <file src="..\bin\WPF\NReact.pdb" target="lib\net45\NReact.pdb" />
+        <file src="..\bin\WPF\NReact.xml" target="lib\net45\NReact.xml" />
+        <file src="..\bin\WRT\NReact.dll" target="lib\netcore451\NReact.dll" />
+        <file src="..\bin\WRT\NReact.pdb" target="lib\netcore451\NReact.pdb" />
+        <file src="..\bin\WRT\NReact.pri" target="lib\netcore451\NReact.pri" />
+        <file src="..\bin\WRT\NReact.xml" target="lib\netcore451\NReact.xml" />
+        <file src="..\bin\SL\NReact.dll" target="lib\sl50\NReact.dll" />
+        <file src="..\bin\SL\NReact.pdb" target="lib\sl50\NReact.pdb" />
+        <file src="..\bin\SL\NReact.xml" target="lib\sl50\NReact.xml" />
+        <file src="..\bin\UWP\NReact.dll" target="lib\uap10.0\NReact.dll" />
+        <file src="..\bin\UWP\NReact.pdb" target="lib\uap10.0\NReact.pdb" />
+        <file src="..\bin\UWP\NReact.pri" target="lib\uap10.0\NReact.pri" />
+        <file src="..\bin\UWP\NReact.xml" target="lib\uap10.0\NReact.xml" />
+        <file src="..\bin\WRT.Phone\NReact.dll" target="lib\wpa81\NReact.dll" />
+        <file src="..\bin\WRT.Phone\NReact.pdb" target="lib\wpa81\NReact.pdb" />
+        <file src="..\bin\WRT.Phone\NReact.pri" target="lib\wpa81\NReact.pri" />
+        <file src="..\bin\WRT.Phone\NReact.xml" target="lib\wpa81\NReact.xml" />
+    </files>
+</package>

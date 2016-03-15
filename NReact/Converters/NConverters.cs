@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Xml;
 #if NETFX_CORE
 using Windows.Foundation;
 using Windows.UI;
@@ -14,10 +13,10 @@ using FStretches = Windows.UI.Text.FontStretch;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Documents;
 using FStyles = System.Windows.FontStyles;
 using FStretches = System.Windows.FontStretches;
 #endif
@@ -42,7 +41,7 @@ namespace NReact
       if (Enum.IsDefined(t, value))
         return Enum.ToObject(t, value);
 
-      throw new InvalidCastException(string.Format("Cannot convert {0} to enum {1}", value, t.FullName));
+      throw new InvalidCastException($"Cannot convert {value} to enum {t.FullName}");
     }
 
     public static T ToEnumT<T>(object value) where T : struct
@@ -174,7 +173,7 @@ namespace NReact
       {
         var pc = s.Split(' ', ',', ';');
         if (pc.Length == 2)
-          return new Point(XmlConvert.ToDouble(pc[0]), XmlConvert.ToDouble(pc[1]));
+          return new Point(Convert.ToDouble(pc[0], CultureInfo.InvariantCulture), Convert.ToDouble(pc[1], CultureInfo.InvariantCulture));
       }
 
       throw new InvalidCastException();
@@ -196,7 +195,7 @@ namespace NReact
       {
         var pc = s.Split(' ', ',', ';');
         if (pc.Length == 2)
-          return new Size(XmlConvert.ToDouble(pc[0]), XmlConvert.ToDouble(pc[1]));
+          return new Size(Convert.ToDouble(pc[0], CultureInfo.InvariantCulture), Convert.ToDouble(pc[1], CultureInfo.InvariantCulture));
       }
 
       throw new InvalidCastException();
@@ -254,6 +253,11 @@ namespace NReact
         switch (s.ToLower())
         {
           case "underline": return TextDecorations.Underline;
+#if WPF
+          case "baseline": return TextDecorations.Baseline;
+          case "overline": return TextDecorations.OverLine;
+          case "strikethorugh": return TextDecorations.Strikethrough;
+#endif
         }
 
       throw new InvalidCastException();

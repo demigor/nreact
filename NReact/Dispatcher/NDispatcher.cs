@@ -78,12 +78,12 @@ namespace NReact
             head.BackwardRun();
 
           for (var i = 0; i < updates.Count; i++)
-            updates[i].UpdateCore();
+            updates[i].Flush();
 
           updates.Clear();
         }
       }
-      catch
+      catch (Exception e)
       {
 #if DEBUG
         Debugger.Launch();
@@ -117,12 +117,12 @@ namespace NReact
 
     List<NClass> _classes;
 
-    public void EnqueueUpdate(NClass component)
+    public void Enqueue(NClass target)
     {
       if (IsOnDispatcher())
-        _classes.Add(component);
+        _classes.Add(target);
       else
-        Enqueue(new NUpdateTask { Comp = component });
+        Enqueue(new NUpdateTask { Target = target });
     }
 
     public void Enqueue(Action task)
@@ -132,7 +132,7 @@ namespace NReact
 
     public void Enqueue(MessageArgs msg)
     {
-      Enqueue(new NMessageTask { Msg = msg, Disp = this });
+      Enqueue(new NMessageTask { Message = msg, Dispatcher = this });
     }
 
     public EventHandler<MessageArgs> OnMessage;
@@ -159,10 +159,11 @@ namespace NReact
 
     class NUpdateTask : NTask
     {
-      public NClass Comp;
+      public NClass Target;
+
       public override void Action()
       {
-        Comp.UpdateCore();
+        Target.Flush();
       }
     }
 
@@ -177,13 +178,18 @@ namespace NReact
 
     class NMessageTask : NTask
     {
-      public NDispatcher Disp;
-      public MessageArgs Msg;
+      public NDispatcher Dispatcher;
+      public MessageArgs Message;
+
       public override void Action()
       {
-        var e = Disp.OnMessage;
-        if (e != null) e(Disp, Msg);
+        Dispatcher.Dispatch(Message);
       }
+    }
+
+    void Dispatch(MessageArgs message)
+    {
+      OnMessage?.Invoke(this, message);
     }
   }
 
@@ -194,8 +200,8 @@ namespace NReact
       Key = key;
       Message = msg;
     }
-    public object Key { get; private set; }
-    public dynamic Message { get; private set; }
+    public readonly object Key;
+    public readonly object Message;
   }
 }
 
