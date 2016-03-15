@@ -20,7 +20,7 @@ To to:
 * More type converters
 
 Existence questions:
-* Why do one need NReact?
+* Why does one need NReact?
 
 ```javascript
 class TodoList : NComponent
