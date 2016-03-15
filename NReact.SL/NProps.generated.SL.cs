@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 
 namespace NReact
 {
+#pragma warning disable CS1591
 
   public partial class NProperties
   {
@@ -1711,4 +1712,6 @@ namespace NReact
         Property<Line>(Line.Y2Property, NConverters.ToDouble);
 
   }
+
+#pragma warning restore CS1591
 }

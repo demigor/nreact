@@ -7,28 +7,41 @@ namespace NReact
   public class NPropertyEntry
   {
     internal NPropertyEntry Next;
+    /// <summary>
+    /// Indicates property key
+    /// </summary>
     public readonly NProperty Key;
-    internal object Value;
+    /// <summary>
+    /// Indicates property value
+    /// </summary>
+    public object Value { get { return _value; } }
+    internal object _value;
 
     internal NPropertyEntry(NPropertyEntry source)
     {
       Key = source.Key;
-      Value = source.Value;
+      _value = source._value;
     }
 
     internal NPropertyEntry(NProperty key, object value, NPropertyEntry next)
     {
       Key = key;
-      Value = value;
+      _value = value;
       Next = next;
     }
 
+    /// <summary>
+    /// Returns string representation
+    /// </summary>
     public override string ToString()
     {
-      return $" {Key.Name} = \"{Value}\"";
+      return $" {Key.Name} = \"{_value}\"";
     }
   }
 
+  /// <summary>
+  /// Property-Value linked list
+  /// </summary>
   public struct NPropertyBag : IEnumerable<NPropertyEntry>
   {
     internal NPropertyEntry Head;
@@ -42,18 +55,34 @@ namespace NReact
       return null;
     }
 
+    /// <summary>
+    /// Retrieves value of specified property
+    /// </summary>
+    /// <param name="key">Property key</param>
+    /// <returns>Property value or NUndefined.Instance if it is not set</returns>
     public object Get(NProperty key)
     {
       var e = GetEntry(key);
-      return e != null ? e.Value : NUndefined.Instance;
+      return e != null ? e._value : NUndefined.Instance;
     }
 
+    /// <summary>
+    /// Retrieves value of specified property
+    /// </summary>
+    /// <param name="key">Property key</param>
+    /// <param name="default">Default value</param>
+    /// <returns>Property value or @default if property is not set</returns>
     public T Get<T>(NProperty key, T @default)
     {
       var e = GetEntry(key);
-      return e != null ? (T)e.Value : @default;
+      return e != null ? (T)e._value : @default;
     }
 
+    /// <summary>
+    /// Indicates whether specified property is set
+    /// </summary>
+    /// <param name="key">Property key</param>
+    /// <returns>True is property is set, false otherwise</returns>
     public bool HasKey(NProperty key)
     {
       return GetEntry(key) != null;
@@ -115,19 +144,22 @@ namespace NReact
         return true;
       }
 
-      if (Equals(e.Value, value))
+      if (Equals(e._value, value))
         return false;
 
-      e.Value = value;
+      e._value = value;
       return true;
     }
 
+    /// <summary>
+    /// Returns string representation
+    /// </summary>
     public override string ToString()
     {
       return string.Concat(this);
     }
 
-    public IEnumerator<NPropertyEntry> GetEnumerator()
+    IEnumerator<NPropertyEntry> IEnumerable<NPropertyEntry>.GetEnumerator()
     {
       for (var i = Head; i != null; i = i.Next)
         yield return i;
@@ -135,7 +167,7 @@ namespace NReact
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-      return GetEnumerator();
+      return ((IEnumerable<NPropertyEntry>)this).GetEnumerator();
     }
   }
 }

@@ -9,6 +9,9 @@ using System.Windows.Controls;
 
 namespace NReact
 {
+  /// <summary>
+  /// Base NReact component class 
+  /// </summary>
   public abstract class NClass : NElement
   {
     bool _dirty, _force;
@@ -19,7 +22,7 @@ namespace NReact
       return _propsCommitted;
     }
 
-    protected sealed override object CreateXaml()
+    internal override object CreateXaml()
     {
       if (_xaml == null)
         Xaml = RenderInitial().Create();
@@ -27,7 +30,7 @@ namespace NReact
       return _xaml;
     }
 
-    protected override object InitXaml(object target)
+    internal override object InitXaml(object target)
     {
       return target;
     }
@@ -38,6 +41,9 @@ namespace NReact
       return Diff();
     }
 
+    /// <summary>
+    /// Specifies comparable type of the NReact element
+    /// </summary>
     public override Type GetXamlType()
     {
       return GetType();
@@ -60,11 +66,23 @@ namespace NReact
 
     #endregion
 
+    /// <summary>
+    /// State getter method
+    /// </summary>
+    /// <typeparam name="T">Type of the property</typeparam>
+    /// <param name="key">Property key</param>
+    /// <param name="default">Default value in case property is not set</param>
+    /// <returns>Value of the property or @default if property is not set</returns>
     protected T GetState<T>(NProperty key, T @default)
     {
       return _state.Get(key, @default);
     }
 
+    /// <summary>
+    /// State setter method
+    /// </summary>
+    /// <param name="key">Property key</param>
+    /// <param name="value">Property value</param>
     protected void SetState(NProperty key, object value)
     {
       if (_xaml != null && !_dirty)
@@ -79,7 +97,7 @@ namespace NReact
     static bool Set(ref NPropertyBag head, NProperty key, object value)
     {
       var e = head.GetEntry(key);
-      if (e != null && Equals(e.Value, value))
+      if (e != null && Equals(e._value, value))
         return false; // value not changed -> do nothing
 
       head = head.Clone();
@@ -130,6 +148,9 @@ namespace NReact
         NDispatcher.Default.Enqueue(this);
     }
 
+    /// <summary>
+    /// Forces instance to update its Xaml tree
+    /// </summary>
     public void ForceUpdate()
     {
       _force = true;
@@ -144,10 +165,21 @@ namespace NReact
       _propsCommitted = _props;
     }
 
+    /// <summary>
+    /// State initialization method called just before initial rendering
+    /// </summary>
     protected virtual void InitState() { }
 
+    /// <summary>
+    /// NReact rendering method
+    /// </summary>
+    /// <returns></returns>
     public abstract NElement Render();
 
+    /// <summary>
+    /// Provides initial rendering 
+    /// </summary>
+    /// <returns>Current Virtual Xaml</returns>
     public NElement RenderInitial()
     {
       if (_ui == null)
@@ -181,11 +213,16 @@ namespace NReact
 
       for (var i = _props.Head; i != null; i = i.Next)
         if (Ambients.Contains(i.Key))
-          result.Set(i.Key, i.Value);
+          result.Set(i.Key, i._value);
 
       return result;
     }
 
+    /// <summary>
+    /// Set CurrentOwner for the thread to propagate via new NReact elements
+    /// </summary>
+    /// <param name="owner">New owner to propagate</param>
+    /// <returns>Previous value of the CurrentOwner</returns>
     [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]
     public static object SetCurrentOwner(object owner)
     {
@@ -194,7 +231,11 @@ namespace NReact
       return result;
     }
 
+    /// <summary>
+    /// Indicates owner of the NReact class instance
+    /// </summary>
     public readonly object Owner = CurrentOwner;
+
     [ThreadStatic]
     static object CurrentOwner;
 
@@ -223,16 +264,28 @@ namespace NReact
     }
     object _xaml;
 
+    /// <summary>
+    /// Lifecycle method called after Xaml instance is assigned
+    /// </summary>
     protected virtual void Loaded() { }
 
+    /// <summary>
+    /// Lifecycle method called after Xaml instance is released
+    /// </summary>
     protected virtual void Unloaded() { }
 
     internal Action<NClass, object> XamlChanged;
 
+    /// <summary>
+    /// Children NReact elements
+    /// </summary>
     public NElement[] Children { get { return Get(Properties.Children, EmptyList); } set { Set(Properties.Children, value ?? EmptyList); } }
 
     static readonly NElement[] EmptyList = new NElement[0];
 
+    /// <summary>
+    /// Returns string representation of NClass
+    /// </summary>
     public override string ToString()
     {
       var name = GetType().Name;
@@ -293,6 +346,10 @@ namespace NReact
       NPatch.OnUIThread(patch, i => Xaml = i.Apply(Xaml));
     }
 
+    /// <summary>
+    /// Defines custom logic to update component in case of property or state changes
+    /// </summary>
+    /// <returns>Returns true if properties or state is changed</returns>
     protected virtual bool ShouldComponentUpdate(NPropertyBag props, NPropertyBag state, NPropertyBag oldProps, NPropertyBag oldState)
     {
       return props.Head != oldProps.Head || state.Head != oldState.Head;
@@ -303,10 +360,10 @@ namespace NReact
       Xaml = null;
 
       for (var i = _propsCommitted.Head; i != null; i = i.Next)
-        NPatch.Finalize(i.Value);
+        NPatch.Finalize(i._value);
 
       for (var i = _stateCommitted.Head; i != null; i = i.Next)
-        NPatch.Finalize(i.Value);
+        NPatch.Finalize(i._value);
 
       _ui?.Free();
     }

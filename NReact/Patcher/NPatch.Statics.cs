@@ -140,7 +140,7 @@ namespace NReact
     }
 
     /// <summary>
-    /// Assigns value to a IList<T> property
+    /// Assigns value to a IList&lt;T&gt; property
     /// </summary>
     public static void AssignListT<T>(IList<T> list, object value)
     {

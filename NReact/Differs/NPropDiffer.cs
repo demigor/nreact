@@ -48,19 +48,19 @@ namespace NReact
 
       for (var i = oldProps.Head; i != null; i = i.Next)
         if (!newProps.HasKey(i.Key))
-          Remove(i.Key, i.Value);
+          Remove(i.Key, i._value);
 
       for (var i = newProps.Head; i != null; i = i.Next)
       {
         var key = i.Key;
-        var newValue = i.Value;
+        var newValue = i._value;
 
         var e = oldProps.GetEntry(key);
         if (e == null)
           Insert(key, newValue);
         else
         {
-          var oldValue = e.Value;
+          var oldValue = e._value;
 
           if (!Equals(oldValue, newValue))
             Update(key, newValue, oldValue);

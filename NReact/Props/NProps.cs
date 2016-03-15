@@ -2,6 +2,9 @@
 
 namespace NReact
 {
+  /// <summary>
+  /// Default properties defined here
+  /// </summary>
   public partial class NProperties
   {
 #if WPF

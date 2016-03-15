@@ -2,9 +2,13 @@
 
 namespace NReact
 {
+  /// <summary>
+  /// Generic NReact Xaml element
+  /// </summary>
+  /// <typeparam name="T">Xaml type to represent</typeparam>
   public class NXaml<T> : NElement where T : new()
   {
-    protected override object CreateXaml()
+    internal override object CreateXaml()
     {
       return Ctor<T>.New();
     }
@@ -15,16 +19,26 @@ namespace NReact
     }
   }
 
+  /// <summary>
+  /// Parameterizable NReact Xaml element
+  /// </summary>
   public class NXaml : NElement
   {
+    /// <summary>
+    /// Indicates type of the Xaml element to represent
+    /// </summary>
     public readonly Type Type;
 
+    /// <summary>
+    /// Initializes new NXaml instance
+    /// </summary>
+    /// <param name="type">Specifies type of the Xaml element to represent</param>
     public NXaml(Type type)
     {
       Type = type;
     }
 
-    protected override object CreateXaml()
+    internal override object CreateXaml()
     {
       return Activator.CreateInstance(Type);
     }
