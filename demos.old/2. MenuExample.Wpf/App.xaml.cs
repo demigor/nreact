@@ -1,7 +1,7 @@
-﻿using NReact;
-using System.Windows;
+﻿using System.Windows;
+using NReact;
 
-namespace Navigation.Wpf
+namespace NReact.Demos
 {
   /// <summary>
   /// Interaction logic for App.xaml
@@ -10,7 +10,7 @@ namespace Navigation.Wpf
   {
     void Application_Startup(object sender, StartupEventArgs e)
     {
-      MainWindow.Render(NElement.New(typeof(NMenuExample), new { Items = new[] { "Home", "Services", "About", "Contact us" } }));
+      MainWindow.Render(new NMenu { Items = new[] { "Home", "Services", "About", "Contact us" } });
       MainWindow.Show();
     }
   }

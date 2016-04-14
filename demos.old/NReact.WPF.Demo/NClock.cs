@@ -7,26 +7,27 @@ using System.Windows;
 using System.Windows.Controls;
 #endif
 
-namespace NReact
+namespace NReact.Demos
 {
   public class NClock : NClass
   {
-    class NProps: NReact.NProps 
+    public static class Properties 
     {
-      public static readonly int Time = Store["Time"];
-      public static readonly int Tick = Store["Tick"];
+      public static readonly NProperty Time = new NProperty(nameof(Time));
+      public static readonly NProperty Tick = new NProperty(nameof(Tick));
+      public static readonly NProperty FontSize = new NProperty(nameof(FontSize));
     }
 
-    public double FontSize { get { return GetProp(NProps.FontSize, 36.0); } set { SetProp(NProps.FontSize, value); } }
-    protected DateTime Time { get { return GetState(NProps.Time, DateTime.Now); } set { SetState(NProps.Time, value); } }
-    protected int Tick { get { return GetState(NProps.Tick, 0); } set { SetState(NProps.Tick, value); } }
+    public double FontSize { get { return Get(Properties.FontSize, 36.0); } set { Set(Properties.FontSize, value); } }
+    protected DateTime Time { get { return GetState(Properties.Time, DateTime.Now); } set { SetState(Properties.Time, value); } }
+    protected int Tick { get { return GetState(Properties.Tick, 0); } set { SetState(Properties.Tick, value); } }
 
-    protected override void ComponentDidMount()
+    protected override void Loaded()
     {
       NDispatcher.Default.OnMessage += OnMessage;
       NTimer.Start();
     }
-    protected override void ComponentWillUnmount()
+    protected override void Unloaded()
     {
       NTimer.Stop();
       NDispatcher.Default.OnMessage -= OnMessage;
@@ -41,11 +42,14 @@ namespace NReact
       }
     }
 
-    public override object Render()
+    public override NElement Render()
     {
       return
-        New<Grid>(NewProps.Alignment(HorizontalAlignment.Center).Alignment(VerticalAlignment.Center),
-          New<TextBlock>(NewProps.FontSize(FontSize).Text("{0:o} #{1}", Time, Tick)));
+        new NXaml<Grid>().
+              Alignment(HorizontalAlignment.Center, VerticalAlignment.Center).
+              Children(new NXaml<TextBlock>().
+                             FontSize(FontSize).
+                             Text($"{Time:o} #{Tick}"));
     }
   }
 }

@@ -17,7 +17,7 @@ namespace NReact
 
     public override string ToString()
     {
-      return $" {Key.Name} = {Value}";
+      return $" {Key.Name}={Value}";
     }
   }
 
@@ -58,7 +58,7 @@ namespace NReact
 
     public override string ToString()
     {
-      return $"NPropPatch ({_element.GetXamlType().Name}):" + string.Concat(Enumerate());
+      return $"(NPropPatch ({_element.GetXamlType().Name}) : {string.Concat(Enumerate())})";
     }
 
     IEnumerable<NPropPatchEntry> Enumerate()

@@ -21,7 +21,7 @@ namespace NReact
     {
       var result = default(NElement);
 
-      if (typeof(NClass).IsAssignableFrom(typeof(T)))
+      if (typeof(T).IsSubclassOf(typeof(NClass)))
         result = Ctor<T>.New() as NElement;
       else
         result = new NXaml<T>();
@@ -36,7 +36,7 @@ namespace NReact
     {
       var result = default(NElement);
 
-      if (typeof(NClass).IsAssignableFrom(type))
+      if (type.IsSubclassOf(typeof(NClass)))
         result = Activator.CreateInstance(type) as NElement;
       else
         result = new NXaml(type);

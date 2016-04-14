@@ -33,7 +33,7 @@ namespace NReact
       get
       {
         for (var i = _head; i != null; i = i.Next)
-          if (i.Type.IsAssignableFrom(type))
+          if (type == i.Type || type.IsSubclassOf(i.Type))
             return i.Value;
 
         return default(T);
@@ -51,7 +51,7 @@ namespace NReact
             return;
           }
 
-          if (type.IsAssignableFrom(i.Type))
+          if (type.IsSubclassOf(i.Type))
           {
             var e = new NEntry(type, value, i);
             if (prev == null)

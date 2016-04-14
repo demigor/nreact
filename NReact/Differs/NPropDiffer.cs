@@ -10,18 +10,28 @@ namespace NReact
 {
   struct NPropDiffer
   {
-    public static NPatch Diff(NElement oldE, NElement newE)
+    public static NPatch Diff(NElement oldE, ref NElement newE)
     {
       var oldSet = oldE != null;
       var newSet = newE != null;
 
-      if (oldSet == newSet && oldSet && NPatch.ElementEquals(oldE, newE))
+      if (oldSet == newSet)
       {
-        var oldC = oldE as NClass;
-        if (oldC != null)
-          return oldC.Upgrade((NClass)newE);
+        if (!oldSet)
+          return null;
 
-        return new NPropDiffer(oldE, newE).Diff();
+        if (NPatch.ElementEquals(oldE, newE))
+        {
+          var oldC = oldE as NClass;
+          if (oldC != null)
+          {
+            var newC = (NClass)newE;
+            newE = oldE;
+            return oldC.Upgrade(newC);
+          }
+
+          return new NPropDiffer(oldE, newE).Diff();
+        }
       }
 
       return NPatch.AssignNewValue;
@@ -63,7 +73,10 @@ namespace NReact
           var oldValue = e._value;
 
           if (!Equals(oldValue, newValue))
-            Update(key, newValue, oldValue);
+          {
+            if (Update(key, newValue, oldValue))
+              i._value = oldValue;
+          }
         }
       }
 
@@ -101,7 +114,7 @@ namespace NReact
       e.Value = DependencyProperty.UnsetValue;
     }
 
-    void Update(NProperty key, object newValue, object oldValue)
+    bool Update(NProperty key, object newValue, object oldValue)
     {
       #region NElement property
       {
@@ -110,9 +123,10 @@ namespace NReact
 
         if (oldE != null || newE != null)
         {
-          var p = Diff(oldE, newE);
+          var s = newE;
+          var p = Diff(oldE, ref newE);
           if (p == null)
-            return;
+            return newE != s;
 
           var e = Add(key);
 
@@ -124,7 +138,7 @@ namespace NReact
           else
             e.Value = p;
 
-          return;
+          return false;
         }
       }
       #endregion
@@ -138,7 +152,7 @@ namespace NReact
         {
           var p = NListDiffer.Diff(oldE, newE);
           if (p == null)
-            return;
+            return false;
 
           var e = Add(key);
 
@@ -150,7 +164,7 @@ namespace NReact
           else
             e.Value = p;
 
-          return;
+          return false;
         }
       }
       #endregion
@@ -161,6 +175,8 @@ namespace NReact
         e.Value = newValue;
         e.Finalizer = oldValue;
       }
+
+      return false;
     }
   }
 }

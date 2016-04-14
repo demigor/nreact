@@ -9,8 +9,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 #endif
 
-namespace NReact
+namespace NReact.Demos
 {
+  using static NFactory;
+
   static class NTimer
   {
     public const int RefreshDelay = 16;
@@ -40,15 +42,15 @@ namespace NReact
 
   public class NDemo : NClass
   {
-    public double FontSize { get { return GetProp(NProps.FontSize, 12.0); } set { SetProp(NProps.FontSize, value); } }
+    public double FontSize { get { return Get(Properties.FontSize, 12.0); } set { Set(Properties.FontSize, value); } }
 
-    protected override void ComponentDidMount()
+    protected override void Loaded()
     {
       NTimer.Start();
       NDispatcher.Default.OnMessage += OnMessage;
     }
 
-    protected override void ComponentWillUnmount()
+    protected override void Unloaded()
     {
       NDispatcher.Default.OnMessage -= OnMessage;
       NTimer.Stop();
@@ -76,14 +78,13 @@ namespace NReact
 #endif
     }
 
-    public override object Render()
+    public override NElement Render()
     {
       return
-        New<StackPanel>(NewProps.Alignment(VerticalAlignment.Center).Alignment(HorizontalAlignment.Center),
-          New<NClock>(NewProps.FontSize(FontSize)),
-          New<Button>(NewProps.Click(ClickMe).Foreground("Red").Alignment(HorizontalAlignment.Center), "Click me #" + (int)FontSize),
-          New<NClock>(NewProps.FontSize(60.0 - FontSize))
-        );
+        new NXaml<StackPanel>().Alignment(VerticalAlignment.Center).Alignment(HorizontalAlignment.Center).Children(
+          new NClock { FontSize = FontSize },
+          new NXaml<Button>().Click(ClickMe).Foreground(Colors.Red).Alignment(HorizontalAlignment.Center).Content("Click me #" + (int)FontSize),
+          new NClock { FontSize = 60.0 - FontSize });
     }
   }
 }

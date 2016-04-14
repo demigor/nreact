@@ -51,7 +51,7 @@ namespace NReact
     /// </summary>
     public override string ToString()
     {
-      return $"<{GetXamlType().Name} {_props}/>";
+      return $"<{GetXamlType().Name}{_props}/>";
     }
 
     #region NElement Props Methods

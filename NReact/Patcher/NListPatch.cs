@@ -25,10 +25,10 @@ namespace NReact
     {
       switch (Op)
       {
-        case NListPatchOp.Insert: return $" [+|{iInsert}] {Value}";
-        case NListPatchOp.Remove: return $" [-|{iRemove}] ({Finalizer})";
-        case NListPatchOp.Patch: return $" [={iFinal}] [{Patch}] {Value} ({Finalizer})";
-        case NListPatchOp.Move: return $" [{iRemove}->{iInsert}] [{Patch}] {Value} ({Finalizer})";
+        case NListPatchOp.Insert: return $" [+|{iInsert} {Value}]";
+        case NListPatchOp.Remove: return $" [-|{iRemove} ({Finalizer})]";
+        case NListPatchOp.Patch: return $" [={iFinal} {Patch} {Value} ({Finalizer})]";
+        case NListPatchOp.Move: return $" [{iRemove}->{iInsert} {Patch} {Value} ({Finalizer})]";
       }
       return null;
     }
@@ -72,7 +72,7 @@ namespace NReact
 
     public override string ToString()
     {
-      return "NListPatch: " + string.Concat(Enumerate());
+      return $"(NListPatch: {string.Concat(Enumerate())})";
     }
 
     IEnumerable<NListPatchEntry> Enumerate()

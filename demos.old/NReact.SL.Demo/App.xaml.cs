@@ -1,22 +1,14 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 
-namespace NReact
+namespace NReact.Demos
 {
-  public partial class App : Application
+  public partial class App  
   {
     public App()
     {
       InitializeComponent();
-      //Host.Settings.MaxFrameRate = 60;
-      //Host.Settings.EnableRedrawRegions = true;
-      //Host.Settings.EnableFrameRateCounter = true;
-      //Host.Settings.EnableCacheVisualization = true;
-    }
 
-    void Application_Startup(object sender, StartupEventArgs e)
-    {
-      ((UserControl)RootVisual).Render(new NDemo());
+      this.Render(new NDemo());
     }
   }
 }

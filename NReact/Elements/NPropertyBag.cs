@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -35,7 +36,19 @@ namespace NReact
     /// </summary>
     public override string ToString()
     {
-      return $" {Key.Name} = \"{_value}\"";
+      {
+        var e = _value as NElement;
+        if (e != null)
+          return $" {Key.Name}={e}";
+      }
+
+      {
+        var a = _value as NElement[];
+        if (a != null)
+          return $" {Key.Name}=[ {string.Join(", ", a.Select(i => i.ToString()))} ]";
+      }
+
+      return $" {Key.Name}=\"{_value}\"";
     }
   }
 

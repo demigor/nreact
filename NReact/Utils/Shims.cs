@@ -8,9 +8,9 @@ namespace NReact
   static class Shims
   {
 #if NETFX_CORE
-    public static bool IsAssignableFrom(this Type type, Type check)
+    public static bool IsSubclassOf(this Type type, Type check)
     {
-      return type.GetTypeInfo().IsAssignableFrom(check.GetTypeInfo());
+      return type.GetTypeInfo().IsSubclassOf(check);
     }
 #endif
   }

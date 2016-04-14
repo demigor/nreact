@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using NReact;
 
-namespace ToDoList.Wpf
+namespace NReact.Demos
 {
   /// <summary>
   /// Interaction logic for App.xaml
@@ -10,7 +10,7 @@ namespace ToDoList.Wpf
   {
     void Application_Startup(object sender, StartupEventArgs e)
     {
-      MainWindow.Render(NElement.New(typeof(TodoApp)));
+      MainWindow.Render(new TodoApp());
       MainWindow.Show();
     }
   }

@@ -9,8 +9,13 @@ namespace NReact
       var oldSet = source != null;
       var newSet = target != null;
 
-      if (oldSet == newSet && oldSet)
+      if (oldSet == newSet)
+      { 
+        if (!oldSet)
+          return null;
+          
         return new NListDiffer(source, target).Diff();
+      }
 
       return NPatch.AssignNewValue;
     }
@@ -111,7 +116,7 @@ namespace NReact
                 e.Finalizer = null;            // remove finalizer
                 e.iRemove = i.iRemove + delta; // correct removal index at the time of move
                 e.Value = oldE;                // preserve moved value
-                e.Patch = NPropDiffer.Diff(oldE, newE); // make patch
+                e.Patch = NPropDiffer.Diff(oldE, ref newE); // make patch
 
                 last.Next = i.Next; // delete removal
                 return;
@@ -149,7 +154,7 @@ namespace NReact
                 e.Finalizer = null;            // remove finalizer
                 e.iInsert = i.iInsert + delta; // correct insert index at the time of move
                 e.iFinal = i.iFinal;           // preserve final index
-                e.Patch = NPropDiffer.Diff(oldE, newE); // make patch
+                e.Patch = NPropDiffer.Diff(oldE, ref newE); // make patch
                 e.Value = oldE;                // preserve moved value
 
                 last.Next = i.Next; // delete insertion
@@ -200,7 +205,7 @@ namespace NReact
       if (oldE is NClass)
         _target[idx] = oldE; // transfer updated classes
 
-      var p = NPropDiffer.Diff(oldE, newE);
+      var p = NPropDiffer.Diff(oldE, ref newE);
       if (p != null)
         Add(new NListPatchEntry { Op = NListPatchOp.Patch, Value = oldE, iFinal = idx, Patch = p });
     }

@@ -481,7 +481,7 @@ namespace NReact
 
     public static NElement StarColumns(this NElement self, params double[] widths)
     {
-      return self.ColumnDefinitions(widths.Select((w, idx) => CreateElement<ColumnDefinition>(idx).Width(w, GridUnitType.Star)).ToArray());
+      return self.ColumnDefinitions(widths.Select((w, idx) => new NXaml<ColumnDefinition>(idx).Width(w, GridUnitType.Star)).ToArray());
     }
 
     public static NElement ColumnDefinitions(this NElement self, params NElement[] values)
@@ -491,12 +491,12 @@ namespace NReact
 
     public static NElement ColumnDefinitions(this NElement self, Func<NElement, NElement>[] ctors)
     {
-      return self.Set(Properties.ColumnDefinitions, ctors.Select((ctor, idx) => SafeCall(CreateElement<ColumnDefinition>(idx), ctor)).ToArray());
+      return self.Set(Properties.ColumnDefinitions, ctors.Select((ctor, idx) => SafeCall(new NXaml<ColumnDefinition>(idx), ctor)).ToArray());
     }
 
     public static NElement ColumnDefinitions(this NElement self, int count, Func<NElement, NElement> ctor = null)
     {
-      return self.Set(Properties.ColumnDefinitions, Enumerable.Range(1, count).Select(idx => SafeCall(CreateElement<ColumnDefinition>(idx), ctor)).ToArray());
+      return self.Set(Properties.ColumnDefinitions, Enumerable.Range(1, count).Select(idx => SafeCall(new NXaml<ColumnDefinition>(idx), ctor)).ToArray());
     }
 
     static NElement SafeCall(NElement target, Func<NElement, NElement> appender)
@@ -510,7 +510,7 @@ namespace NReact
 
     public static NElement Rows(this NElement self, params double[] heights)
     {
-      return self.RowDefinitions(heights.Select((w, idx) => CreateElement<RowDefinition>(idx).Height(w, GridUnitType.Star)).ToArray());
+      return self.RowDefinitions(heights.Select((w, idx) => new NXaml<RowDefinition>(idx).Height(w, GridUnitType.Star)).ToArray());
     }
 
     public static NElement RowDefinitions(this NElement self, params NElement[] values)
@@ -520,7 +520,7 @@ namespace NReact
 
     public static NElement RowDefinitions(this NElement self, params Func<NElement, NElement>[] ctors)
     {
-      return self.RowDefinitions(ctors.Select((ctor, idx) => SafeCall(CreateElement<RowDefinition>(idx), ctor)).ToArray());
+      return self.RowDefinitions(ctors.Select((ctor, idx) => SafeCall(new NXaml<RowDefinition>(idx), ctor)).ToArray());
     }
 
     public static NElement RowDefinitions(this NElement self, int count, Func<NElement, NElement> ctor = null)

@@ -311,15 +311,20 @@ namespace NReact
       var oldUI = _ui;
       var newUI = RenderUI();
 
-      var patch = NPropDiffer.Diff(oldUI, newUI);
+      var patch = NPropDiffer.Diff(oldUI, ref newUI);
 
-      if (oldUI is NClass)  // oldUI represented by nested class which is assigned after NPropDiffer anyway
-        return patch;
+      //if (oldUI is NClass)  // oldUI represented by nested class which is assigned after NPropDiffer anyway
+      //  return patch;
 
       _ui = newUI;
 
       if (patch == NPatch.AssignNewValue) // Assign New UI
-        patch = new NActionPatch(i => { var result = Xaml = newUI.Create(); oldUI?.Free(); return result; });
+        patch = new NActionPatch(i =>
+        {
+          var result = Xaml = newUI.Create();
+          oldUI?.Free();
+          return result;
+        });
 
       return patch;
     }
@@ -366,11 +371,6 @@ namespace NReact
         NPatch.Finalize(i._value);
 
       _ui?.Free();
-    }
-
-    protected static NElement New<T>(object key = null) where T : new()
-    {
-      return CreateElement<T>(key);
     }
   }
 }
