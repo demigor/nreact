@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if XAML
+using System;
 #if NETFX_CORE
 using Windows.UI.Xaml;
 #else
@@ -74,17 +75,17 @@ namespace NReact
         switch (parts.Length)
         {
           case 1:
-            return new Thickness(double.Parse(parts[0], XamlCulture));
+            return new Thickness(double.Parse(parts[0], Culture));
 
           case 2:
             {
-              var lr = double.Parse(parts[0], XamlCulture);
-              var tb = double.Parse(parts[1], XamlCulture);
+              var lr = double.Parse(parts[0], Culture);
+              var tb = double.Parse(parts[1], Culture);
               return new Thickness(lr, tb, lr, tb);
             }
 
           case 4:
-            return new Thickness(double.Parse(parts[0], XamlCulture), double.Parse(parts[1], XamlCulture), double.Parse(parts[2], XamlCulture), double.Parse(parts[3], XamlCulture));
+            return new Thickness(double.Parse(parts[0], Culture), double.Parse(parts[1], Culture), double.Parse(parts[2], Culture), double.Parse(parts[3], Culture));
         }
         throw new FormatException("Invalid number of Thickness components");
       }
@@ -102,20 +103,21 @@ namespace NReact
         switch (parts.Length)
         {
           case 1:
-            return new CornerRadius(double.Parse(parts[0], XamlCulture));
+            return new CornerRadius(double.Parse(parts[0], Culture));
 
           case 2:
             {
-              var lr = double.Parse(parts[0], XamlCulture);
-              var tb = double.Parse(parts[1], XamlCulture);
+              var lr = double.Parse(parts[0], Culture);
+              var tb = double.Parse(parts[1], Culture);
               return new CornerRadius(lr, tb, lr, tb);
             }
 
           case 4:
-            return new CornerRadius(double.Parse(parts[0], XamlCulture), double.Parse(parts[1], XamlCulture), double.Parse(parts[2], XamlCulture), double.Parse(parts[3], XamlCulture));
+            return new CornerRadius(double.Parse(parts[0], Culture), double.Parse(parts[1], Culture), double.Parse(parts[2], Culture), double.Parse(parts[3], Culture));
         }
         throw new FormatException("Invalid number of CornerRadius components");
       }
     }
   }
 }
+#endif

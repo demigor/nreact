@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+#if XAML
 #if NETFX_CORE
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
@@ -10,15 +11,87 @@ using Windows.UI.Xaml;
 using System.Windows;
 using System.Windows.Threading;
 #endif
+#elif IOS
+using Foundation;
+using UIKit;
+#elif DROID
+using Android.App;
+#elif XFORMS
+using Xamarin.Forms;
+#endif
 
 namespace NReact
 {
   partial class NPatch
   {
+#if XAML
     /// <summary>
     /// Assigns value to a dependency property 
     /// </summary>
     public static void AssignSingle(DependencyObject target, object value, DependencyProperty property, Func<object, object> converter = null)
+    {
+    #region NPatch assignment
+
+      var p = value as NPatch;
+      if (p != null)
+      {
+        var oldValue = target.GetValue(property);
+        value = p.Apply(oldValue);
+
+        if (!ReferenceEquals(value, oldValue))
+          target.SetValue(property, value);
+
+        return;
+      }
+
+    #endregion
+
+    #region UnsetValue assignment
+
+      if (IsUnsetValue(value))
+      {
+        target.ClearValue(property);
+        return;
+      }
+
+    #endregion
+
+    #region NElement assignment
+
+      var e = value as NElement;
+      if (e != null)
+      {
+        target.SetValue(property, e.Create());
+        return;
+      }
+
+    #endregion
+
+    #region NElement[] assignment
+
+      var ea = value as NElement[];
+      if (ea != null)
+      {
+        if (ea.Length == 0)
+          target.ClearValue(property);
+        else
+          target.SetValue(property, ea[0].Create());
+
+        return;
+      }
+
+    #endregion
+
+      if (converter != null)
+        value = converter(value);
+
+      target.SetValue(property, value);
+    }
+#elif XFORMS
+    /// <summary>
+    /// Assigns value to a bindable property 
+    /// </summary>
+    public static void AssignSingle(BindableObject target, object value, BindableProperty property, Func<object, object> converter = null)
     {
       #region NPatch assignment
 
@@ -77,6 +150,7 @@ namespace NReact
 
       target.SetValue(property, value);
     }
+#endif
 
     /// <summary>
     /// Assigns value to a plain property
@@ -342,13 +416,15 @@ namespace NReact
 
     static bool IsUnsetValue(object value)
     {
-      return ReferenceEquals(value, DependencyProperty.UnsetValue);
+      return ReferenceEquals(value, NUnset.Instance);
     }
 
+#if XAML
 #if NETFX_CORE
     static CoreDispatcher Dispatcher;
 #else
     static Dispatcher Dispatcher;
+#endif
 #endif
 
     static NPatch()
@@ -358,6 +434,7 @@ namespace NReact
 
     public static void InitDispatcher()
     {
+#if XAML
 #if NETFX_CORE
       Dispatcher = CoreApplication.MainView?.CoreWindow?.Dispatcher;
 #elif SILVERLIGHT
@@ -365,26 +442,28 @@ namespace NReact
 #else
       Dispatcher = Application.Current?.Dispatcher;
 #endif
+#endif
     }
 
     internal static void OnUIThread<T>(T arg, Action<T> action)
     {
+#if XAML
       var d = Dispatcher;
-
-#if NETFX_CORE
-      if (d.HasThreadAccess)
-        action(arg);
-      else
-#pragma warning disable CS4014
-        d.RunAsync(CoreDispatcherPriority.Normal, () => action(arg));
-#pragma warning restore CS4014
-#else
       if (d.CheckAccess())
         action(arg);
       else
         d.BeginInvoke(action, arg);
+#elif IOS
+      if (NSThread.Current.IsMainThread)
+        action(arg);
+      else
+        UIApplication.SharedApplication.BeginInvokeOnMainThread(() => action(arg));
+#elif DROID
+      if (Android.OS.Looper.MainLooper.IsCurrentThread)
+        action(arg);
+      else
+        Application.SynchronizationContext.Post(i => action((T)i), arg);
 #endif
     }
-
   }
 }

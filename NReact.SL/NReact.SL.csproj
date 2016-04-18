@@ -29,7 +29,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;XAML</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -39,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\SL\</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;XAML</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -72,6 +72,9 @@
     <Compile Include="..\NReact\Converters\NThickness.cs">
       <Link>Converters\NThickness.cs</Link>
     </Compile>
+    <Compile Include="..\NReact\Converters\NXamlConverters.cs">
+      <Link>Converters\NXamlConverters.cs</Link>
+    </Compile>
     <Compile Include="..\NReact\Differs\NListDiffer.cs">
       <Link>Differs\NListDiffer.cs</Link>
     </Compile>
@@ -92,6 +95,9 @@
     </Compile>
     <Compile Include="..\NReact\Elements\NUndefined.cs">
       <Link>Elements\NUndefined.cs</Link>
+    </Compile>
+    <Compile Include="..\NReact\Elements\NUnset.cs">
+      <Link>Elements\NUnset.cs</Link>
     </Compile>
     <Compile Include="..\NReact\Elements\NXaml.cs">
       <Link>Elements\NXaml.cs</Link>

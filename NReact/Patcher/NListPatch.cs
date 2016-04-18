@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if XAML
 #if NETFX_CORE
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 #else
 using System.Windows;
 using System.Windows.Controls;
+#endif
 #endif
 
 namespace NReact
@@ -53,6 +55,7 @@ namespace NReact
       new NIListPatcher<T>(target).Run(_head);
     }
 
+#if XAML
     public void Apply(UIElementCollection target)
     {
       new NUIElementCollectionPatcher(target).Run(_head);
@@ -69,6 +72,13 @@ namespace NReact
 
       return target;
     }
+#else
+    public override object Apply(object target)
+    {
+      Apply((IList)target);
+      return target;
+    }
+#endif
 
     public override string ToString()
     {
@@ -190,6 +200,7 @@ namespace NReact
     }
   }
 
+#if XAML
   class NUIElementCollectionPatcher : NListPatcher
   {
     readonly UIElementCollection _target;
@@ -237,4 +248,5 @@ namespace NReact
       }
     }
   }
+#endif
 }

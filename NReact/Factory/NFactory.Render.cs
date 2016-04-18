@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if XAML
+using System;
 #if NETFX_CORE
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -109,3 +110,4 @@ namespace NReact
 #endif
   }
 }
+#endif

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if XAML
+using System;
 using System.Collections;
 using System.Linq;
 #if NETFX_CORE
@@ -192,12 +193,12 @@ namespace NReact
 
     public static NElement ContentAlignment(this NElement self, HorizontalAlignment value)
     {
-      return self.Set(Properties.HorizontalContentAlignment, value);
+      return self.HorizontalContentAlignment(value);
     }
 
     public static NElement ContentAlignment(this NElement self, VerticalAlignment value)
     {
-      return self.Set(Properties.VerticalContentAlignment, value);
+      return self.VerticalContentAlignment(value);
     }
 
     public static NElement ContentAlignment(this NElement self, HorizontalAlignment horz, VerticalAlignment vert)
@@ -251,12 +252,12 @@ namespace NReact
 
     public static NElement Alignment(this NElement self, HorizontalAlignment value)
     {
-      return self.Set(Properties.HorizontalAlignment, value);
+      return self.HorizontalAlignment(value);
     }
 
     public static NElement Alignment(this NElement self, VerticalAlignment value)
     {
-      return self.Set(Properties.VerticalAlignment, value);
+      return self.VerticalAlignment(value);
     }
 
     public static NElement Alignment(this NElement self, HorizontalAlignment horz, VerticalAlignment vert)
@@ -266,7 +267,7 @@ namespace NReact
 
     public static NElement Alignment(this NElement self, TextAlignment value)
     {
-      return self.Set(Properties.TextAlignment, value);
+      return self.TextAlignment(value);
     }
 
     #endregion
@@ -964,3 +965,4 @@ namespace NReact
     #endregion
   }
 }
+#endif

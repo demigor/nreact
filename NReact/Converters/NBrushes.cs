@@ -1,4 +1,5 @@
-﻿#if NETFX_CORE
+﻿#if XAML
+#if NETFX_CORE
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 #else
@@ -26,3 +27,4 @@ namespace NReact
     }
   }
 }
+#endif

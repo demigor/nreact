@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-#if NETFX_CORE
+#if NETFX_CORE || XFORMS
 using Windows.Foundation;
 using Windows.System.Threading;
 #endif
@@ -18,7 +18,7 @@ namespace NReact
     {
       get
       {
-#if NETFX_CORE
+#if NETFX_CORE || XFORMS
         return Environment.CurrentManagedThreadId;
 #else
         return Thread.CurrentThread.ManagedThreadId;
@@ -35,7 +35,7 @@ namespace NReact
 #endif
     }
 
-#if NETFX_CORE
+#if NETFX_CORE || XFORMS
     IAsyncAction _taskProcessor;
 #else
     Thread _taskProcessor;
@@ -45,7 +45,7 @@ namespace NReact
 
     NDispatcher()
     {
-#if NETFX_CORE
+#if NETFX_CORE || XFORMS
       _taskProcessor = ThreadPool.RunAsync(Process, WorkItemPriority.Normal, WorkItemOptions.TimeSliced);
 #else
       _taskProcessor = new Thread(Process) { IsBackground = true };
@@ -83,7 +83,7 @@ namespace NReact
           updates.Clear();
         }
       }
-      catch (Exception e)
+      catch 
       {
 #if DEBUG
         Debugger.Launch();

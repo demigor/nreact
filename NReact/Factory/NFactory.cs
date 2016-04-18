@@ -160,6 +160,7 @@ namespace NReact
     /// </summary>
     public static readonly HashSet<NProperty> Ambients = new HashSet<NProperty>
     {
+#if XAML
       Properties.Margin,
       Properties.Width, Properties.Height,
       Properties.MinWidth, Properties.MinHeight,
@@ -169,6 +170,7 @@ namespace NReact
       Properties.GridRow, Properties.GridRowSpan,
       Properties.CanvasLeft, Properties.CanvasTop, Properties.CanvasZIndex,
       Properties.ToolTipServicePlacement, Properties.ToolTipServiceToolTip
+#endif
     };
   }
 }

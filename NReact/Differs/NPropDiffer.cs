@@ -111,7 +111,7 @@ namespace NReact
     {
       var e = Add(key);
       e.Finalizer = value;
-      e.Value = DependencyProperty.UnsetValue;
+      e.Value = NUnset.Instance;
     }
 
     bool Update(NProperty key, object newValue, object oldValue)

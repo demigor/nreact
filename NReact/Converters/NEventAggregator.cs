@@ -1,8 +1,12 @@
 ﻿using System;
+#if XAML
 #if NETFX_CORE
 using Windows.UI.Xaml;
 #else
 using System.Windows;
+#endif
+#elif XFORMS
+using Xamarin.Forms;
 #endif
 
 namespace NReact
@@ -10,7 +14,7 @@ namespace NReact
   class NEventAggregator
   {
     NEventAdapter _first, _last;
-
+                                                                                                     
     public NEventAdapter this[NProperty key]
     {
       get
@@ -40,12 +44,26 @@ namespace NReact
       if (handled)
         throw new InvalidOperationException($"No support for handled events of {prop.Name}");
 
+#if XAML
       var dep = target as DependencyObject;
-      if (dep == null)
+      if (dep != null)
       {
-        subscribe(target, new NEventAdapter(prop) { Action = action });
-      }
-      else
+        var agg = (NEventAggregator)dep.GetValue(AggregatorProperty);
+        if (agg == null)
+          dep.SetValue(AggregatorProperty, agg = new NEventAggregator());
+
+        var adapter = agg[prop];
+        if (adapter == null)
+        {
+          agg[prop] = adapter = new NEventAdapter(prop) { Action = action };
+          subscribe(target, adapter);
+        }
+        else
+          adapter.Action = action;
+      } else
+#elif XFORMS
+      var dep = target as BindableObject;
+      if (dep != null)
       {
         var agg = (NEventAggregator)dep.GetValue(AggregatorProperty);
         if (agg == null)
@@ -60,8 +78,14 @@ namespace NReact
         else
           adapter.Action = action;
       }
+      else
+#endif
+      {
+        subscribe(target, new NEventAdapter(prop) { Action = action });
+      }
     }
 
+#if XAML
     public static void AssignEvent(NProperty prop, object action, DependencyObject target, RoutedEvent routedEvent, Func<NEventAdapter, Delegate> extractor)
     {
       var handled = NEventAdapter.UnpackHandler(ref action);
@@ -94,6 +118,9 @@ namespace NReact
     }
 
     public static readonly DependencyProperty AggregatorProperty = DependencyProperty.RegisterAttached("Aggregator", typeof(NEventAggregator), typeof(NEventAggregator), null);
+#elif XFORMS
+    public static readonly BindableProperty AggregatorProperty = BindableProperty.CreateAttached("Aggregator", typeof(NEventAggregator), typeof(NEventAggregator), null);
+#endif
   }
 
   public class NEventAdapter
@@ -172,7 +199,7 @@ namespace NReact
     {
       set
       {
-        if (value == null || value == DependencyProperty.UnsetValue)
+        if (value == null || value == NUnset.Instance)
           _event = null;
         else
           _event = value;

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
+#if XAML
 #if NETFX_CORE
 using Windows.UI.Xaml;
 #else
 using System.Windows;
 using System.Windows.Controls;
+#endif
+#elif XFORMS
+using Xamarin.Forms;
 #endif
 
 namespace NReact
@@ -66,19 +70,29 @@ namespace NReact
       return Support(typeof(T), (t, v) => setter((T)t, v));
     }
 
+#if XAML
+
     public NProperty Property<T>(DependencyProperty property, Func<object, object> converter = null) where T : DependencyObject
     {
       return Support(typeof(T), (t, v) => NPatch.AssignSingle((DependencyObject)t, v, property, converter));
     }
 
-    public NProperty Event<T>(Action<T, NEventAdapter> subscribe) where T : DependencyObject
-    {
-      return Support(typeof(T), (t, v) => NEventAggregator.AssignEvent(this, v, (T)t, subscribe));
-    }
-
     public NProperty Event<T>(RoutedEvent routedEvent, Func<NEventAdapter, Delegate> extractor) where T : DependencyObject
     {
       return Support(typeof(T), (t, v) => NEventAggregator.AssignEvent(this, v, (DependencyObject)t, routedEvent, extractor));
+    }
+
+#elif XFORMS
+    public NProperty Property<T>(BindableProperty property, Func<object, object> converter = null) where T : BindableObject
+    {
+      return Support(typeof(T), (t, v) => NPatch.AssignSingle((BindableObject)t, v, property, converter));
+    }
+
+#endif
+
+    public NProperty Event<T>(Action<T, NEventAdapter> subscribe) where T: class
+    {
+      return Support(typeof(T), (t, v) => NEventAggregator.AssignEvent(this, v, (T)t, subscribe));
     }
   }
 }

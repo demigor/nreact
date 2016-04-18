@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using static NReact.NFactory;
+#if XAML
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
 #else
 using System.Windows.Controls;
+#endif
 #endif
 
 namespace NReact
@@ -49,7 +51,7 @@ namespace NReact
       return GetType();
     }
 
-    #region Patching Indicators
+#region Patching Indicators
 
     internal void BeginPatching()
     {
@@ -64,7 +66,7 @@ namespace NReact
     protected bool IsPatching { get { return _isPatching; } }
     bool _isPatching;
 
-    #endregion
+#endregion
 
     /// <summary>
     /// State getter method
@@ -209,7 +211,11 @@ namespace NReact
     NElement AssignAttachedProps(NElement result)
     {
       if (result == null)
+#if XAML
         result = new NXaml<StackPanel>();
+#else
+        throw new ArgumentNullException(nameof(result));
+#endif
 
       for (var i = _props.Head; i != null; i = i.Next)
         if (Ambients.Contains(i.Key))

@@ -62,9 +62,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\NReact.WPF\NReact.WPF.csproj">
       <Project>{0119133b-d40a-49b5-b185-68e883a23779}</Project>
       <Name>NReact.WPF</Name>
