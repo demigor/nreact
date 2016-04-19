@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+    <metadata>
+        <id>NReact.XForms</id>
+        <version>0.0.5.1-alpha</version>
+        <title>NReact for C#/Xaml/Xamarin.Forms</title>
+        <authors>Lex Lavnikov</authors>
+        <owners>Lex Lavnikov</owners>
+        <licenseUrl>https://raw.githubusercontent.com/demigor/nreact/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/demigor/nreact</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/demigor/nreact/master/Nuget/nreact32.png</iconUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>React/Flux principles for native C#/Xaml Xamarin.Forms applications</description>
+        <summary>Facebook React/Flux principles for native C#/Xaml applications</summary>
+        <releaseNotes>0.0.5.1 Initial Xamarin.Forms support
+
+Experimental version to play with React/Flux principles in familiar C#/Xaml world.</releaseNotes>
+        <copyright>Alexey Lavnikov</copyright>
+        <language>en-US</language>
+        <tags>React Flux Xaml NReact Native</tags>
+        <dependencies>
+            <dependency id="Xamarin.Forms" version="2.1" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\bin\XForms\NReact.XForms.dll" target="lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NReact.XForms.dll" />
+        <file src="..\bin\XForms\NReact.XForms.pdb" target="lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NReact.XForms.pdb" />
+        <file src="..\bin\XForms\NReact.XForms.xml" target="lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\NReact.XForms.xml" />
+    </files>
+</package>
