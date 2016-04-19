@@ -467,9 +467,6 @@ namespace NReact
     public NProperty DocumentViewerBaseIsMasterPage { get { return _documentViewerBaseIsMasterPage ?? (_documentViewerBaseIsMasterPage = NPropFactories.CreateDocumentViewerBaseIsMasterPage()); } }
            NProperty _documentViewerBaseIsMasterPage;
 
-    public NProperty DpiChanged { get { return _dpiChanged ?? (_dpiChanged = NPropFactories.CreateDpiChanged()); } }
-           NProperty _dpiChanged;
-
     public NProperty DragCompleted { get { return _dragCompleted ?? (_dragCompleted = NPropFactories.CreateDragCompleted()); } }
            NProperty _dragCompleted;
 
@@ -2651,11 +2648,6 @@ namespace NReact
 
     public static NProperty CreateDocumentViewerBaseIsMasterPage() => new NProperty(nameof(NProperties.DocumentViewerBaseIsMasterPage)).
         Property<DependencyObject>(DocumentViewerBase.IsMasterPageProperty, NConverters.ToBool);
-
-    public static NProperty CreateDpiChanged() => new NProperty(nameof(NProperties.DpiChanged)).
-        Event<Window>(Window.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
-        Event<Image>(Image.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
-        Event<HwndHost>(HwndHost.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler);
 
     public static NProperty CreateDragCompleted() => new NProperty(nameof(NProperties.DragCompleted)).
         Event<Thumb>(Thumb.DragCompletedEvent, a => (DragCompletedEventHandler)a.EventHandler);
