@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Input;
+#if XAML
 #if NETFX_CORE
 using Windows.Foundation;
 using Windows.UI;
@@ -24,6 +25,14 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
 #endif
+#elif XFORMS
+using Xamarin.Forms;
+#elif DROID
+using Android.Views;
+using Android.Graphics.Drawables;
+#elif IOS
+using UIKit;
+#endif
 
 namespace NReact
 {
@@ -31,24 +40,34 @@ namespace NReact
   {
     StringBuilder _sb = new StringBuilder();
     HashSet<string> _ns = new HashSet<string> { "System" };
-    HashSet<string> _ps = new HashSet<string>();
+    HashSet<string> _ps = new HashSet<string> { "Child", "Children" };
     Dictionary<string, string> _psInits = new Dictionary<string, string>();
     List<Tuple<Type, string>> _ccs = new List<Tuple<Type, string>>();
 
     static IEnumerable<Assembly> GetAssemblies()
     {
+#if XAML
       yield return typeof(UIElement).Assembly();
       yield return typeof(Button).Assembly();
+#elif XFORMS
+      yield return typeof(VisualElement).Assembly(); // Xamarin.Forms.Core
+#elif DROID
+      yield return typeof(View).Assembly();  // Mono.Android
+#elif IOS
+      yield return typeof(UIResponder).Assembly(); // Xamarin.iOS
+#endif
     }
 
     static IEnumerable<Type> GetTypes()
     {
       var subjects = from a in GetAssemblies().Distinct()
-                     from t in a.GetTypes()
+                     from t in a.GetExportedTypes()
                      where !t.IsInterface() && t.IsPublic() && !t.IsGenericTypeDefinition()
                      select t;
 
       var types = subjects.GroupBy(i => i.BaseType() ?? typeof(object)).ToDictionary(i => i.Key, i => i.ToArray());
+
+#if XAML
 
       foreach (var type in GetTypesRecursive(typeof(UIElement), types))
         yield return type;
@@ -62,6 +81,23 @@ namespace NReact
 
 #if !NETFX_CORE
       yield return typeof(TextOptions);
+#endif
+
+#elif XFORMS
+      foreach (var type in GetTypesRecursive(typeof(VisualElement), types))
+        yield return type;
+
+#elif DROID
+      foreach (var type in GetTypesRecursive(typeof(View), types))
+        yield return type;
+
+      foreach (var type in GetTypesRecursive(typeof(Drawable), types))
+        yield return type;
+
+#elif IOS
+      foreach (var type in GetTypesRecursive(typeof(UIResponder), types))
+        yield return type;
+
 #endif
     }
 
@@ -232,18 +268,16 @@ namespace NReact
 
     void GenerateAttachedProperties()
     {
-      var props = _type.GetPublicStaticMethods().Where(i => i.Name.StartsWith("Get") || i.Name.StartsWith("Set")).ToDictionary(i => i.Name);
+      var props = _type.GetPublicStaticMethods().Where(i => !i.IsGenericMethod && (IsGetter(i) || IsSetter(i))).ToDictionary(i => i.Name);
 
       foreach (var dep in _dProps)
       {
         MethodInfo getter, setter;
-        if (!props.TryGetValue("Get" + dep.Key, out getter) || getter.ReturnType == typeof(void)) continue;
+        if (!props.TryGetValue("Get" + dep.Key, out getter) || !IsGetter(getter)) continue;
         var getterParams = getter.GetParameters();
-        if (getterParams.Length != 1) continue;
 
-        if (!props.TryGetValue("Set" + dep.Key, out setter) || setter.ReturnType != typeof(void)) continue;
+        if (!props.TryGetValue("Set" + dep.Key, out setter) || !IsSetter(setter)) continue;
         var setterParams = setter.GetParameters();
-        if (setterParams.Length != 2) continue;
 
         var ut = getterParams[0].ParameterType;
         if (ut != setterParams[0].ParameterType) continue;
@@ -260,24 +294,54 @@ namespace NReact
       }
     }
 
+    static bool IsSetter(MethodInfo i)
+    {
+      return i.Name.StartsWith("Set") && !i.IsGenericMethod && i.ReturnType == typeof(void) && i.GetParameters().Length == 2;
+    }
+
+    static bool IsGetter(MethodInfo i)
+    {
+      return i.Name.StartsWith("Get") && i.ReturnType != typeof(void) && i.GetParameters().Length == 1;
+    }
+
     static bool IsDependencyField(FieldInfo info)
     {
+#if XAML
       return info.Name.EndsWith("Property") && info.FieldType == typeof(DependencyProperty);
+#elif XFORMS
+      return info.Name.EndsWith("Property") && info.FieldType == typeof(BindableProperty);
+#else
+      return false;
+#endif
     }
 
     static bool IsDependencyProperty(PropertyInfo info)
     {
+#if XAML
       return info.Name.EndsWith("Property") && info.PropertyType == typeof(DependencyProperty) && info.CanRead;
+#elif XFORMS
+      return info.Name.EndsWith("Property") && info.PropertyType == typeof(BindableProperty) && info.CanRead;
+#else
+      return false;
+#endif
     }
 
     static bool IsRoutedEventField(FieldInfo info)
     {
+#if XAML
       return info.Name.EndsWith("Event") && info.FieldType == typeof(RoutedEvent);
+#else
+      return false;
+#endif
     }
 
     static bool IsRoutedEventProperty(PropertyInfo info)
     {
+#if XAML
       return info.Name.EndsWith("Event") && info.PropertyType == typeof(RoutedEvent) && info.CanRead;
+#else
+      return false;
+#endif
     }
 
     public Action<string> UseNamespace;
@@ -289,8 +353,15 @@ namespace NReact
 #if NETFX_CORE
       if (type == typeof(Windows.Globalization.DayOfWeek))
       {
-        UseNamespace("WGDayOfWeek = Windows.Globalization.DayOfWeek");
-        return "WGDayOfWeek";
+        UseNamespace("wg = Windows.Globalization");
+        return "wg.DayOfWeek";
+      }
+#endif
+#if DROID
+      if (type == typeof(Android.Widget.Orientation)) 
+      {
+        UseNamespace("aw = Android.Widget");
+        return "aw.Orientation";
       }
 #endif
       UseNamespace?.Invoke(type.Namespace);
@@ -377,11 +448,6 @@ namespace NReact
       if (propType == typeof(object)) return null;
       if (propType == typeof(IEnumerable)) return null;
       if (propType == typeof(ICommand)) return null;
-#if SILVERLIGHT
-      if (propType == typeof(FontSource)) return null;
-#endif
-      if (propType == typeof(ResourceDictionary)) return null;
-
       if (propType.IsEnum()) return $"NConverters.ToEnum<{SafeTypeName(propType)}>";
       if (propType == typeof(string)) return "NConverters.ToString";
       if (propType == typeof(bool)) return "NConverters.ToBool";
@@ -390,19 +456,26 @@ namespace NReact
       if (propType == typeof(int?)) return "NConverters.ToInt32N";
       if (propType == typeof(double))
       {
+#if XAML
         if (cls == typeof(FrameworkElement) && (propName == "Width" || propName == "Height"))
           return "NConverters.ToLength";
-
+#endif
         return "NConverters.ToDouble";
       }
       if (propType == typeof(double?)) return "NConverters.ToDoubleN";
       if (propType == typeof(float)) return "NConverters.ToSingle";
-      if (propType == typeof(Point)) return "NConverters.ToPoint";
-      if (propType == typeof(Color)) return "NConverters.ToColor";
       if (propType == typeof(char)) return "NConverters.ToChar";
       if (propType == typeof(TimeSpan)) return "NConverters.ToTimeSpan";
       if (propType == typeof(DateTimeOffset)) return "NConverters.ToDateTimeOffset";
       if (propType == typeof(DateTimeOffset?)) return "NConverters.ToDateTimeOffsetN";
+
+#if XAML
+#if SILVERLIGHT
+      if (propType == typeof(FontSource)) return null;
+#endif
+      if (propType == typeof(ResourceDictionary)) return null;
+      if (propType == typeof(Point)) return "NConverters.ToPoint";
+      if (propType == typeof(Color)) return "NConverters.ToColor";
       if (propType == typeof(Cursor)) return "NConverters.ToCursor";
 #if !NETFX_CORE
       if (propType == typeof(XmlLanguage)) return "NConverters.ToLanguage";
@@ -426,6 +499,16 @@ namespace NReact
       {
         return null;
       }
+#elif XFORMS
+      if (typeof(BindableObject).IsAssignableFrom(propType))
+      {
+        return null;
+      }
+#elif DROID
+
+#elif IOS
+
+#endif
 
       Debug.WriteLine($"{cls.Name}.{propName} : {propType.Name}");
       return null;
@@ -438,13 +521,6 @@ namespace NReact
 
     string GetNPConverter(PropertyInfo prop)
     {
-#if SILVERLIGHT
-      if (prop.PropertyType == typeof(FontSource))
-        return $"(t, v) => t.{prop.Name} = NConverters.ToFontSourceT(v)";
-#endif
-      if (prop.PropertyType == typeof(ResourceDictionary))
-        return $"(t, v) => t.{prop.Name} = NConverters.ToResourceDictionaryT(v)";
-
       if (prop.PropertyType == typeof(string))
         return $"(t, v) => t.{prop.Name} = NConverters.ToStringT(v)";
 
@@ -466,18 +542,34 @@ namespace NReact
       if (prop.PropertyType == typeof(bool))
         return $"(t, v) => t.{prop.Name} = NConverters.ToBoolT(v)";
 
-      if (prop.PropertyType == typeof(Color))
-        return $"(t, v) => t.{prop.Name} = NConverters.ToColorT(v)";
-
       if (prop.PropertyType == typeof(Uri))
         return $"(t, v) => t.{prop.Name} = NConverters.ToUriT(v)";
 
       if (prop.PropertyType.IsEnum())
         return $"(t, v) => t.{prop.Name} = NConverters.ToEnumT<{SafeTypeName(prop.PropertyType)}>(v)";
 
+#if XAML
+
+#if SILVERLIGHT
+      if (prop.PropertyType == typeof(FontSource))
+        return $"(t, v) => t.{prop.Name} = NConverters.ToFontSourceT(v)";
+#endif
+      if (prop.PropertyType == typeof(ResourceDictionary))
+        return $"(t, v) => t.{prop.Name} = NConverters.ToResourceDictionaryT(v)";
+
+      if (prop.PropertyType == typeof(Color))
+        return $"(t, v) => t.{prop.Name} = NConverters.ToColorT(v)";
+
       if (prop.PropertyType == typeof(UIElement))
         return $"(t, v) => NPatch.AssignSingle(o => o.{prop.Name}, (o, i) => o.{prop.Name} = i, t, v)";
 
+#elif XFORMS
+
+#elif DROID
+
+#elif IOS
+
+#endif
       Debug.WriteLine($"{prop.DeclaringType.Name}.{prop.Name} : {prop.PropertyType.Name}");
       return null;
     }
@@ -486,6 +578,13 @@ namespace NReact
   public static class ReflectionShims
   {
 #if NETFX_CORE
+
+#if WINDOWS_APP || WINDOWS_PHONE_APP
+    public static IEnumerable<Type> GetExportedTypes(this Assembly assembly)
+    {
+      return assembly.GetTypes();
+    }
+#endif
 
     public static Type BaseType(this Type type)
     {
@@ -684,8 +783,12 @@ namespace NReact
 
     public static string GetContentAttribute(this Type type)
     {
+#if XAML
       var a = (ContentPropertyAttribute)Attribute.GetCustomAttribute(type, typeof(ContentPropertyAttribute), false);
       return a != null ? a.Name : null;
+#else
+      return null;
+#endif
     }
 
     public static bool IsListOfT(this Type type)

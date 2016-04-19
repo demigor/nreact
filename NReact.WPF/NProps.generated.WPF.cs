@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -465,6 +466,9 @@ namespace NReact
 
     public NProperty DocumentViewerBaseIsMasterPage { get { return _documentViewerBaseIsMasterPage ?? (_documentViewerBaseIsMasterPage = NPropFactories.CreateDocumentViewerBaseIsMasterPage()); } }
            NProperty _documentViewerBaseIsMasterPage;
+
+    public NProperty DpiChanged { get { return _dpiChanged ?? (_dpiChanged = NPropFactories.CreateDpiChanged()); } }
+           NProperty _dpiChanged;
 
     public NProperty DragCompleted { get { return _dragCompleted ?? (_dragCompleted = NPropFactories.CreateDragCompleted()); } }
            NProperty _dragCompleted;
@@ -2648,6 +2652,11 @@ namespace NReact
     public static NProperty CreateDocumentViewerBaseIsMasterPage() => new NProperty(nameof(NProperties.DocumentViewerBaseIsMasterPage)).
         Property<DependencyObject>(DocumentViewerBase.IsMasterPageProperty, NConverters.ToBool);
 
+    public static NProperty CreateDpiChanged() => new NProperty(nameof(NProperties.DpiChanged)).
+        Event<Window>(Window.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
+        Event<Image>(Image.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
+        Event<HwndHost>(HwndHost.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler);
+
     public static NProperty CreateDragCompleted() => new NProperty(nameof(NProperties.DragCompleted)).
         Event<Thumb>(Thumb.DragCompletedEvent, a => (DragCompletedEventHandler)a.EventHandler);
 
@@ -2935,7 +2944,7 @@ namespace NReact
         Property<TextBoxBase>(TextBoxBase.HorizontalScrollBarVisibilityProperty, NConverters.ToEnum<ScrollBarVisibility>);
 
     public static NProperty CreateIcon() => new NProperty(nameof(NProperties.Icon)).
-        Property<Window>(Window.IconProperty).
+        Property<Window>(Window.IconProperty, NConverters.ToImageSource).
         Property<MenuItem>(MenuItem.IconProperty);
 
     public static NProperty CreateImageFailed() => new NProperty(nameof(NProperties.ImageFailed)).
