@@ -44,6 +44,9 @@ namespace NReact
     public NProperty AlternationCount { get { return _alternationCount ?? (_alternationCount = NPropFactories.CreateAlternationCount()); } }
            NProperty _alternationCount;
 
+    public NProperty AnnotationAlternates { get { return _annotationAlternates ?? (_annotationAlternates = NPropFactories.CreateAnnotationAlternates()); } }
+           NProperty _annotationAlternates;
+
     public NProperty AreRowDetailsFrozen { get { return _areRowDetailsFrozen ?? (_areRowDetailsFrozen = NPropFactories.CreateAreRowDetailsFrozen()); } }
            NProperty _areRowDetailsFrozen;
 
@@ -206,6 +209,12 @@ namespace NReact
     public NProperty CanVerticallyScroll { get { return _canVerticallyScroll ?? (_canVerticallyScroll = NPropFactories.CreateCanVerticallyScroll()); } }
            NProperty _canVerticallyScroll;
 
+    public NProperty Capitals { get { return _capitals ?? (_capitals = NPropFactories.CreateCapitals()); } }
+           NProperty _capitals;
+
+    public NProperty CapitalSpacing { get { return _capitalSpacing ?? (_capitalSpacing = NPropFactories.CreateCapitalSpacing()); } }
+           NProperty _capitalSpacing;
+
     public NProperty CaptionFontFamily { get { return _captionFontFamily ?? (_captionFontFamily = NPropFactories.CreateCaptionFontFamily()); } }
            NProperty _captionFontFamily;
 
@@ -229,6 +238,9 @@ namespace NReact
 
     public NProperty CaretStops { get { return _caretStops ?? (_caretStops = NPropFactories.CreateCaretStops()); } }
            NProperty _caretStops;
+
+    public NProperty CaseSensitiveForms { get { return _caseSensitiveForms ?? (_caseSensitiveForms = NPropFactories.CreateCaseSensitiveForms()); } }
+           NProperty _caseSensitiveForms;
 
     public NProperty CellEditEnding { get { return _cellEditEnding ?? (_cellEditEnding = NPropFactories.CreateCellEditEnding()); } }
            NProperty _cellEditEnding;
@@ -377,6 +389,15 @@ namespace NReact
     public NProperty ContextMenuOpening { get { return _contextMenuOpening ?? (_contextMenuOpening = NPropFactories.CreateContextMenuOpening()); } }
            NProperty _contextMenuOpening;
 
+    public NProperty ContextualAlternates { get { return _contextualAlternates ?? (_contextualAlternates = NPropFactories.CreateContextualAlternates()); } }
+           NProperty _contextualAlternates;
+
+    public NProperty ContextualLigatures { get { return _contextualLigatures ?? (_contextualLigatures = NPropFactories.CreateContextualLigatures()); } }
+           NProperty _contextualLigatures;
+
+    public NProperty ContextualSwashes { get { return _contextualSwashes ?? (_contextualSwashes = NPropFactories.CreateContextualSwashes()); } }
+           NProperty _contextualSwashes;
+
     public NProperty CopyingRowClipboardContent { get { return _copyingRowClipboardContent ?? (_copyingRowClipboardContent = NPropFactories.CreateCopyingRowClipboardContent()); } }
            NProperty _copyingRowClipboardContent;
 
@@ -437,6 +458,9 @@ namespace NReact
     public NProperty DeviceFontName { get { return _deviceFontName ?? (_deviceFontName = NPropFactories.CreateDeviceFontName()); } }
            NProperty _deviceFontName;
 
+    public NProperty DiscretionaryLigatures { get { return _discretionaryLigatures ?? (_discretionaryLigatures = NPropFactories.CreateDiscretionaryLigatures()); } }
+           NProperty _discretionaryLigatures;
+
     public NProperty DisplayDate { get { return _displayDate ?? (_displayDate = NPropFactories.CreateDisplayDate()); } }
            NProperty _displayDate;
 
@@ -466,6 +490,9 @@ namespace NReact
 
     public NProperty DocumentViewerBaseIsMasterPage { get { return _documentViewerBaseIsMasterPage ?? (_documentViewerBaseIsMasterPage = NPropFactories.CreateDocumentViewerBaseIsMasterPage()); } }
            NProperty _documentViewerBaseIsMasterPage;
+
+    //public NProperty DpiChanged { get { return _dpiChanged ?? (_dpiChanged = NPropFactories.CreateDpiChanged()); } }
+    //       NProperty _dpiChanged;
 
     public NProperty DragCompleted { get { return _dragCompleted ?? (_dragCompleted = NPropFactories.CreateDragCompleted()); } }
            NProperty _dragCompleted;
@@ -502,6 +529,15 @@ namespace NReact
 
     public NProperty DropLocationIndicatorStyle { get { return _dropLocationIndicatorStyle ?? (_dropLocationIndicatorStyle = NPropFactories.CreateDropLocationIndicatorStyle()); } }
            NProperty _dropLocationIndicatorStyle;
+
+    public NProperty EastAsianExpertForms { get { return _eastAsianExpertForms ?? (_eastAsianExpertForms = NPropFactories.CreateEastAsianExpertForms()); } }
+           NProperty _eastAsianExpertForms;
+
+    public NProperty EastAsianLanguage { get { return _eastAsianLanguage ?? (_eastAsianLanguage = NPropFactories.CreateEastAsianLanguage()); } }
+           NProperty _eastAsianLanguage;
+
+    public NProperty EastAsianWidths { get { return _eastAsianWidths ?? (_eastAsianWidths = NPropFactories.CreateEastAsianWidths()); } }
+           NProperty _eastAsianWidths;
 
     public NProperty EditingMode { get { return _editingMode ?? (_editingMode = NPropFactories.CreateEditingMode()); } }
            NProperty _editingMode;
@@ -596,6 +632,9 @@ namespace NReact
     public NProperty Foreground { get { return _foreground ?? (_foreground = NPropFactories.CreateForeground()); } }
            NProperty _foreground;
 
+    public NProperty Fraction { get { return _fraction ?? (_fraction = NPropFactories.CreateFraction()); } }
+           NProperty _fraction;
+
     public NProperty FragmentNavigation { get { return _fragmentNavigation ?? (_fragmentNavigation = NPropFactories.CreateFragmentNavigation()); } }
            NProperty _fragmentNavigation;
 
@@ -682,6 +721,12 @@ namespace NReact
 
     public NProperty Height { get { return _height ?? (_height = NPropFactories.CreateHeight()); } }
            NProperty _height;
+
+    public NProperty HistoricalForms { get { return _historicalForms ?? (_historicalForms = NPropFactories.CreateHistoricalForms()); } }
+           NProperty _historicalForms;
+
+    public NProperty HistoricalLigatures { get { return _historicalLigatures ?? (_historicalLigatures = NPropFactories.CreateHistoricalLigatures()); } }
+           NProperty _historicalLigatures;
 
     public NProperty HorizontalAlignment { get { return _horizontalAlignment ?? (_horizontalAlignment = NPropFactories.CreateHorizontalAlignment()); } }
            NProperty _horizontalAlignment;
@@ -971,6 +1016,9 @@ namespace NReact
     public NProperty KeepWithNext { get { return _keepWithNext ?? (_keepWithNext = NPropFactories.CreateKeepWithNext()); } }
            NProperty _keepWithNext;
 
+    public NProperty Kerning { get { return _kerning ?? (_kerning = NPropFactories.CreateKerning()); } }
+           NProperty _kerning;
+
     public NProperty KeyboardIncrement { get { return _keyboardIncrement ?? (_keyboardIncrement = NPropFactories.CreateKeyboardIncrement()); } }
            NProperty _keyboardIncrement;
 
@@ -1069,6 +1117,9 @@ namespace NReact
 
     public NProperty MarkerStyle { get { return _markerStyle ?? (_markerStyle = NPropFactories.CreateMarkerStyle()); } }
            NProperty _markerStyle;
+
+    public NProperty MathematicalGreek { get { return _mathematicalGreek ?? (_mathematicalGreek = NPropFactories.CreateMathematicalGreek()); } }
+           NProperty _mathematicalGreek;
 
     public NProperty MaxColumnWidth { get { return _maxColumnWidth ?? (_maxColumnWidth = NPropFactories.CreateMaxColumnWidth()); } }
            NProperty _maxColumnWidth;
@@ -1192,6 +1243,12 @@ namespace NReact
 
     public NProperty NavigationUIVisibility { get { return _navigationUIVisibility ?? (_navigationUIVisibility = NPropFactories.CreateNavigationUIVisibility()); } }
            NProperty _navigationUIVisibility;
+
+    public NProperty NumeralAlignment { get { return _numeralAlignment ?? (_numeralAlignment = NPropFactories.CreateNumeralAlignment()); } }
+           NProperty _numeralAlignment;
+
+    public NProperty NumeralStyle { get { return _numeralStyle ?? (_numeralStyle = NPropFactories.CreateNumeralStyle()); } }
+           NProperty _numeralStyle;
 
     public NProperty Opacity { get { return _opacity ?? (_opacity = NPropFactories.CreateOpacity()); } }
            NProperty _opacity;
@@ -1652,6 +1709,9 @@ namespace NReact
     public NProperty SizeToContent { get { return _sizeToContent ?? (_sizeToContent = NPropFactories.CreateSizeToContent()); } }
            NProperty _sizeToContent;
 
+    public NProperty SlashedZero { get { return _slashedZero ?? (_slashedZero = NPropFactories.CreateSlashedZero()); } }
+           NProperty _slashedZero;
+
     public NProperty SmallChange { get { return _smallChange ?? (_smallChange = NPropFactories.CreateSmallChange()); } }
            NProperty _smallChange;
 
@@ -1669,6 +1729,12 @@ namespace NReact
 
     public NProperty SourceUpdated { get { return _sourceUpdated ?? (_sourceUpdated = NPropFactories.CreateSourceUpdated()); } }
            NProperty _sourceUpdated;
+
+    public NProperty StandardLigatures { get { return _standardLigatures ?? (_standardLigatures = NPropFactories.CreateStandardLigatures()); } }
+           NProperty _standardLigatures;
+
+    public NProperty StandardSwashes { get { return _standardSwashes ?? (_standardSwashes = NPropFactories.CreateStandardSwashes()); } }
+           NProperty _standardSwashes;
 
     public NProperty StartIndex { get { return _startIndex ?? (_startIndex = NPropFactories.CreateStartIndex()); } }
            NProperty _startIndex;
@@ -1738,6 +1804,69 @@ namespace NReact
 
     public NProperty StyleSimulations { get { return _styleSimulations ?? (_styleSimulations = NPropFactories.CreateStyleSimulations()); } }
            NProperty _styleSimulations;
+
+    public NProperty StylisticAlternates { get { return _stylisticAlternates ?? (_stylisticAlternates = NPropFactories.CreateStylisticAlternates()); } }
+           NProperty _stylisticAlternates;
+
+    public NProperty StylisticSet1 { get { return _stylisticSet1 ?? (_stylisticSet1 = NPropFactories.CreateStylisticSet1()); } }
+           NProperty _stylisticSet1;
+
+    public NProperty StylisticSet10 { get { return _stylisticSet10 ?? (_stylisticSet10 = NPropFactories.CreateStylisticSet10()); } }
+           NProperty _stylisticSet10;
+
+    public NProperty StylisticSet11 { get { return _stylisticSet11 ?? (_stylisticSet11 = NPropFactories.CreateStylisticSet11()); } }
+           NProperty _stylisticSet11;
+
+    public NProperty StylisticSet12 { get { return _stylisticSet12 ?? (_stylisticSet12 = NPropFactories.CreateStylisticSet12()); } }
+           NProperty _stylisticSet12;
+
+    public NProperty StylisticSet13 { get { return _stylisticSet13 ?? (_stylisticSet13 = NPropFactories.CreateStylisticSet13()); } }
+           NProperty _stylisticSet13;
+
+    public NProperty StylisticSet14 { get { return _stylisticSet14 ?? (_stylisticSet14 = NPropFactories.CreateStylisticSet14()); } }
+           NProperty _stylisticSet14;
+
+    public NProperty StylisticSet15 { get { return _stylisticSet15 ?? (_stylisticSet15 = NPropFactories.CreateStylisticSet15()); } }
+           NProperty _stylisticSet15;
+
+    public NProperty StylisticSet16 { get { return _stylisticSet16 ?? (_stylisticSet16 = NPropFactories.CreateStylisticSet16()); } }
+           NProperty _stylisticSet16;
+
+    public NProperty StylisticSet17 { get { return _stylisticSet17 ?? (_stylisticSet17 = NPropFactories.CreateStylisticSet17()); } }
+           NProperty _stylisticSet17;
+
+    public NProperty StylisticSet18 { get { return _stylisticSet18 ?? (_stylisticSet18 = NPropFactories.CreateStylisticSet18()); } }
+           NProperty _stylisticSet18;
+
+    public NProperty StylisticSet19 { get { return _stylisticSet19 ?? (_stylisticSet19 = NPropFactories.CreateStylisticSet19()); } }
+           NProperty _stylisticSet19;
+
+    public NProperty StylisticSet2 { get { return _stylisticSet2 ?? (_stylisticSet2 = NPropFactories.CreateStylisticSet2()); } }
+           NProperty _stylisticSet2;
+
+    public NProperty StylisticSet20 { get { return _stylisticSet20 ?? (_stylisticSet20 = NPropFactories.CreateStylisticSet20()); } }
+           NProperty _stylisticSet20;
+
+    public NProperty StylisticSet3 { get { return _stylisticSet3 ?? (_stylisticSet3 = NPropFactories.CreateStylisticSet3()); } }
+           NProperty _stylisticSet3;
+
+    public NProperty StylisticSet4 { get { return _stylisticSet4 ?? (_stylisticSet4 = NPropFactories.CreateStylisticSet4()); } }
+           NProperty _stylisticSet4;
+
+    public NProperty StylisticSet5 { get { return _stylisticSet5 ?? (_stylisticSet5 = NPropFactories.CreateStylisticSet5()); } }
+           NProperty _stylisticSet5;
+
+    public NProperty StylisticSet6 { get { return _stylisticSet6 ?? (_stylisticSet6 = NPropFactories.CreateStylisticSet6()); } }
+           NProperty _stylisticSet6;
+
+    public NProperty StylisticSet7 { get { return _stylisticSet7 ?? (_stylisticSet7 = NPropFactories.CreateStylisticSet7()); } }
+           NProperty _stylisticSet7;
+
+    public NProperty StylisticSet8 { get { return _stylisticSet8 ?? (_stylisticSet8 = NPropFactories.CreateStylisticSet8()); } }
+           NProperty _stylisticSet8;
+
+    public NProperty StylisticSet9 { get { return _stylisticSet9 ?? (_stylisticSet9 = NPropFactories.CreateStylisticSet9()); } }
+           NProperty _stylisticSet9;
 
     public NProperty StylusButtonDown { get { return _stylusButtonDown ?? (_stylusButtonDown = NPropFactories.CreateStylusButtonDown()); } }
            NProperty _stylusButtonDown;
@@ -1976,6 +2105,135 @@ namespace NReact
     public NProperty Triggers { get { return _triggers ?? (_triggers = NPropFactories.CreateTriggers()); } }
            NProperty _triggers;
 
+    public NProperty TypographyAnnotationAlternates { get { return _typographyAnnotationAlternates ?? (_typographyAnnotationAlternates = NPropFactories.CreateTypographyAnnotationAlternates()); } }
+           NProperty _typographyAnnotationAlternates;
+
+    public NProperty TypographyCapitals { get { return _typographyCapitals ?? (_typographyCapitals = NPropFactories.CreateTypographyCapitals()); } }
+           NProperty _typographyCapitals;
+
+    public NProperty TypographyCapitalSpacing { get { return _typographyCapitalSpacing ?? (_typographyCapitalSpacing = NPropFactories.CreateTypographyCapitalSpacing()); } }
+           NProperty _typographyCapitalSpacing;
+
+    public NProperty TypographyCaseSensitiveForms { get { return _typographyCaseSensitiveForms ?? (_typographyCaseSensitiveForms = NPropFactories.CreateTypographyCaseSensitiveForms()); } }
+           NProperty _typographyCaseSensitiveForms;
+
+    public NProperty TypographyContextualAlternates { get { return _typographyContextualAlternates ?? (_typographyContextualAlternates = NPropFactories.CreateTypographyContextualAlternates()); } }
+           NProperty _typographyContextualAlternates;
+
+    public NProperty TypographyContextualLigatures { get { return _typographyContextualLigatures ?? (_typographyContextualLigatures = NPropFactories.CreateTypographyContextualLigatures()); } }
+           NProperty _typographyContextualLigatures;
+
+    public NProperty TypographyContextualSwashes { get { return _typographyContextualSwashes ?? (_typographyContextualSwashes = NPropFactories.CreateTypographyContextualSwashes()); } }
+           NProperty _typographyContextualSwashes;
+
+    public NProperty TypographyDiscretionaryLigatures { get { return _typographyDiscretionaryLigatures ?? (_typographyDiscretionaryLigatures = NPropFactories.CreateTypographyDiscretionaryLigatures()); } }
+           NProperty _typographyDiscretionaryLigatures;
+
+    public NProperty TypographyEastAsianExpertForms { get { return _typographyEastAsianExpertForms ?? (_typographyEastAsianExpertForms = NPropFactories.CreateTypographyEastAsianExpertForms()); } }
+           NProperty _typographyEastAsianExpertForms;
+
+    public NProperty TypographyEastAsianLanguage { get { return _typographyEastAsianLanguage ?? (_typographyEastAsianLanguage = NPropFactories.CreateTypographyEastAsianLanguage()); } }
+           NProperty _typographyEastAsianLanguage;
+
+    public NProperty TypographyEastAsianWidths { get { return _typographyEastAsianWidths ?? (_typographyEastAsianWidths = NPropFactories.CreateTypographyEastAsianWidths()); } }
+           NProperty _typographyEastAsianWidths;
+
+    public NProperty TypographyFraction { get { return _typographyFraction ?? (_typographyFraction = NPropFactories.CreateTypographyFraction()); } }
+           NProperty _typographyFraction;
+
+    public NProperty TypographyHistoricalForms { get { return _typographyHistoricalForms ?? (_typographyHistoricalForms = NPropFactories.CreateTypographyHistoricalForms()); } }
+           NProperty _typographyHistoricalForms;
+
+    public NProperty TypographyHistoricalLigatures { get { return _typographyHistoricalLigatures ?? (_typographyHistoricalLigatures = NPropFactories.CreateTypographyHistoricalLigatures()); } }
+           NProperty _typographyHistoricalLigatures;
+
+    public NProperty TypographyKerning { get { return _typographyKerning ?? (_typographyKerning = NPropFactories.CreateTypographyKerning()); } }
+           NProperty _typographyKerning;
+
+    public NProperty TypographyMathematicalGreek { get { return _typographyMathematicalGreek ?? (_typographyMathematicalGreek = NPropFactories.CreateTypographyMathematicalGreek()); } }
+           NProperty _typographyMathematicalGreek;
+
+    public NProperty TypographyNumeralAlignment { get { return _typographyNumeralAlignment ?? (_typographyNumeralAlignment = NPropFactories.CreateTypographyNumeralAlignment()); } }
+           NProperty _typographyNumeralAlignment;
+
+    public NProperty TypographyNumeralStyle { get { return _typographyNumeralStyle ?? (_typographyNumeralStyle = NPropFactories.CreateTypographyNumeralStyle()); } }
+           NProperty _typographyNumeralStyle;
+
+    public NProperty TypographySlashedZero { get { return _typographySlashedZero ?? (_typographySlashedZero = NPropFactories.CreateTypographySlashedZero()); } }
+           NProperty _typographySlashedZero;
+
+    public NProperty TypographyStandardLigatures { get { return _typographyStandardLigatures ?? (_typographyStandardLigatures = NPropFactories.CreateTypographyStandardLigatures()); } }
+           NProperty _typographyStandardLigatures;
+
+    public NProperty TypographyStandardSwashes { get { return _typographyStandardSwashes ?? (_typographyStandardSwashes = NPropFactories.CreateTypographyStandardSwashes()); } }
+           NProperty _typographyStandardSwashes;
+
+    public NProperty TypographyStylisticAlternates { get { return _typographyStylisticAlternates ?? (_typographyStylisticAlternates = NPropFactories.CreateTypographyStylisticAlternates()); } }
+           NProperty _typographyStylisticAlternates;
+
+    public NProperty TypographyStylisticSet1 { get { return _typographyStylisticSet1 ?? (_typographyStylisticSet1 = NPropFactories.CreateTypographyStylisticSet1()); } }
+           NProperty _typographyStylisticSet1;
+
+    public NProperty TypographyStylisticSet10 { get { return _typographyStylisticSet10 ?? (_typographyStylisticSet10 = NPropFactories.CreateTypographyStylisticSet10()); } }
+           NProperty _typographyStylisticSet10;
+
+    public NProperty TypographyStylisticSet11 { get { return _typographyStylisticSet11 ?? (_typographyStylisticSet11 = NPropFactories.CreateTypographyStylisticSet11()); } }
+           NProperty _typographyStylisticSet11;
+
+    public NProperty TypographyStylisticSet12 { get { return _typographyStylisticSet12 ?? (_typographyStylisticSet12 = NPropFactories.CreateTypographyStylisticSet12()); } }
+           NProperty _typographyStylisticSet12;
+
+    public NProperty TypographyStylisticSet13 { get { return _typographyStylisticSet13 ?? (_typographyStylisticSet13 = NPropFactories.CreateTypographyStylisticSet13()); } }
+           NProperty _typographyStylisticSet13;
+
+    public NProperty TypographyStylisticSet14 { get { return _typographyStylisticSet14 ?? (_typographyStylisticSet14 = NPropFactories.CreateTypographyStylisticSet14()); } }
+           NProperty _typographyStylisticSet14;
+
+    public NProperty TypographyStylisticSet15 { get { return _typographyStylisticSet15 ?? (_typographyStylisticSet15 = NPropFactories.CreateTypographyStylisticSet15()); } }
+           NProperty _typographyStylisticSet15;
+
+    public NProperty TypographyStylisticSet16 { get { return _typographyStylisticSet16 ?? (_typographyStylisticSet16 = NPropFactories.CreateTypographyStylisticSet16()); } }
+           NProperty _typographyStylisticSet16;
+
+    public NProperty TypographyStylisticSet17 { get { return _typographyStylisticSet17 ?? (_typographyStylisticSet17 = NPropFactories.CreateTypographyStylisticSet17()); } }
+           NProperty _typographyStylisticSet17;
+
+    public NProperty TypographyStylisticSet18 { get { return _typographyStylisticSet18 ?? (_typographyStylisticSet18 = NPropFactories.CreateTypographyStylisticSet18()); } }
+           NProperty _typographyStylisticSet18;
+
+    public NProperty TypographyStylisticSet19 { get { return _typographyStylisticSet19 ?? (_typographyStylisticSet19 = NPropFactories.CreateTypographyStylisticSet19()); } }
+           NProperty _typographyStylisticSet19;
+
+    public NProperty TypographyStylisticSet2 { get { return _typographyStylisticSet2 ?? (_typographyStylisticSet2 = NPropFactories.CreateTypographyStylisticSet2()); } }
+           NProperty _typographyStylisticSet2;
+
+    public NProperty TypographyStylisticSet20 { get { return _typographyStylisticSet20 ?? (_typographyStylisticSet20 = NPropFactories.CreateTypographyStylisticSet20()); } }
+           NProperty _typographyStylisticSet20;
+
+    public NProperty TypographyStylisticSet3 { get { return _typographyStylisticSet3 ?? (_typographyStylisticSet3 = NPropFactories.CreateTypographyStylisticSet3()); } }
+           NProperty _typographyStylisticSet3;
+
+    public NProperty TypographyStylisticSet4 { get { return _typographyStylisticSet4 ?? (_typographyStylisticSet4 = NPropFactories.CreateTypographyStylisticSet4()); } }
+           NProperty _typographyStylisticSet4;
+
+    public NProperty TypographyStylisticSet5 { get { return _typographyStylisticSet5 ?? (_typographyStylisticSet5 = NPropFactories.CreateTypographyStylisticSet5()); } }
+           NProperty _typographyStylisticSet5;
+
+    public NProperty TypographyStylisticSet6 { get { return _typographyStylisticSet6 ?? (_typographyStylisticSet6 = NPropFactories.CreateTypographyStylisticSet6()); } }
+           NProperty _typographyStylisticSet6;
+
+    public NProperty TypographyStylisticSet7 { get { return _typographyStylisticSet7 ?? (_typographyStylisticSet7 = NPropFactories.CreateTypographyStylisticSet7()); } }
+           NProperty _typographyStylisticSet7;
+
+    public NProperty TypographyStylisticSet8 { get { return _typographyStylisticSet8 ?? (_typographyStylisticSet8 = NPropFactories.CreateTypographyStylisticSet8()); } }
+           NProperty _typographyStylisticSet8;
+
+    public NProperty TypographyStylisticSet9 { get { return _typographyStylisticSet9 ?? (_typographyStylisticSet9 = NPropFactories.CreateTypographyStylisticSet9()); } }
+           NProperty _typographyStylisticSet9;
+
+    public NProperty TypographyVariants { get { return _typographyVariants ?? (_typographyVariants = NPropFactories.CreateTypographyVariants()); } }
+           NProperty _typographyVariants;
+
     public NProperty Uid { get { return _uid ?? (_uid = NPropFactories.CreateUid()); } }
            NProperty _uid;
 
@@ -2020,6 +2278,9 @@ namespace NReact
 
     public NProperty ValueChanged { get { return _valueChanged ?? (_valueChanged = NPropFactories.CreateValueChanged()); } }
            NProperty _valueChanged;
+
+    public NProperty Variants { get { return _variants ?? (_variants = NPropFactories.CreateVariants()); } }
+           NProperty _variants;
 
     public NProperty VerticalAlignment { get { return _verticalAlignment ?? (_verticalAlignment = NPropFactories.CreateVerticalAlignment()); } }
            NProperty _verticalAlignment;
@@ -2151,6 +2412,9 @@ namespace NReact
 
     public static NProperty CreateAlternationCount() => new NProperty(nameof(NProperties.AlternationCount)).
         Property<ItemsControl>(ItemsControl.AlternationCountProperty, NConverters.ToInt32);
+
+    public static NProperty CreateAnnotationAlternates() => new NProperty(nameof(NProperties.AnnotationAlternates)).
+        Property<Typography>((t, v) => t.AnnotationAlternates = NConverters.ToInt32T(v));
 
     public static NProperty CreateAreRowDetailsFrozen() => new NProperty(nameof(NProperties.AreRowDetailsFrozen)).
         Property<DataGrid>(DataGrid.AreRowDetailsFrozenProperty, NConverters.ToBool);
@@ -2344,6 +2608,12 @@ namespace NReact
         Property<StackPanel>((t, v) => t.CanVerticallyScroll = NConverters.ToBoolT(v)).
         Property<VirtualizingStackPanel>((t, v) => t.CanVerticallyScroll = NConverters.ToBoolT(v));
 
+    public static NProperty CreateCapitals() => new NProperty(nameof(NProperties.Capitals)).
+        Property<Typography>((t, v) => t.Capitals = NConverters.ToEnumT<FontCapitals>(v));
+
+    public static NProperty CreateCapitalSpacing() => new NProperty(nameof(NProperties.CapitalSpacing)).
+        Property<Typography>((t, v) => t.CapitalSpacing = NConverters.ToBoolT(v));
+
     public static NProperty CreateCaptionFontFamily() => new NProperty(nameof(NProperties.CaptionFontFamily)).
         Property<StickyNoteControl>(StickyNoteControl.CaptionFontFamilyProperty, NConverters.ToFontFamily);
 
@@ -2368,6 +2638,9 @@ namespace NReact
 
     public static NProperty CreateCaretStops() => new NProperty(nameof(NProperties.CaretStops)).
         Property<Glyphs>(Glyphs.CaretStopsProperty, NConverters.ToString);
+
+    public static NProperty CreateCaseSensitiveForms() => new NProperty(nameof(NProperties.CaseSensitiveForms)).
+        Property<Typography>((t, v) => t.CaseSensitiveForms = NConverters.ToBoolT(v));
 
     public static NProperty CreateCellEditEnding() => new NProperty(nameof(NProperties.CellEditEnding)).
         Event<DataGrid>((s, a) => s.CellEditEnding += a.EventHandler);
@@ -2551,6 +2824,15 @@ namespace NReact
     public static NProperty CreateContextMenuOpening() => new NProperty(nameof(NProperties.ContextMenuOpening)).
         Event<FrameworkElement>(FrameworkElement.ContextMenuOpeningEvent, a => (ContextMenuEventHandler)a.EventHandler);
 
+    public static NProperty CreateContextualAlternates() => new NProperty(nameof(NProperties.ContextualAlternates)).
+        Property<Typography>((t, v) => t.ContextualAlternates = NConverters.ToBoolT(v));
+
+    public static NProperty CreateContextualLigatures() => new NProperty(nameof(NProperties.ContextualLigatures)).
+        Property<Typography>((t, v) => t.ContextualLigatures = NConverters.ToBoolT(v));
+
+    public static NProperty CreateContextualSwashes() => new NProperty(nameof(NProperties.ContextualSwashes)).
+        Property<Typography>((t, v) => t.ContextualSwashes = NConverters.ToInt32T(v));
+
     public static NProperty CreateCopyingRowClipboardContent() => new NProperty(nameof(NProperties.CopyingRowClipboardContent)).
         Event<DataGrid>((s, a) => s.CopyingRowClipboardContent += a.EventHandler);
 
@@ -2614,6 +2896,9 @@ namespace NReact
     public static NProperty CreateDeviceFontName() => new NProperty(nameof(NProperties.DeviceFontName)).
         Property<Glyphs>(Glyphs.DeviceFontNameProperty, NConverters.ToString);
 
+    public static NProperty CreateDiscretionaryLigatures() => new NProperty(nameof(NProperties.DiscretionaryLigatures)).
+        Property<Typography>((t, v) => t.DiscretionaryLigatures = NConverters.ToBoolT(v));
+
     public static NProperty CreateDisplayDate() => new NProperty(nameof(NProperties.DisplayDate)).
         Property<Calendar>(Calendar.DisplayDateProperty).
         Property<DatePicker>(DatePicker.DisplayDateProperty);
@@ -2648,6 +2933,11 @@ namespace NReact
 
     public static NProperty CreateDocumentViewerBaseIsMasterPage() => new NProperty(nameof(NProperties.DocumentViewerBaseIsMasterPage)).
         Property<DependencyObject>(DocumentViewerBase.IsMasterPageProperty, NConverters.ToBool);
+
+    //public static NProperty CreateDpiChanged() => new NProperty(nameof(NProperties.DpiChanged)).
+    //    Event<Window>(Window.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
+    //    Event<Image>(Image.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler).
+    //    Event<HwndHost>(HwndHost.DpiChangedEvent, a => (DpiChangedEventHandler)a.EventHandler);
 
     public static NProperty CreateDragCompleted() => new NProperty(nameof(NProperties.DragCompleted)).
         Event<Thumb>(Thumb.DragCompletedEvent, a => (DragCompletedEventHandler)a.EventHandler);
@@ -2684,6 +2974,15 @@ namespace NReact
 
     public static NProperty CreateDropLocationIndicatorStyle() => new NProperty(nameof(NProperties.DropLocationIndicatorStyle)).
         Property<DataGrid>(DataGrid.DropLocationIndicatorStyleProperty, NConverters.ToStyle);
+
+    public static NProperty CreateEastAsianExpertForms() => new NProperty(nameof(NProperties.EastAsianExpertForms)).
+        Property<Typography>((t, v) => t.EastAsianExpertForms = NConverters.ToBoolT(v));
+
+    public static NProperty CreateEastAsianLanguage() => new NProperty(nameof(NProperties.EastAsianLanguage)).
+        Property<Typography>((t, v) => t.EastAsianLanguage = NConverters.ToEnumT<FontEastAsianLanguage>(v));
+
+    public static NProperty CreateEastAsianWidths() => new NProperty(nameof(NProperties.EastAsianWidths)).
+        Property<Typography>((t, v) => t.EastAsianWidths = NConverters.ToEnumT<FontEastAsianWidths>(v));
 
     public static NProperty CreateEditingMode() => new NProperty(nameof(NProperties.EditingMode)).
         Property<InkCanvas>(InkCanvas.EditingModeProperty, NConverters.ToEnum<InkCanvasEditingMode>);
@@ -2808,6 +3107,9 @@ namespace NReact
         Property<TextBlock>(TextBlock.ForegroundProperty, NConverters.ToBrush).
         Property<TextElement>(TextElement.ForegroundProperty, NConverters.ToBrush);
 
+    public static NProperty CreateFraction() => new NProperty(nameof(NProperties.Fraction)).
+        Property<Typography>((t, v) => t.Fraction = NConverters.ToEnumT<FontFraction>(v));
+
     public static NProperty CreateFragmentNavigation() => new NProperty(nameof(NProperties.FragmentNavigation)).
         Event<NavigationWindow>((s, a) => s.FragmentNavigation += a.EventHandler).
         Event<Frame>((s, a) => s.FragmentNavigation += a.EventHandler);
@@ -2905,6 +3207,12 @@ namespace NReact
         Property<FrameworkElement>(FrameworkElement.HeightProperty, NConverters.ToLength).
         Property<Figure>(Figure.HeightProperty).
         Property<RowDefinition>(RowDefinition.HeightProperty, NConverters.ToGridLength);
+
+    public static NProperty CreateHistoricalForms() => new NProperty(nameof(NProperties.HistoricalForms)).
+        Property<Typography>((t, v) => t.HistoricalForms = NConverters.ToBoolT(v));
+
+    public static NProperty CreateHistoricalLigatures() => new NProperty(nameof(NProperties.HistoricalLigatures)).
+        Property<Typography>((t, v) => t.HistoricalLigatures = NConverters.ToBoolT(v));
 
     public static NProperty CreateHorizontalAlignment() => new NProperty(nameof(NProperties.HorizontalAlignment)).
         Property<FrameworkElement>(FrameworkElement.HorizontalAlignmentProperty, NConverters.ToEnum<HorizontalAlignment>).
@@ -3230,6 +3538,9 @@ namespace NReact
     public static NProperty CreateKeepWithNext() => new NProperty(nameof(NProperties.KeepWithNext)).
         Property<Paragraph>(Paragraph.KeepWithNextProperty, NConverters.ToBool);
 
+    public static NProperty CreateKerning() => new NProperty(nameof(NProperties.Kerning)).
+        Property<Typography>((t, v) => t.Kerning = NConverters.ToBoolT(v));
+
     public static NProperty CreateKeyboardIncrement() => new NProperty(nameof(NProperties.KeyboardIncrement)).
         Property<GridSplitter>(GridSplitter.KeyboardIncrementProperty, NConverters.ToDouble);
 
@@ -3343,6 +3654,9 @@ namespace NReact
 
     public static NProperty CreateMarkerStyle() => new NProperty(nameof(NProperties.MarkerStyle)).
         Property<List>(List.MarkerStyleProperty, NConverters.ToEnum<TextMarkerStyle>);
+
+    public static NProperty CreateMathematicalGreek() => new NProperty(nameof(NProperties.MathematicalGreek)).
+        Property<Typography>((t, v) => t.MathematicalGreek = NConverters.ToBoolT(v));
 
     public static NProperty CreateMaxColumnWidth() => new NProperty(nameof(NProperties.MaxColumnWidth)).
         Property<DataGrid>(DataGrid.MaxColumnWidthProperty, NConverters.ToDouble);
@@ -3486,6 +3800,12 @@ namespace NReact
 
     public static NProperty CreateNavigationUIVisibility() => new NProperty(nameof(NProperties.NavigationUIVisibility)).
         Property<Frame>(Frame.NavigationUIVisibilityProperty, NConverters.ToEnum<NavigationUIVisibility>);
+
+    public static NProperty CreateNumeralAlignment() => new NProperty(nameof(NProperties.NumeralAlignment)).
+        Property<Typography>((t, v) => t.NumeralAlignment = NConverters.ToEnumT<FontNumeralAlignment>(v));
+
+    public static NProperty CreateNumeralStyle() => new NProperty(nameof(NProperties.NumeralStyle)).
+        Property<Typography>((t, v) => t.NumeralStyle = NConverters.ToEnumT<FontNumeralStyle>(v));
 
     public static NProperty CreateOpacity() => new NProperty(nameof(NProperties.Opacity)).
         Property<UIElement>(UIElement.OpacityProperty, NConverters.ToDouble);
@@ -3995,6 +4315,9 @@ namespace NReact
     public static NProperty CreateSizeToContent() => new NProperty(nameof(NProperties.SizeToContent)).
         Property<Window>(Window.SizeToContentProperty, NConverters.ToEnum<SizeToContent>);
 
+    public static NProperty CreateSlashedZero() => new NProperty(nameof(NProperties.SlashedZero)).
+        Property<Typography>((t, v) => t.SlashedZero = NConverters.ToBoolT(v));
+
     public static NProperty CreateSmallChange() => new NProperty(nameof(NProperties.SmallChange)).
         Property<RangeBase>(RangeBase.SmallChangeProperty, NConverters.ToDouble);
 
@@ -4018,6 +4341,12 @@ namespace NReact
 
     public static NProperty CreateSourceUpdated() => new NProperty(nameof(NProperties.SourceUpdated)).
         Event<FrameworkElement>((s, a) => s.SourceUpdated += a.EventHandler);
+
+    public static NProperty CreateStandardLigatures() => new NProperty(nameof(NProperties.StandardLigatures)).
+        Property<Typography>((t, v) => t.StandardLigatures = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStandardSwashes() => new NProperty(nameof(NProperties.StandardSwashes)).
+        Property<Typography>((t, v) => t.StandardSwashes = NConverters.ToInt32T(v));
 
     public static NProperty CreateStartIndex() => new NProperty(nameof(NProperties.StartIndex)).
         Property<List>(List.StartIndexProperty, NConverters.ToInt32);
@@ -4097,6 +4426,69 @@ namespace NReact
 
     public static NProperty CreateStyleSimulations() => new NProperty(nameof(NProperties.StyleSimulations)).
         Property<Glyphs>(Glyphs.StyleSimulationsProperty, NConverters.ToEnum<StyleSimulations>);
+
+    public static NProperty CreateStylisticAlternates() => new NProperty(nameof(NProperties.StylisticAlternates)).
+        Property<Typography>((t, v) => t.StylisticAlternates = NConverters.ToInt32T(v));
+
+    public static NProperty CreateStylisticSet1() => new NProperty(nameof(NProperties.StylisticSet1)).
+        Property<Typography>((t, v) => t.StylisticSet1 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet10() => new NProperty(nameof(NProperties.StylisticSet10)).
+        Property<Typography>((t, v) => t.StylisticSet10 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet11() => new NProperty(nameof(NProperties.StylisticSet11)).
+        Property<Typography>((t, v) => t.StylisticSet11 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet12() => new NProperty(nameof(NProperties.StylisticSet12)).
+        Property<Typography>((t, v) => t.StylisticSet12 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet13() => new NProperty(nameof(NProperties.StylisticSet13)).
+        Property<Typography>((t, v) => t.StylisticSet13 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet14() => new NProperty(nameof(NProperties.StylisticSet14)).
+        Property<Typography>((t, v) => t.StylisticSet14 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet15() => new NProperty(nameof(NProperties.StylisticSet15)).
+        Property<Typography>((t, v) => t.StylisticSet15 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet16() => new NProperty(nameof(NProperties.StylisticSet16)).
+        Property<Typography>((t, v) => t.StylisticSet16 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet17() => new NProperty(nameof(NProperties.StylisticSet17)).
+        Property<Typography>((t, v) => t.StylisticSet17 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet18() => new NProperty(nameof(NProperties.StylisticSet18)).
+        Property<Typography>((t, v) => t.StylisticSet18 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet19() => new NProperty(nameof(NProperties.StylisticSet19)).
+        Property<Typography>((t, v) => t.StylisticSet19 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet2() => new NProperty(nameof(NProperties.StylisticSet2)).
+        Property<Typography>((t, v) => t.StylisticSet2 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet20() => new NProperty(nameof(NProperties.StylisticSet20)).
+        Property<Typography>((t, v) => t.StylisticSet20 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet3() => new NProperty(nameof(NProperties.StylisticSet3)).
+        Property<Typography>((t, v) => t.StylisticSet3 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet4() => new NProperty(nameof(NProperties.StylisticSet4)).
+        Property<Typography>((t, v) => t.StylisticSet4 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet5() => new NProperty(nameof(NProperties.StylisticSet5)).
+        Property<Typography>((t, v) => t.StylisticSet5 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet6() => new NProperty(nameof(NProperties.StylisticSet6)).
+        Property<Typography>((t, v) => t.StylisticSet6 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet7() => new NProperty(nameof(NProperties.StylisticSet7)).
+        Property<Typography>((t, v) => t.StylisticSet7 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet8() => new NProperty(nameof(NProperties.StylisticSet8)).
+        Property<Typography>((t, v) => t.StylisticSet8 = NConverters.ToBoolT(v));
+
+    public static NProperty CreateStylisticSet9() => new NProperty(nameof(NProperties.StylisticSet9)).
+        Property<Typography>((t, v) => t.StylisticSet9 = NConverters.ToBoolT(v));
 
     public static NProperty CreateStylusButtonDown() => new NProperty(nameof(NProperties.StylusButtonDown)).
         Event<UIElement>(UIElement.StylusButtonDownEvent, a => (StylusButtonEventHandler)a.EventHandler);
@@ -4359,6 +4751,135 @@ namespace NReact
     public static NProperty CreateTriggers() => new NProperty(nameof(NProperties.Triggers)).
         Property<FrameworkElement>((t, v) => NPatch.AssignListT(t.Triggers, v));
 
+    public static NProperty CreateTypographyAnnotationAlternates() => new NProperty(nameof(NProperties.TypographyAnnotationAlternates)).
+        Property<DependencyObject>(Typography.AnnotationAlternatesProperty, NConverters.ToInt32);
+
+    public static NProperty CreateTypographyCapitals() => new NProperty(nameof(NProperties.TypographyCapitals)).
+        Property<DependencyObject>(Typography.CapitalsProperty, NConverters.ToEnum<FontCapitals>);
+
+    public static NProperty CreateTypographyCapitalSpacing() => new NProperty(nameof(NProperties.TypographyCapitalSpacing)).
+        Property<DependencyObject>(Typography.CapitalSpacingProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyCaseSensitiveForms() => new NProperty(nameof(NProperties.TypographyCaseSensitiveForms)).
+        Property<DependencyObject>(Typography.CaseSensitiveFormsProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyContextualAlternates() => new NProperty(nameof(NProperties.TypographyContextualAlternates)).
+        Property<DependencyObject>(Typography.ContextualAlternatesProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyContextualLigatures() => new NProperty(nameof(NProperties.TypographyContextualLigatures)).
+        Property<DependencyObject>(Typography.ContextualLigaturesProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyContextualSwashes() => new NProperty(nameof(NProperties.TypographyContextualSwashes)).
+        Property<DependencyObject>(Typography.ContextualSwashesProperty, NConverters.ToInt32);
+
+    public static NProperty CreateTypographyDiscretionaryLigatures() => new NProperty(nameof(NProperties.TypographyDiscretionaryLigatures)).
+        Property<DependencyObject>(Typography.DiscretionaryLigaturesProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyEastAsianExpertForms() => new NProperty(nameof(NProperties.TypographyEastAsianExpertForms)).
+        Property<DependencyObject>(Typography.EastAsianExpertFormsProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyEastAsianLanguage() => new NProperty(nameof(NProperties.TypographyEastAsianLanguage)).
+        Property<DependencyObject>(Typography.EastAsianLanguageProperty, NConverters.ToEnum<FontEastAsianLanguage>);
+
+    public static NProperty CreateTypographyEastAsianWidths() => new NProperty(nameof(NProperties.TypographyEastAsianWidths)).
+        Property<DependencyObject>(Typography.EastAsianWidthsProperty, NConverters.ToEnum<FontEastAsianWidths>);
+
+    public static NProperty CreateTypographyFraction() => new NProperty(nameof(NProperties.TypographyFraction)).
+        Property<DependencyObject>(Typography.FractionProperty, NConverters.ToEnum<FontFraction>);
+
+    public static NProperty CreateTypographyHistoricalForms() => new NProperty(nameof(NProperties.TypographyHistoricalForms)).
+        Property<DependencyObject>(Typography.HistoricalFormsProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyHistoricalLigatures() => new NProperty(nameof(NProperties.TypographyHistoricalLigatures)).
+        Property<DependencyObject>(Typography.HistoricalLigaturesProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyKerning() => new NProperty(nameof(NProperties.TypographyKerning)).
+        Property<DependencyObject>(Typography.KerningProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyMathematicalGreek() => new NProperty(nameof(NProperties.TypographyMathematicalGreek)).
+        Property<DependencyObject>(Typography.MathematicalGreekProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyNumeralAlignment() => new NProperty(nameof(NProperties.TypographyNumeralAlignment)).
+        Property<DependencyObject>(Typography.NumeralAlignmentProperty, NConverters.ToEnum<FontNumeralAlignment>);
+
+    public static NProperty CreateTypographyNumeralStyle() => new NProperty(nameof(NProperties.TypographyNumeralStyle)).
+        Property<DependencyObject>(Typography.NumeralStyleProperty, NConverters.ToEnum<FontNumeralStyle>);
+
+    public static NProperty CreateTypographySlashedZero() => new NProperty(nameof(NProperties.TypographySlashedZero)).
+        Property<DependencyObject>(Typography.SlashedZeroProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStandardLigatures() => new NProperty(nameof(NProperties.TypographyStandardLigatures)).
+        Property<DependencyObject>(Typography.StandardLigaturesProperty, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStandardSwashes() => new NProperty(nameof(NProperties.TypographyStandardSwashes)).
+        Property<DependencyObject>(Typography.StandardSwashesProperty, NConverters.ToInt32);
+
+    public static NProperty CreateTypographyStylisticAlternates() => new NProperty(nameof(NProperties.TypographyStylisticAlternates)).
+        Property<DependencyObject>(Typography.StylisticAlternatesProperty, NConverters.ToInt32);
+
+    public static NProperty CreateTypographyStylisticSet1() => new NProperty(nameof(NProperties.TypographyStylisticSet1)).
+        Property<DependencyObject>(Typography.StylisticSet1Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet10() => new NProperty(nameof(NProperties.TypographyStylisticSet10)).
+        Property<DependencyObject>(Typography.StylisticSet10Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet11() => new NProperty(nameof(NProperties.TypographyStylisticSet11)).
+        Property<DependencyObject>(Typography.StylisticSet11Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet12() => new NProperty(nameof(NProperties.TypographyStylisticSet12)).
+        Property<DependencyObject>(Typography.StylisticSet12Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet13() => new NProperty(nameof(NProperties.TypographyStylisticSet13)).
+        Property<DependencyObject>(Typography.StylisticSet13Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet14() => new NProperty(nameof(NProperties.TypographyStylisticSet14)).
+        Property<DependencyObject>(Typography.StylisticSet14Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet15() => new NProperty(nameof(NProperties.TypographyStylisticSet15)).
+        Property<DependencyObject>(Typography.StylisticSet15Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet16() => new NProperty(nameof(NProperties.TypographyStylisticSet16)).
+        Property<DependencyObject>(Typography.StylisticSet16Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet17() => new NProperty(nameof(NProperties.TypographyStylisticSet17)).
+        Property<DependencyObject>(Typography.StylisticSet17Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet18() => new NProperty(nameof(NProperties.TypographyStylisticSet18)).
+        Property<DependencyObject>(Typography.StylisticSet18Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet19() => new NProperty(nameof(NProperties.TypographyStylisticSet19)).
+        Property<DependencyObject>(Typography.StylisticSet19Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet2() => new NProperty(nameof(NProperties.TypographyStylisticSet2)).
+        Property<DependencyObject>(Typography.StylisticSet2Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet20() => new NProperty(nameof(NProperties.TypographyStylisticSet20)).
+        Property<DependencyObject>(Typography.StylisticSet20Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet3() => new NProperty(nameof(NProperties.TypographyStylisticSet3)).
+        Property<DependencyObject>(Typography.StylisticSet3Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet4() => new NProperty(nameof(NProperties.TypographyStylisticSet4)).
+        Property<DependencyObject>(Typography.StylisticSet4Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet5() => new NProperty(nameof(NProperties.TypographyStylisticSet5)).
+        Property<DependencyObject>(Typography.StylisticSet5Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet6() => new NProperty(nameof(NProperties.TypographyStylisticSet6)).
+        Property<DependencyObject>(Typography.StylisticSet6Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet7() => new NProperty(nameof(NProperties.TypographyStylisticSet7)).
+        Property<DependencyObject>(Typography.StylisticSet7Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet8() => new NProperty(nameof(NProperties.TypographyStylisticSet8)).
+        Property<DependencyObject>(Typography.StylisticSet8Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyStylisticSet9() => new NProperty(nameof(NProperties.TypographyStylisticSet9)).
+        Property<DependencyObject>(Typography.StylisticSet9Property, NConverters.ToBool);
+
+    public static NProperty CreateTypographyVariants() => new NProperty(nameof(NProperties.TypographyVariants)).
+        Property<DependencyObject>(Typography.VariantsProperty, NConverters.ToEnum<FontVariants>);
+
     public static NProperty CreateUid() => new NProperty(nameof(NProperties.Uid)).
         Property<UIElement>(UIElement.UidProperty, NConverters.ToString);
 
@@ -4410,6 +4931,9 @@ namespace NReact
 
     public static NProperty CreateValueChanged() => new NProperty(nameof(NProperties.ValueChanged)).
         Event<RangeBase>(RangeBase.ValueChangedEvent, a => (RoutedPropertyChangedEventHandler<Double>)a.EventHandler);
+
+    public static NProperty CreateVariants() => new NProperty(nameof(NProperties.Variants)).
+        Property<Typography>((t, v) => t.Variants = NConverters.ToEnumT<FontVariants>(v));
 
     public static NProperty CreateVerticalAlignment() => new NProperty(nameof(NProperties.VerticalAlignment)).
         Property<FrameworkElement>(FrameworkElement.VerticalAlignmentProperty, NConverters.ToEnum<VerticalAlignment>);

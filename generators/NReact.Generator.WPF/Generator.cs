@@ -81,6 +81,7 @@ namespace NReact
 
 #if !NETFX_CORE
       yield return typeof(TextOptions);
+      yield return typeof(Typography);
 #endif
 
 #elif XFORMS
@@ -219,7 +220,6 @@ namespace NReact
     public ClassGenerator(Type type)
     {
       _type = type;
-
       var allFields = _type.GetPublicStaticFields();
       var allProps = _type.GetPublicStaticProperties();
 
@@ -390,6 +390,11 @@ namespace NReact
     void GenerateProperties()
     {
       var props = _type.GetPublicInstanceProperties().OrderBy(i => i.Name);
+#if XAML
+      var depType = _type.IsSubclassOf(typeof(DependencyObject));
+#else
+      var depType = false;
+#endif
 
       foreach (var prop in props)
       {
@@ -403,11 +408,12 @@ namespace NReact
         }
         else if (prop.CanWrite && prop.GetSetMethod() != null)
         {
-          var dep = GetDPMember(prop.Name);
+          var dep = depType ? GetDPMember(prop.Name) : null; 
 
           if (dep != null)
           {
             var converter = GetDPConverter(prop);
+            var name = _type.Name;
             AddInit(SafePropertyName(prop.Name), $"Property<{SafeTypeName(_type)}>({SafeTypeName(_type)}.{dep.Name}{Comma(converter)})");
           }
           else
@@ -585,6 +591,11 @@ namespace NReact
       return assembly.GetTypes();
     }
 #endif
+
+    public static bool IsSubclassOf(this Type type, Type test)
+    {
+      return type.GetTypeInfo().IsSubclassOf(test);
+    }
 
     public static Type BaseType(this Type type)
     {
