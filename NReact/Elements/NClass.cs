@@ -198,12 +198,18 @@ namespace NReact
     NElement RenderUI()
     {
       var save = SetCurrentOwner(Owner);
+#if DROID
+      var saveCtx = SetCurrentContext(Context);
+#endif
       try
       {
         return AssignAttachedProps(Render());
       }
       finally
       {
+#if DROID
+        SetCurrentContext(saveCtx);
+#endif
         SetCurrentOwner(save);
       }
     }

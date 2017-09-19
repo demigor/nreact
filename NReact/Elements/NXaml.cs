@@ -6,7 +6,10 @@ namespace NReact
   /// Generic NReact Xaml element
   /// </summary>
   /// <typeparam name="T">Xaml type to represent</typeparam>
-  public class NXaml<T> : NElement where T : new()
+  public class NXaml<T> : NElement
+#if !DROID
+    where T : new()
+#endif
   {
     public NXaml() { }
 
@@ -14,6 +17,11 @@ namespace NReact
 
     internal override object CreateXaml()
     {
+#if DROID
+      var ctr = CtxCtor<T>.New;
+      if (ctr != null)
+        return ctr(Context);
+#endif
       return Ctor<T>.New();
     }
 

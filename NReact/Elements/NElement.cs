@@ -30,6 +30,22 @@ namespace NReact
       return result;
     }
 
+#if DROID
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]
+    internal Android.Content.Context Context = CurrentContext;
+
+    [ThreadStatic]
+    internal static Android.Content.Context CurrentContext;
+
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Advanced)]
+    public static Android.Content.Context SetCurrentContext(Android.Content.Context ctx)
+    {
+      var result = CurrentContext;
+      CurrentContext = ctx;
+      return result;
+    }
+#endif
+
     internal virtual object InitXaml(object target)
     {
       var type = target.GetType();
