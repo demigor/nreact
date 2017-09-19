@@ -125,20 +125,21 @@ namespace NReact
         {
           var s = newE;
           var p = Diff(oldE, ref newE);
-          if (p == null)
-            return newE != s;
 
-          var e = Add(key);
-
-          if (p == NPatch.AssignNewValue)
+          if (p != null)
           {
-            e.Value = newE;
-            e.Finalizer = oldValue;
-          }
-          else
-            e.Value = p;
+            var e = Add(key);
 
-          return false;
+            if (p == NPatch.AssignNewValue)
+            {
+              e.Value = newE;
+              e.Finalizer = oldValue;
+            }
+            else
+              e.Value = p;
+          }
+
+          return newE != s; // register ref result from Diff method
         }
       }
       #endregion
