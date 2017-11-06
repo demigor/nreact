@@ -39,6 +39,7 @@ class TodoList : NClass
 class TodoApp : NComponent
 {
   protected object[] Items { get; set; }
+  protected string Text { get; set; }
 
   public override NElement Render()
   {
