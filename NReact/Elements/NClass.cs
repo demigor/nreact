@@ -51,23 +51,6 @@ namespace NReact
       return GetType();
     }
 
-#region Patching Indicators
-
-    internal void BeginPatching()
-    {
-      _isPatching = true;
-    }
-
-    internal void EndPatching()
-    {
-      _isPatching = false;
-    }
-
-    protected bool IsPatching { get { return _isPatching; } }
-    bool _isPatching;
-
-#endregion
-
     /// <summary>
     /// State getter method
     /// </summary>
@@ -360,7 +343,18 @@ namespace NReact
 #endif
       }
 
-      NPatch.OnUIThread(patch, i => Xaml = i.Apply(Xaml));
+      NPatch.OnUIThread(patch, i =>
+      {
+        BeginPatching();
+        try
+        {
+          Xaml = i.Apply(Xaml);
+        }
+        finally
+        {
+          EndPatching();
+        }
+      });
     }
 
     /// <summary>

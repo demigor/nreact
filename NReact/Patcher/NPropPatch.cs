@@ -34,8 +34,7 @@ namespace NReact
 
     public override object Apply(object target)
     {
-      var c = _element as NClass;
-      c?.BeginPatching();
+      _element.BeginPatching();
       try
       {
 #if DEBUG
@@ -51,7 +50,7 @@ namespace NReact
       }
       finally
       {
-        c?.EndPatching();
+        _element.EndPatching();
       }
       return target;
     }

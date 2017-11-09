@@ -156,6 +156,24 @@ namespace NReact
       return this;
     }
 
+
+    #region Patching Indicators
+
+    protected internal void BeginPatching() { _isPatching = true; _patchingDepth++; }
+    protected internal void EndPatching() { _isPatching = false; _patchingDepth--; }
+
+    /// <summary>
+    /// Indicates whether this instance undergoes property patching
+    /// </summary>
+    protected bool IsPatching => _isPatching;
+    bool _isPatching;
+
+    protected static bool IsPatchingInProgress = _patchingDepth > 0;
+    static int _patchingDepth = 0;
+
+    protected static bool IsElementPatching(NElement element) => element._isPatching;
+
+    #endregion
     #endregion
   }
 }
