@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.5.0-alpha</version>
+        <version>0.0.5.3-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -12,7 +12,7 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>React/Flux principles for native C#/Xaml applications (Windows Store, Windows Phone, WPF, Silverlight)</description>
         <summary>Facebook React/Flux principles for native C#/Xaml applications</summary>
-        <releaseNotes>0.0.5.0 Initial Xamarin support
+        <releaseNotes>0.0.5.3 Xamarin support temporarily removed 
 
 Experimental version to play with React/Flux principles in familiar C#/Xaml world.</releaseNotes>
         <copyright>Alexey Lavnikov</copyright>
@@ -20,12 +20,6 @@ Experimental version to play with React/Flux principles in familiar C#/Xaml worl
         <tags>React Flux Xaml NReact Native</tags>
     </metadata>
     <files>
-        <file src="..\bin\Droid\NReact.dll" target="lib\MonoAndroid\NReact.dll" />
-        <file src="..\bin\Droid\NReact.pdb" target="lib\MonoAndroid\NReact.pdb" />
-        <file src="..\bin\Droid\NReact.xml" target="lib\MonoAndroid\NReact.xml" />
-        <file src="..\bin\iOS\NReact.dll" target="lib\MonoTouch\NReact.dll" />
-        <file src="..\bin\iOS\NReact.pdb" target="lib\MonoTouch\NReact.pdb" />
-        <file src="..\bin\iOS\NReact.xml" target="lib\MonoTouch\NReact.xml" />
         <file src="..\bin\WPF\NReact.dll" target="lib\net45\NReact.dll" />
         <file src="..\bin\WPF\NReact.pdb" target="lib\net45\NReact.pdb" />
         <file src="..\bin\WPF\NReact.xml" target="lib\net45\NReact.xml" />
@@ -44,8 +38,5 @@ Experimental version to play with React/Flux principles in familiar C#/Xaml worl
         <file src="..\bin\WRT.Phone\NReact.pdb" target="lib\wpa81\NReact.pdb" />
         <file src="..\bin\WRT.Phone\NReact.pri" target="lib\wpa81\NReact.pri" />
         <file src="..\bin\WRT.Phone\NReact.xml" target="lib\wpa81\NReact.xml" />
-        <file src="..\bin\iOS\NReact.dll" target="lib\Xamarin.iOS10\NReact.dll" />
-        <file src="..\bin\iOS\NReact.pdb" target="lib\Xamarin.iOS10\NReact.pdb" />
-        <file src="..\bin\iOS\NReact.xml" target="lib\Xamarin.iOS10\NReact.xml" />
     </files>
 </package>

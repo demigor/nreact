@@ -39,7 +39,7 @@ namespace NReact
                       Child(
                         new NXaml<Button>().
                           Alignment(HorizontalAlignment.Center, VerticalAlignment.Center).
-                          Content("Click me").
+                          Content("Click me 2").
                           FontSize(FontSize));
 
       return new NXaml<Grid>().Alignment(HorizontalAlignment.Stretch, VerticalAlignment.Stretch).Children(

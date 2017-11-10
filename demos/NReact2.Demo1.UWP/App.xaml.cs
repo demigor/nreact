@@ -12,7 +12,7 @@ namespace NReact
 
     protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
-      Window.Current.Render(new Demo2());
+      Window.Current.Render(new Demo1());
       Window.Current.Activate();
     }
   }

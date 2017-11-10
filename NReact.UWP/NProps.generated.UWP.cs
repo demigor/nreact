@@ -1,5 +1,5 @@
 using System;
-using WGDayOfWeek = Windows.Globalization.DayOfWeek;
+using wg = Windows.Globalization;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,11 +19,26 @@ namespace NReact
     public NProperty AcceptsReturn { get { return _acceptsReturn ?? (_acceptsReturn = NPropFactories.CreateAcceptsReturn()); } }
            NProperty _acceptsReturn;
 
+    public NProperty AccessKey { get { return _accessKey ?? (_accessKey = NPropFactories.CreateAccessKey()); } }
+           NProperty _accessKey;
+
+    public NProperty AccessKeyScopeOwner { get { return _accessKeyScopeOwner ?? (_accessKeyScopeOwner = NPropFactories.CreateAccessKeyScopeOwner()); } }
+           NProperty _accessKeyScopeOwner;
+
+    public NProperty ActiveTool { get { return _activeTool ?? (_activeTool = NPropFactories.CreateActiveTool()); } }
+           NProperty _activeTool;
+
     public NProperty AllowDrop { get { return _allowDrop ?? (_allowDrop = NPropFactories.CreateAllowDrop()); } }
            NProperty _allowDrop;
 
     public NProperty AllowedScriptNotifyUris { get { return _allowedScriptNotifyUris ?? (_allowedScriptNotifyUris = NPropFactories.CreateAllowedScriptNotifyUris()); } }
            NProperty _allowedScriptNotifyUris;
+
+    public NProperty AllowFocusOnInteraction { get { return _allowFocusOnInteraction ?? (_allowFocusOnInteraction = NPropFactories.CreateAllowFocusOnInteraction()); } }
+           NProperty _allowFocusOnInteraction;
+
+    public NProperty AllowFocusWhenDisabled { get { return _allowFocusWhenDisabled ?? (_allowFocusWhenDisabled = NPropFactories.CreateAllowFocusWhenDisabled()); } }
+           NProperty _allowFocusWhenDisabled;
 
     public NProperty AreScrollSnapPointsRegular { get { return _areScrollSnapPointsRegular ?? (_areScrollSnapPointsRegular = NPropFactories.CreateAreScrollSnapPointsRegular()); } }
            NProperty _areScrollSnapPointsRegular;
@@ -78,6 +93,9 @@ namespace NReact
 
     public NProperty BufferingProgressChanged { get { return _bufferingProgressChanged ?? (_bufferingProgressChanged = NPropFactories.CreateBufferingProgressChanged()); } }
            NProperty _bufferingProgressChanged;
+
+    public NProperty BusinessLandmarksEnabled { get { return _businessLandmarksEnabled ?? (_businessLandmarksEnabled = NPropFactories.CreateBusinessLandmarksEnabled()); } }
+           NProperty _businessLandmarksEnabled;
 
     public NProperty BusinessLandmarksVisible { get { return _businessLandmarksVisible ?? (_businessLandmarksVisible = NPropFactories.CreateBusinessLandmarksVisible()); } }
            NProperty _businessLandmarksVisible;
@@ -229,6 +247,9 @@ namespace NReact
     public NProperty CompositeMode { get { return _compositeMode ?? (_compositeMode = NPropFactories.CreateCompositeMode()); } }
            NProperty _compositeMode;
 
+    public NProperty ConfigurationContent { get { return _configurationContent ?? (_configurationContent = NPropFactories.CreateConfigurationContent()); } }
+           NProperty _configurationContent;
+
     public NProperty Content { get { return _content ?? (_content = NPropFactories.CreateContent()); } }
            NProperty _content;
 
@@ -244,6 +265,9 @@ namespace NReact
     public NProperty ContentTransitions { get { return _contentTransitions ?? (_contentTransitions = NPropFactories.CreateContentTransitions()); } }
            NProperty _contentTransitions;
 
+    public NProperty ContextFlyout { get { return _contextFlyout ?? (_contextFlyout = NPropFactories.CreateContextFlyout()); } }
+           NProperty _contextFlyout;
+
     public NProperty ContextMenuOpening { get { return _contextMenuOpening ?? (_contextMenuOpening = NPropFactories.CreateContextMenuOpening()); } }
            NProperty _contextMenuOpening;
 
@@ -255,6 +279,9 @@ namespace NReact
 
     public NProperty CurrentStateChanged { get { return _currentStateChanged ?? (_currentStateChanged = NPropFactories.CreateCurrentStateChanged()); } }
            NProperty _currentStateChanged;
+
+    public NProperty CustomPen { get { return _customPen ?? (_customPen = NPropFactories.CreateCustomPen()); } }
+           NProperty _customPen;
 
     public NProperty Data { get { return _data ?? (_data = NPropFactories.CreateData()); } }
            NProperty _data;
@@ -297,6 +324,9 @@ namespace NReact
 
     public NProperty DefaultBackgroundColor { get { return _defaultBackgroundColor ?? (_defaultBackgroundColor = NPropFactories.CreateDefaultBackgroundColor()); } }
            NProperty _defaultBackgroundColor;
+
+    public NProperty DefaultLabelPosition { get { return _defaultLabelPosition ?? (_defaultLabelPosition = NPropFactories.CreateDefaultLabelPosition()); } }
+           NProperty _defaultLabelPosition;
 
     public NProperty DefaultPlaybackRate { get { return _defaultPlaybackRate ?? (_defaultPlaybackRate = NPropFactories.CreateDefaultPlaybackRate()); } }
            NProperty _defaultPlaybackRate;
@@ -373,6 +403,18 @@ namespace NReact
     public NProperty DropDownOpened { get { return _dropDownOpened ?? (_dropDownOpened = NPropFactories.CreateDropDownOpened()); } }
            NProperty _dropDownOpened;
 
+    public NProperty DynamicOverflowOrder { get { return _dynamicOverflowOrder ?? (_dynamicOverflowOrder = NPropFactories.CreateDynamicOverflowOrder()); } }
+           NProperty _dynamicOverflowOrder;
+
+    public NProperty ElementSoundMode { get { return _elementSoundMode ?? (_elementSoundMode = NPropFactories.CreateElementSoundMode()); } }
+           NProperty _elementSoundMode;
+
+    public NProperty ExitDisplayModeOnAccessKeyInvoked { get { return _exitDisplayModeOnAccessKeyInvoked ?? (_exitDisplayModeOnAccessKeyInvoked = NPropFactories.CreateExitDisplayModeOnAccessKeyInvoked()); } }
+           NProperty _exitDisplayModeOnAccessKeyInvoked;
+
+    public NProperty FastPlayFallbackBehaviour { get { return _fastPlayFallbackBehaviour ?? (_fastPlayFallbackBehaviour = NPropFactories.CreateFastPlayFallbackBehaviour()); } }
+           NProperty _fastPlayFallbackBehaviour;
+
     public NProperty Fill { get { return _fill ?? (_fill = NPropFactories.CreateFill()); } }
            NProperty _fill;
 
@@ -420,6 +462,21 @@ namespace NReact
 
     public NProperty FocusSecondaryBorderBrush { get { return _focusSecondaryBorderBrush ?? (_focusSecondaryBorderBrush = NPropFactories.CreateFocusSecondaryBorderBrush()); } }
            NProperty _focusSecondaryBorderBrush;
+
+    public NProperty FocusVisualMargin { get { return _focusVisualMargin ?? (_focusVisualMargin = NPropFactories.CreateFocusVisualMargin()); } }
+           NProperty _focusVisualMargin;
+
+    public NProperty FocusVisualPrimaryBrush { get { return _focusVisualPrimaryBrush ?? (_focusVisualPrimaryBrush = NPropFactories.CreateFocusVisualPrimaryBrush()); } }
+           NProperty _focusVisualPrimaryBrush;
+
+    public NProperty FocusVisualPrimaryThickness { get { return _focusVisualPrimaryThickness ?? (_focusVisualPrimaryThickness = NPropFactories.CreateFocusVisualPrimaryThickness()); } }
+           NProperty _focusVisualPrimaryThickness;
+
+    public NProperty FocusVisualSecondaryBrush { get { return _focusVisualSecondaryBrush ?? (_focusVisualSecondaryBrush = NPropFactories.CreateFocusVisualSecondaryBrush()); } }
+           NProperty _focusVisualSecondaryBrush;
+
+    public NProperty FocusVisualSecondaryThickness { get { return _focusVisualSecondaryThickness ?? (_focusVisualSecondaryThickness = NPropFactories.CreateFocusVisualSecondaryThickness()); } }
+           NProperty _focusVisualSecondaryThickness;
 
     public NProperty FontFamily { get { return _fontFamily ?? (_fontFamily = NPropFactories.CreateFontFamily()); } }
            NProperty _fontFamily;
@@ -505,6 +562,9 @@ namespace NReact
     public NProperty HeaderBackground { get { return _headerBackground ?? (_headerBackground = NPropFactories.CreateHeaderBackground()); } }
            NProperty _headerBackground;
 
+    public NProperty HeaderFocusVisualPlacement { get { return _headerFocusVisualPlacement ?? (_headerFocusVisualPlacement = NPropFactories.CreateHeaderFocusVisualPlacement()); } }
+           NProperty _headerFocusVisualPlacement;
+
     public NProperty HeaderForeground { get { return _headerForeground ?? (_headerForeground = NPropFactories.CreateHeaderForeground()); } }
            NProperty _headerForeground;
 
@@ -586,6 +646,9 @@ namespace NReact
     public NProperty Indices { get { return _indices ?? (_indices = NPropFactories.CreateIndices()); } }
            NProperty _indices;
 
+    public NProperty InitialControls { get { return _initialControls ?? (_initialControls = NPropFactories.CreateInitialControls()); } }
+           NProperty _initialControls;
+
     public NProperty Inlines { get { return _inlines ?? (_inlines = NPropFactories.CreateInlines()); } }
            NProperty _inlines;
 
@@ -597,6 +660,9 @@ namespace NReact
 
     public NProperty Interval { get { return _interval ?? (_interval = NPropFactories.CreateInterval()); } }
            NProperty _interval;
+
+    public NProperty IsAccessKeyScope { get { return _isAccessKeyScope ?? (_isAccessKeyScope = NPropFactories.CreateIsAccessKeyScope()); } }
+           NProperty _isAccessKeyScope;
 
     public NProperty IsActive { get { return _isActive ?? (_isActive = NPropFactories.CreateIsActive()); } }
            NProperty _isActive;
@@ -631,11 +697,17 @@ namespace NReact
     public NProperty IsDropDownOpen { get { return _isDropDownOpen ?? (_isDropDownOpen = NPropFactories.CreateIsDropDownOpen()); } }
            NProperty _isDropDownOpen;
 
+    public NProperty IsDynamicOverflowEnabled { get { return _isDynamicOverflowEnabled ?? (_isDynamicOverflowEnabled = NPropFactories.CreateIsDynamicOverflowEnabled()); } }
+           NProperty _isDynamicOverflowEnabled;
+
     public NProperty IsEnabled { get { return _isEnabled ?? (_isEnabled = NPropFactories.CreateIsEnabled()); } }
            NProperty _isEnabled;
 
     public NProperty IsEnabledChanged { get { return _isEnabledChanged ?? (_isEnabledChanged = NPropFactories.CreateIsEnabledChanged()); } }
            NProperty _isEnabledChanged;
+
+    public NProperty IsExtensionGlyphShown { get { return _isExtensionGlyphShown ?? (_isExtensionGlyphShown = NPropFactories.CreateIsExtensionGlyphShown()); } }
+           NProperty _isExtensionGlyphShown;
 
     public NProperty IsFastForwardButtonVisible { get { return _isFastForwardButtonVisible ?? (_isFastForwardButtonVisible = NPropFactories.CreateIsFastForwardButtonVisible()); } }
            NProperty _isFastForwardButtonVisible;
@@ -648,6 +720,12 @@ namespace NReact
 
     public NProperty IsFastRewindEnabled { get { return _isFastRewindEnabled ?? (_isFastRewindEnabled = NPropFactories.CreateIsFastRewindEnabled()); } }
            NProperty _isFastRewindEnabled;
+
+    public NProperty IsFocusEngaged { get { return _isFocusEngaged ?? (_isFocusEngaged = NPropFactories.CreateIsFocusEngaged()); } }
+           NProperty _isFocusEngaged;
+
+    public NProperty IsFocusEngagementEnabled { get { return _isFocusEngagementEnabled ?? (_isFocusEngagementEnabled = NPropFactories.CreateIsFocusEngagementEnabled()); } }
+           NProperty _isFocusEngagementEnabled;
 
     public NProperty IsFullWindow { get { return _isFullWindow ?? (_isFullWindow = NPropFactories.CreateIsFullWindow()); } }
            NProperty _isFullWindow;
@@ -663,6 +741,9 @@ namespace NReact
 
     public NProperty IsHeaderInteractive { get { return _isHeaderInteractive ?? (_isHeaderInteractive = NPropFactories.CreateIsHeaderInteractive()); } }
            NProperty _isHeaderInteractive;
+
+    public NProperty IsHeaderItemsCarouselEnabled { get { return _isHeaderItemsCarouselEnabled ?? (_isHeaderItemsCarouselEnabled = NPropFactories.CreateIsHeaderItemsCarouselEnabled()); } }
+           NProperty _isHeaderItemsCarouselEnabled;
 
     public NProperty IsHitTestVisible { get { return _isHitTestVisible ?? (_isHitTestVisible = NPropFactories.CreateIsHitTestVisible()); } }
            NProperty _isHitTestVisible;
@@ -697,6 +778,9 @@ namespace NReact
     public NProperty IsMuted { get { return _isMuted ?? (_isMuted = NPropFactories.CreateIsMuted()); } }
            NProperty _isMuted;
 
+    public NProperty IsNextTrackButtonVisible { get { return _isNextTrackButtonVisible ?? (_isNextTrackButtonVisible = NPropFactories.CreateIsNextTrackButtonVisible()); } }
+           NProperty _isNextTrackButtonVisible;
+
     public NProperty IsOn { get { return _isOn ?? (_isOn = NPropFactories.CreateIsOn()); } }
            NProperty _isOn;
 
@@ -718,6 +802,9 @@ namespace NReact
     public NProperty IsPlaybackRateEnabled { get { return _isPlaybackRateEnabled ?? (_isPlaybackRateEnabled = NPropFactories.CreateIsPlaybackRateEnabled()); } }
            NProperty _isPlaybackRateEnabled;
 
+    public NProperty IsPreviousTrackButtonVisible { get { return _isPreviousTrackButtonVisible ?? (_isPreviousTrackButtonVisible = NPropFactories.CreateIsPreviousTrackButtonVisible()); } }
+           NProperty _isPreviousTrackButtonVisible;
+
     public NProperty IsPrimaryButtonEnabled { get { return _isPrimaryButtonEnabled ?? (_isPrimaryButtonEnabled = NPropFactories.CreateIsPrimaryButtonEnabled()); } }
            NProperty _isPrimaryButtonEnabled;
 
@@ -726,6 +813,9 @@ namespace NReact
 
     public NProperty IsRightTapEnabled { get { return _isRightTapEnabled ?? (_isRightTapEnabled = NPropFactories.CreateIsRightTapEnabled()); } }
            NProperty _isRightTapEnabled;
+
+    public NProperty IsRulerButtonChecked { get { return _isRulerButtonChecked ?? (_isRulerButtonChecked = NPropFactories.CreateIsRulerButtonChecked()); } }
+           NProperty _isRulerButtonChecked;
 
     public NProperty IsScrollInertiaEnabled { get { return _isScrollInertiaEnabled ?? (_isScrollInertiaEnabled = NPropFactories.CreateIsScrollInertiaEnabled()); } }
            NProperty _isScrollInertiaEnabled;
@@ -741,6 +831,18 @@ namespace NReact
 
     public NProperty IsSelected { get { return _isSelected ?? (_isSelected = NPropFactories.CreateIsSelected()); } }
            NProperty _isSelected;
+
+    public NProperty IsSkipBackwardButtonVisible { get { return _isSkipBackwardButtonVisible ?? (_isSkipBackwardButtonVisible = NPropFactories.CreateIsSkipBackwardButtonVisible()); } }
+           NProperty _isSkipBackwardButtonVisible;
+
+    public NProperty IsSkipBackwardEnabled { get { return _isSkipBackwardEnabled ?? (_isSkipBackwardEnabled = NPropFactories.CreateIsSkipBackwardEnabled()); } }
+           NProperty _isSkipBackwardEnabled;
+
+    public NProperty IsSkipForwardButtonVisible { get { return _isSkipForwardButtonVisible ?? (_isSkipForwardButtonVisible = NPropFactories.CreateIsSkipForwardButtonVisible()); } }
+           NProperty _isSkipForwardButtonVisible;
+
+    public NProperty IsSkipForwardEnabled { get { return _isSkipForwardEnabled ?? (_isSkipForwardEnabled = NPropFactories.CreateIsSkipForwardEnabled()); } }
+           NProperty _isSkipForwardEnabled;
 
     public NProperty IsSpellCheckEnabled { get { return _isSpellCheckEnabled ?? (_isSpellCheckEnabled = NPropFactories.CreateIsSpellCheckEnabled()); } }
            NProperty _isSpellCheckEnabled;
@@ -774,6 +876,9 @@ namespace NReact
 
     public NProperty IsTextScaleFactorEnabled { get { return _isTextScaleFactorEnabled ?? (_isTextScaleFactorEnabled = NPropFactories.CreateIsTextScaleFactorEnabled()); } }
            NProperty _isTextScaleFactorEnabled;
+
+    public NProperty IsTextSearchEnabled { get { return _isTextSearchEnabled ?? (_isTextSearchEnabled = NPropFactories.CreateIsTextSearchEnabled()); } }
+           NProperty _isTextSearchEnabled;
 
     public NProperty IsTextSelectionEnabled { get { return _isTextSelectionEnabled ?? (_isTextSelectionEnabled = NPropFactories.CreateIsTextSelectionEnabled()); } }
            NProperty _isTextSelectionEnabled;
@@ -865,6 +970,9 @@ namespace NReact
     public NProperty Label { get { return _label ?? (_label = NPropFactories.CreateLabel()); } }
            NProperty _label;
 
+    public NProperty LabelPosition { get { return _labelPosition ?? (_labelPosition = NPropFactories.CreateLabelPosition()); } }
+           NProperty _labelPosition;
+
     public NProperty LandmarksVisible { get { return _landmarksVisible ?? (_landmarksVisible = NPropFactories.CreateLandmarksVisible()); } }
            NProperty _landmarksVisible;
 
@@ -882,6 +990,9 @@ namespace NReact
 
     public NProperty LeftHeaderTemplate { get { return _leftHeaderTemplate ?? (_leftHeaderTemplate = NPropFactories.CreateLeftHeaderTemplate()); } }
            NProperty _leftHeaderTemplate;
+
+    public NProperty LightDismissOverlayMode { get { return _lightDismissOverlayMode ?? (_lightDismissOverlayMode = NPropFactories.CreateLightDismissOverlayMode()); } }
+           NProperty _lightDismissOverlayMode;
 
     public NProperty LineHeight { get { return _lineHeight ?? (_lineHeight = NPropFactories.CreateLineHeight()); } }
            NProperty _lineHeight;
@@ -964,6 +1075,9 @@ namespace NReact
     public NProperty MaxLines { get { return _maxLines ?? (_maxLines = NPropFactories.CreateMaxLines()); } }
            NProperty _maxLines;
 
+    public NProperty MaxStrokeWidth { get { return _maxStrokeWidth ?? (_maxStrokeWidth = NPropFactories.CreateMaxStrokeWidth()); } }
+           NProperty _maxStrokeWidth;
+
     public NProperty MaxSuggestionListHeight { get { return _maxSuggestionListHeight ?? (_maxSuggestionListHeight = NPropFactories.CreateMaxSuggestionListHeight()); } }
            NProperty _maxSuggestionListHeight;
 
@@ -985,6 +1099,9 @@ namespace NReact
     public NProperty MediaOpened { get { return _mediaOpened ?? (_mediaOpened = NPropFactories.CreateMediaOpened()); } }
            NProperty _mediaOpened;
 
+    public NProperty MediaPlayer { get { return _mediaPlayer ?? (_mediaPlayer = NPropFactories.CreateMediaPlayer()); } }
+           NProperty _mediaPlayer;
+
     public NProperty MinDate { get { return _minDate ?? (_minDate = NPropFactories.CreateMinDate()); } }
            NProperty _minDate;
 
@@ -993,6 +1110,9 @@ namespace NReact
 
     public NProperty Minimum { get { return _minimum ?? (_minimum = NPropFactories.CreateMinimum()); } }
            NProperty _minimum;
+
+    public NProperty MinStrokeWidth { get { return _minStrokeWidth ?? (_minStrokeWidth = NPropFactories.CreateMinStrokeWidth()); } }
+           NProperty _minStrokeWidth;
 
     public NProperty MinuteIncrement { get { return _minuteIncrement ?? (_minuteIncrement = NPropFactories.CreateMinuteIncrement()); } }
            NProperty _minuteIncrement;
@@ -1096,11 +1216,17 @@ namespace NReact
     public NProperty OutOfScopeForeground { get { return _outOfScopeForeground ?? (_outOfScopeForeground = NPropFactories.CreateOutOfScopeForeground()); } }
            NProperty _outOfScopeForeground;
 
+    public NProperty OverflowButtonVisibility { get { return _overflowButtonVisibility ?? (_overflowButtonVisibility = NPropFactories.CreateOverflowButtonVisibility()); } }
+           NProperty _overflowButtonVisibility;
+
     public NProperty OverflowContentTarget { get { return _overflowContentTarget ?? (_overflowContentTarget = NPropFactories.CreateOverflowContentTarget()); } }
            NProperty _overflowContentTarget;
 
     public NProperty Padding { get { return _padding ?? (_padding = NPropFactories.CreatePadding()); } }
            NProperty _padding;
+
+    public NProperty Palette { get { return _palette ?? (_palette = NPropFactories.CreatePalette()); } }
+           NProperty _palette;
 
     public NProperty Pane { get { return _pane ?? (_pane = NPropFactories.CreatePane()); } }
            NProperty _pane;
@@ -1306,6 +1432,9 @@ namespace NReact
     public NProperty RequestedTheme { get { return _requestedTheme ?? (_requestedTheme = NPropFactories.CreateRequestedTheme()); } }
            NProperty _requestedTheme;
 
+    public NProperty RequiresPointer { get { return _requiresPointer ?? (_requiresPointer = NPropFactories.CreateRequiresPointer()); } }
+           NProperty _requiresPointer;
+
     public NProperty Resources { get { return _resources ?? (_resources = NPropFactories.CreateResources()); } }
            NProperty _resources;
 
@@ -1399,6 +1528,9 @@ namespace NReact
     public NProperty SectionHeaders { get { return _sectionHeaders ?? (_sectionHeaders = NPropFactories.CreateSectionHeaders()); } }
            NProperty _sectionHeaders;
 
+    public NProperty Sections { get { return _sections ?? (_sections = NPropFactories.CreateSections()); } }
+           NProperty _sections;
+
     public NProperty SectionsInViewChanged { get { return _sectionsInViewChanged ?? (_sectionsInViewChanged = NPropFactories.CreateSectionsInViewChanged()); } }
            NProperty _sectionsInViewChanged;
 
@@ -1413,6 +1545,9 @@ namespace NReact
 
     public NProperty SelectedBorderThickness { get { return _selectedBorderThickness ?? (_selectedBorderThickness = NPropFactories.CreateSelectedBorderThickness()); } }
            NProperty _selectedBorderThickness;
+
+    public NProperty SelectedBrushIndex { get { return _selectedBrushIndex ?? (_selectedBrushIndex = NPropFactories.CreateSelectedBrushIndex()); } }
+           NProperty _selectedBrushIndex;
 
     public NProperty SelectedForeground { get { return _selectedForeground ?? (_selectedForeground = NPropFactories.CreateSelectedForeground()); } }
            NProperty _selectedForeground;
@@ -1437,6 +1572,9 @@ namespace NReact
 
     public NProperty SelectedPressedBorderBrush { get { return _selectedPressedBorderBrush ?? (_selectedPressedBorderBrush = NPropFactories.CreateSelectedPressedBorderBrush()); } }
            NProperty _selectedPressedBorderBrush;
+
+    public NProperty SelectedStrokeWidth { get { return _selectedStrokeWidth ?? (_selectedStrokeWidth = NPropFactories.CreateSelectedStrokeWidth()); } }
+           NProperty _selectedStrokeWidth;
 
     public NProperty SelectedText { get { return _selectedText ?? (_selectedText = NPropFactories.CreateSelectedText()); } }
            NProperty _selectedText;
@@ -1479,6 +1617,9 @@ namespace NReact
 
     public NProperty ShowsScrollingPlaceholders { get { return _showsScrollingPlaceholders ?? (_showsScrollingPlaceholders = NPropFactories.CreateShowsScrollingPlaceholders()); } }
            NProperty _showsScrollingPlaceholders;
+
+    public NProperty SingleSelectionFollowsFocus { get { return _singleSelectionFollowsFocus ?? (_singleSelectionFollowsFocus = NPropFactories.CreateSingleSelectionFollowsFocus()); } }
+           NProperty _singleSelectionFollowsFocus;
 
     public NProperty SizeChanged { get { return _sizeChanged ?? (_sizeChanged = NPropFactories.CreateSizeChanged()); } }
            NProperty _sizeChanged;
@@ -1557,6 +1698,9 @@ namespace NReact
 
     public NProperty Tapped { get { return _tapped ?? (_tapped = NPropFactories.CreateTapped()); } }
            NProperty _tapped;
+
+    public NProperty TargetInkCanvas { get { return _targetInkCanvas ?? (_targetInkCanvas = NPropFactories.CreateTargetInkCanvas()); } }
+           NProperty _targetInkCanvas;
 
     public NProperty Template { get { return _template ?? (_template = NPropFactories.CreateTemplate()); } }
            NProperty _template;
@@ -1650,6 +1794,9 @@ namespace NReact
 
     public NProperty TransformOrigin { get { return _transformOrigin ?? (_transformOrigin = NPropFactories.CreateTransformOrigin()); } }
            NProperty _transformOrigin;
+
+    public NProperty TransitFeaturesEnabled { get { return _transitFeaturesEnabled ?? (_transitFeaturesEnabled = NPropFactories.CreateTransitFeaturesEnabled()); } }
+           NProperty _transitFeaturesEnabled;
 
     public NProperty TransitFeaturesVisible { get { return _transitFeaturesVisible ?? (_transitFeaturesVisible = NPropFactories.CreateTransitFeaturesVisible()); } }
            NProperty _transitFeaturesVisible;
@@ -1771,6 +1918,18 @@ namespace NReact
     public NProperty X2 { get { return _x2 ?? (_x2 = NPropFactories.CreateX2()); } }
            NProperty _x2;
 
+    public NProperty XYFocusDown { get { return _xYFocusDown ?? (_xYFocusDown = NPropFactories.CreateXYFocusDown()); } }
+           NProperty _xYFocusDown;
+
+    public NProperty XYFocusLeft { get { return _xYFocusLeft ?? (_xYFocusLeft = NPropFactories.CreateXYFocusLeft()); } }
+           NProperty _xYFocusLeft;
+
+    public NProperty XYFocusRight { get { return _xYFocusRight ?? (_xYFocusRight = NPropFactories.CreateXYFocusRight()); } }
+           NProperty _xYFocusRight;
+
+    public NProperty XYFocusUp { get { return _xYFocusUp ?? (_xYFocusUp = NPropFactories.CreateXYFocusUp()); } }
+           NProperty _xYFocusUp;
+
     public NProperty Y1 { get { return _y1 ?? (_y1 = NPropFactories.CreateY1()); } }
            NProperty _y1;
 
@@ -1809,11 +1968,28 @@ namespace NReact
         Property<RichEditBox>(RichEditBox.AcceptsReturnProperty, NConverters.ToBool).
         Property<TextBox>(TextBox.AcceptsReturnProperty, NConverters.ToBool);
 
+    public static NProperty CreateAccessKey() => new NProperty(nameof(NProperties.AccessKey)).
+        Property<UIElement>(UIElement.AccessKeyProperty, NConverters.ToString).
+        Property<TextElement>(TextElement.AccessKeyProperty, NConverters.ToString);
+
+    public static NProperty CreateAccessKeyScopeOwner() => new NProperty(nameof(NProperties.AccessKeyScopeOwner)).
+        Property<UIElement>(UIElement.AccessKeyScopeOwnerProperty);
+
+    public static NProperty CreateActiveTool() => new NProperty(nameof(NProperties.ActiveTool)).
+        Property<InkToolbar>(InkToolbar.ActiveToolProperty);
+
     public static NProperty CreateAllowDrop() => new NProperty(nameof(NProperties.AllowDrop)).
         Property<UIElement>(UIElement.AllowDropProperty, NConverters.ToBool);
 
     public static NProperty CreateAllowedScriptNotifyUris() => new NProperty(nameof(NProperties.AllowedScriptNotifyUris)).
         Property<WebView>(WebView.AllowedScriptNotifyUrisProperty);
+
+    public static NProperty CreateAllowFocusOnInteraction() => new NProperty(nameof(NProperties.AllowFocusOnInteraction)).
+        Property<FrameworkElement>(FrameworkElement.AllowFocusOnInteractionProperty, NConverters.ToBool).
+        Property<TextElement>(TextElement.AllowFocusOnInteractionProperty, NConverters.ToBool);
+
+    public static NProperty CreateAllowFocusWhenDisabled() => new NProperty(nameof(NProperties.AllowFocusWhenDisabled)).
+        Property<FrameworkElement>(FrameworkElement.AllowFocusWhenDisabledProperty, NConverters.ToBool);
 
     public static NProperty CreateAreScrollSnapPointsRegular() => new NProperty(nameof(NProperties.AreScrollSnapPointsRegular)).
         Property<StackPanel>(StackPanel.AreScrollSnapPointsRegularProperty, NConverters.ToBool).
@@ -1824,7 +2000,8 @@ namespace NReact
         Property<ItemsWrapGrid>(ItemsWrapGrid.AreStickyGroupHeadersEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateAreTransportControlsEnabled() => new NProperty(nameof(NProperties.AreTransportControlsEnabled)).
-        Property<MediaElement>(MediaElement.AreTransportControlsEnabledProperty, NConverters.ToBool);
+        Property<MediaElement>(MediaElement.AreTransportControlsEnabledProperty, NConverters.ToBool).
+        Property<MediaPlayerElement>(MediaPlayerElement.AreTransportControlsEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateAudioCategory() => new NProperty(nameof(NProperties.AudioCategory)).
         Property<MediaElement>(MediaElement.AudioCategoryProperty, NConverters.ToEnum<AudioCategory>);
@@ -1839,7 +2016,8 @@ namespace NReact
         Property<AutoSuggestBox>(AutoSuggestBox.AutoMaximizeSuggestionAreaProperty, NConverters.ToBool);
 
     public static NProperty CreateAutoPlay() => new NProperty(nameof(NProperties.AutoPlay)).
-        Property<MediaElement>(MediaElement.AutoPlayProperty, NConverters.ToBool);
+        Property<MediaElement>(MediaElement.AutoPlayProperty, NConverters.ToBool).
+        Property<MediaPlayerElement>(MediaPlayerElement.AutoPlayProperty, NConverters.ToBool);
 
     public static NProperty CreateBackClick() => new NProperty(nameof(NProperties.BackClick)).
         Event<SettingsFlyout>((s, a) => s.BackClick += a.EventHandlerAny);
@@ -1883,6 +2061,9 @@ namespace NReact
 
     public static NProperty CreateBufferingProgressChanged() => new NProperty(nameof(NProperties.BufferingProgressChanged)).
         Event<MediaElement>((s, a) => s.BufferingProgressChanged += a.EventHandlerAny);
+
+    public static NProperty CreateBusinessLandmarksEnabled() => new NProperty(nameof(NProperties.BusinessLandmarksEnabled)).
+        Property<MapControl>(MapControl.BusinessLandmarksEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateBusinessLandmarksVisible() => new NProperty(nameof(NProperties.BusinessLandmarksVisible)).
         Property<MapControl>(MapControl.BusinessLandmarksVisibleProperty, NConverters.ToBool);
@@ -1989,7 +2170,8 @@ namespace NReact
         Property<InlineUIContainer>((t, v) => NPatch.AssignSingle(o => o.Child, (o, i) => o.Child = i, t, v));
 
     public static NProperty CreateChildren() => new NProperty(nameof(NProperties.Children)).
-        Property<Panel>((t, v) => NPatch.AssignListT(t.Children, v));
+        Property<Panel>((t, v) => NPatch.AssignListT(t.Children, v)).
+        Property<InkToolbar>((t, v) => NPatch.AssignListT(t.Children, v));
 
     public static NProperty CreateChildrenTransitions() => new NProperty(nameof(NProperties.ChildrenTransitions)).
         Property<Panel>((t, v) => NPatch.AssignListT(t.ChildrenTransitions, v));
@@ -2058,6 +2240,10 @@ namespace NReact
     public static NProperty CreateCompositeMode() => new NProperty(nameof(NProperties.CompositeMode)).
         Property<UIElement>(UIElement.CompositeModeProperty, NConverters.ToEnum<ElementCompositeMode>);
 
+    public static NProperty CreateConfigurationContent() => new NProperty(nameof(NProperties.ConfigurationContent)).
+        Property<InkToolbarCustomToolButton>(InkToolbarCustomToolButton.ConfigurationContentProperty).
+        Property<InkToolbarCustomPenButton>(InkToolbarCustomPenButton.ConfigurationContentProperty);
+
     public static NProperty CreateContent() => new NProperty(nameof(NProperties.Content)).
         Property<ContentPresenter>(ContentPresenter.ContentProperty).
         Property<ContentControl>(ContentControl.ContentProperty).
@@ -2081,6 +2267,9 @@ namespace NReact
         Property<ContentPresenter>((t, v) => NPatch.AssignListT(t.ContentTransitions, v)).
         Property<ContentControl>((t, v) => NPatch.AssignListT(t.ContentTransitions, v));
 
+    public static NProperty CreateContextFlyout() => new NProperty(nameof(NProperties.ContextFlyout)).
+        Property<UIElement>(UIElement.ContextFlyoutProperty);
+
     public static NProperty CreateContextMenuOpening() => new NProperty(nameof(NProperties.ContextMenuOpening)).
         Event<RichTextBlock>((s, a) => s.ContextMenuOpening += a.EventHandlerAny).
         Event<TextBlock>((s, a) => s.ContextMenuOpening += a.EventHandlerAny).
@@ -2100,6 +2289,9 @@ namespace NReact
 
     public static NProperty CreateCurrentStateChanged() => new NProperty(nameof(NProperties.CurrentStateChanged)).
         Event<MediaElement>((s, a) => s.CurrentStateChanged += a.EventHandlerAny);
+
+    public static NProperty CreateCustomPen() => new NProperty(nameof(NProperties.CustomPen)).
+        Property<InkToolbarCustomPenButton>(InkToolbarCustomPenButton.CustomPenProperty);
 
     public static NProperty CreateData() => new NProperty(nameof(NProperties.Data)).
         Property<PathIcon>(PathIcon.DataProperty).
@@ -2145,6 +2337,9 @@ namespace NReact
 
     public static NProperty CreateDefaultBackgroundColor() => new NProperty(nameof(NProperties.DefaultBackgroundColor)).
         Property<WebView>(WebView.DefaultBackgroundColorProperty, NConverters.ToColor);
+
+    public static NProperty CreateDefaultLabelPosition() => new NProperty(nameof(NProperties.DefaultLabelPosition)).
+        Property<CommandBar>(CommandBar.DefaultLabelPositionProperty, NConverters.ToEnum<CommandBarDefaultLabelPosition>);
 
     public static NProperty CreateDefaultPlaybackRate() => new NProperty(nameof(NProperties.DefaultPlaybackRate)).
         Property<MediaElement>(MediaElement.DefaultPlaybackRateProperty, NConverters.ToDouble);
@@ -2228,6 +2423,22 @@ namespace NReact
     public static NProperty CreateDropDownOpened() => new NProperty(nameof(NProperties.DropDownOpened)).
         Event<ComboBox>((s, a) => s.DropDownOpened += a.EventHandlerAny);
 
+    public static NProperty CreateDynamicOverflowOrder() => new NProperty(nameof(NProperties.DynamicOverflowOrder)).
+        Property<AppBarButton>(AppBarButton.DynamicOverflowOrderProperty, NConverters.ToInt32).
+        Property<AppBarToggleButton>(AppBarToggleButton.DynamicOverflowOrderProperty, NConverters.ToInt32).
+        Property<AppBarSeparator>(AppBarSeparator.DynamicOverflowOrderProperty, NConverters.ToInt32);
+
+    public static NProperty CreateElementSoundMode() => new NProperty(nameof(NProperties.ElementSoundMode)).
+        Property<Control>(Control.ElementSoundModeProperty, NConverters.ToEnum<ElementSoundMode>).
+        Property<Hyperlink>(Hyperlink.ElementSoundModeProperty, NConverters.ToEnum<ElementSoundMode>);
+
+    public static NProperty CreateExitDisplayModeOnAccessKeyInvoked() => new NProperty(nameof(NProperties.ExitDisplayModeOnAccessKeyInvoked)).
+        Property<UIElement>(UIElement.ExitDisplayModeOnAccessKeyInvokedProperty, NConverters.ToBool).
+        Property<TextElement>(TextElement.ExitDisplayModeOnAccessKeyInvokedProperty, NConverters.ToBool);
+
+    public static NProperty CreateFastPlayFallbackBehaviour() => new NProperty(nameof(NProperties.FastPlayFallbackBehaviour)).
+        Property<MediaTransportControls>(MediaTransportControls.FastPlayFallbackBehaviourProperty, NConverters.ToEnum<FastPlayFallbackBehaviour>);
+
     public static NProperty CreateFill() => new NProperty(nameof(NProperties.Fill)).
         Property<TickBar>(TickBar.FillProperty, NConverters.ToBrush).
         Property<Glyphs>(Glyphs.FillProperty, NConverters.ToBrush).
@@ -2238,8 +2449,8 @@ namespace NReact
         Property<Polyline>(Polyline.FillRuleProperty, NConverters.ToEnum<FillRule>);
 
     public static NProperty CreateFirstDayOfWeek() => new NProperty(nameof(NProperties.FirstDayOfWeek)).
-        Property<CalendarView>(CalendarView.FirstDayOfWeekProperty, NConverters.ToEnum<WGDayOfWeek>).
-        Property<CalendarDatePicker>(CalendarDatePicker.FirstDayOfWeekProperty, NConverters.ToEnum<WGDayOfWeek>);
+        Property<CalendarView>(CalendarView.FirstDayOfWeekProperty, NConverters.ToEnum<wg.DayOfWeek>).
+        Property<CalendarDatePicker>(CalendarDatePicker.FirstDayOfWeekProperty, NConverters.ToEnum<wg.DayOfWeek>);
 
     public static NProperty CreateFirstOfMonthLabelFontFamily() => new NProperty(nameof(NProperties.FirstOfMonthLabelFontFamily)).
         Property<CalendarView>(CalendarView.FirstOfMonthLabelFontFamilyProperty, NConverters.ToFontFamily);
@@ -2282,6 +2493,21 @@ namespace NReact
 
     public static NProperty CreateFocusSecondaryBorderBrush() => new NProperty(nameof(NProperties.FocusSecondaryBorderBrush)).
         Property<ListViewItemPresenter>(ListViewItemPresenter.FocusSecondaryBorderBrushProperty, NConverters.ToBrush);
+
+    public static NProperty CreateFocusVisualMargin() => new NProperty(nameof(NProperties.FocusVisualMargin)).
+        Property<FrameworkElement>(FrameworkElement.FocusVisualMarginProperty, NConverters.ToThickness);
+
+    public static NProperty CreateFocusVisualPrimaryBrush() => new NProperty(nameof(NProperties.FocusVisualPrimaryBrush)).
+        Property<FrameworkElement>(FrameworkElement.FocusVisualPrimaryBrushProperty, NConverters.ToBrush);
+
+    public static NProperty CreateFocusVisualPrimaryThickness() => new NProperty(nameof(NProperties.FocusVisualPrimaryThickness)).
+        Property<FrameworkElement>(FrameworkElement.FocusVisualPrimaryThicknessProperty, NConverters.ToThickness);
+
+    public static NProperty CreateFocusVisualSecondaryBrush() => new NProperty(nameof(NProperties.FocusVisualSecondaryBrush)).
+        Property<FrameworkElement>(FrameworkElement.FocusVisualSecondaryBrushProperty, NConverters.ToBrush);
+
+    public static NProperty CreateFocusVisualSecondaryThickness() => new NProperty(nameof(NProperties.FocusVisualSecondaryThickness)).
+        Property<FrameworkElement>(FrameworkElement.FocusVisualSecondaryThicknessProperty, NConverters.ToThickness);
 
     public static NProperty CreateFontFamily() => new NProperty(nameof(NProperties.FontFamily)).
         Property<ContentPresenter>(ContentPresenter.FontFamilyProperty, NConverters.ToFontFamily).
@@ -2415,6 +2641,9 @@ namespace NReact
     public static NProperty CreateHeaderBackground() => new NProperty(nameof(NProperties.HeaderBackground)).
         Property<SettingsFlyout>(SettingsFlyout.HeaderBackgroundProperty, NConverters.ToBrush);
 
+    public static NProperty CreateHeaderFocusVisualPlacement() => new NProperty(nameof(NProperties.HeaderFocusVisualPlacement)).
+        Property<Pivot>(Pivot.HeaderFocusVisualPlacementProperty, NConverters.ToEnum<PivotHeaderFocusVisualPlacement>);
+
     public static NProperty CreateHeaderForeground() => new NProperty(nameof(NProperties.HeaderForeground)).
         Property<SettingsFlyout>(SettingsFlyout.HeaderForegroundProperty, NConverters.ToBrush);
 
@@ -2497,7 +2726,7 @@ namespace NReact
         Property<AppBarToggleButton>(AppBarToggleButton.IconProperty);
 
     public static NProperty CreateIconSource() => new NProperty(nameof(NProperties.IconSource)).
-        Property<SettingsFlyout>(SettingsFlyout.IconSourceProperty);
+        Property<SettingsFlyout>(SettingsFlyout.IconSourceProperty, NConverters.ToImageSource);
 
     public static NProperty CreateImageFailed() => new NProperty(nameof(NProperties.ImageFailed)).
         Event<Image>((s, a) => s.ImageFailed += a.EventHandlerAny);
@@ -2520,6 +2749,9 @@ namespace NReact
     public static NProperty CreateIndices() => new NProperty(nameof(NProperties.Indices)).
         Property<Glyphs>(Glyphs.IndicesProperty, NConverters.ToString);
 
+    public static NProperty CreateInitialControls() => new NProperty(nameof(NProperties.InitialControls)).
+        Property<InkToolbar>(InkToolbar.InitialControlsProperty, NConverters.ToEnum<InkToolbarInitialControls>);
+
     public static NProperty CreateInlines() => new NProperty(nameof(NProperties.Inlines)).
         Property<TextBlock>((t, v) => NPatch.AssignListT(t.Inlines, v)).
         Property<Paragraph>((t, v) => NPatch.AssignListT(t.Inlines, v)).
@@ -2535,6 +2767,9 @@ namespace NReact
 
     public static NProperty CreateInterval() => new NProperty(nameof(NProperties.Interval)).
         Property<RepeatButton>(RepeatButton.IntervalProperty, NConverters.ToInt32);
+
+    public static NProperty CreateIsAccessKeyScope() => new NProperty(nameof(NProperties.IsAccessKeyScope)).
+        Property<UIElement>(UIElement.IsAccessKeyScopeProperty, NConverters.ToBool);
 
     public static NProperty CreateIsActive() => new NProperty(nameof(NProperties.IsActive)).
         Property<ProgressRing>(ProgressRing.IsActiveProperty, NConverters.ToBool);
@@ -2578,11 +2813,17 @@ namespace NReact
     public static NProperty CreateIsDropDownOpen() => new NProperty(nameof(NProperties.IsDropDownOpen)).
         Property<ComboBox>(ComboBox.IsDropDownOpenProperty, NConverters.ToBool);
 
+    public static NProperty CreateIsDynamicOverflowEnabled() => new NProperty(nameof(NProperties.IsDynamicOverflowEnabled)).
+        Property<CommandBar>(CommandBar.IsDynamicOverflowEnabledProperty, NConverters.ToBool);
+
     public static NProperty CreateIsEnabled() => new NProperty(nameof(NProperties.IsEnabled)).
         Property<Control>(Control.IsEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateIsEnabledChanged() => new NProperty(nameof(NProperties.IsEnabledChanged)).
         Event<Control>((s, a) => s.IsEnabledChanged += a.EventHandlerAny);
+
+    public static NProperty CreateIsExtensionGlyphShown() => new NProperty(nameof(NProperties.IsExtensionGlyphShown)).
+        Property<InkToolbarToolButton>(InkToolbarToolButton.IsExtensionGlyphShownProperty, NConverters.ToBool);
 
     public static NProperty CreateIsFastForwardButtonVisible() => new NProperty(nameof(NProperties.IsFastForwardButtonVisible)).
         Property<MediaTransportControls>(MediaTransportControls.IsFastForwardButtonVisibleProperty, NConverters.ToBool);
@@ -2596,8 +2837,16 @@ namespace NReact
     public static NProperty CreateIsFastRewindEnabled() => new NProperty(nameof(NProperties.IsFastRewindEnabled)).
         Property<MediaTransportControls>(MediaTransportControls.IsFastRewindEnabledProperty, NConverters.ToBool);
 
+    public static NProperty CreateIsFocusEngaged() => new NProperty(nameof(NProperties.IsFocusEngaged)).
+        Property<Control>(Control.IsFocusEngagedProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsFocusEngagementEnabled() => new NProperty(nameof(NProperties.IsFocusEngagementEnabled)).
+        Property<Control>(Control.IsFocusEngagementEnabledProperty, NConverters.ToBool);
+
     public static NProperty CreateIsFullWindow() => new NProperty(nameof(NProperties.IsFullWindow)).
-        Property<MediaElement>(MediaElement.IsFullWindowProperty, NConverters.ToBool);
+        Property<MediaElement>(MediaElement.IsFullWindowProperty, NConverters.ToBool).
+        Property<MediaPlayerPresenter>(MediaPlayerPresenter.IsFullWindowProperty, NConverters.ToBool).
+        Property<MediaPlayerElement>(MediaPlayerElement.IsFullWindowProperty, NConverters.ToBool);
 
     public static NProperty CreateIsFullWindowButtonVisible() => new NProperty(nameof(NProperties.IsFullWindowButtonVisible)).
         Property<MediaTransportControls>(MediaTransportControls.IsFullWindowButtonVisibleProperty, NConverters.ToBool);
@@ -2611,6 +2860,9 @@ namespace NReact
 
     public static NProperty CreateIsHeaderInteractive() => new NProperty(nameof(NProperties.IsHeaderInteractive)).
         Property<HubSection>(HubSection.IsHeaderInteractiveProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsHeaderItemsCarouselEnabled() => new NProperty(nameof(NProperties.IsHeaderItemsCarouselEnabled)).
+        Property<Pivot>(Pivot.IsHeaderItemsCarouselEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateIsHitTestVisible() => new NProperty(nameof(NProperties.IsHitTestVisible)).
         Property<UIElement>(UIElement.IsHitTestVisibleProperty, NConverters.ToBool);
@@ -2645,6 +2897,9 @@ namespace NReact
     public static NProperty CreateIsMuted() => new NProperty(nameof(NProperties.IsMuted)).
         Property<MediaElement>(MediaElement.IsMutedProperty, NConverters.ToBool);
 
+    public static NProperty CreateIsNextTrackButtonVisible() => new NProperty(nameof(NProperties.IsNextTrackButtonVisible)).
+        Property<MediaTransportControls>(MediaTransportControls.IsNextTrackButtonVisibleProperty, NConverters.ToBool);
+
     public static NProperty CreateIsOn() => new NProperty(nameof(NProperties.IsOn)).
         Property<ToggleSwitch>(ToggleSwitch.IsOnProperty, NConverters.ToBool);
 
@@ -2669,6 +2924,9 @@ namespace NReact
     public static NProperty CreateIsPlaybackRateEnabled() => new NProperty(nameof(NProperties.IsPlaybackRateEnabled)).
         Property<MediaTransportControls>(MediaTransportControls.IsPlaybackRateEnabledProperty, NConverters.ToBool);
 
+    public static NProperty CreateIsPreviousTrackButtonVisible() => new NProperty(nameof(NProperties.IsPreviousTrackButtonVisible)).
+        Property<MediaTransportControls>(MediaTransportControls.IsPreviousTrackButtonVisibleProperty, NConverters.ToBool);
+
     public static NProperty CreateIsPrimaryButtonEnabled() => new NProperty(nameof(NProperties.IsPrimaryButtonEnabled)).
         Property<ContentDialog>(ContentDialog.IsPrimaryButtonEnabledProperty, NConverters.ToBool);
 
@@ -2678,6 +2936,9 @@ namespace NReact
 
     public static NProperty CreateIsRightTapEnabled() => new NProperty(nameof(NProperties.IsRightTapEnabled)).
         Property<UIElement>(UIElement.IsRightTapEnabledProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsRulerButtonChecked() => new NProperty(nameof(NProperties.IsRulerButtonChecked)).
+        Property<InkToolbar>(InkToolbar.IsRulerButtonCheckedProperty, NConverters.ToBool);
 
     public static NProperty CreateIsScrollInertiaEnabled() => new NProperty(nameof(NProperties.IsScrollInertiaEnabled)).
         Property<ScrollViewer>(ScrollViewer.IsScrollInertiaEnabledProperty, NConverters.ToBool);
@@ -2693,6 +2954,18 @@ namespace NReact
 
     public static NProperty CreateIsSelected() => new NProperty(nameof(NProperties.IsSelected)).
         Property<SelectorItem>(SelectorItem.IsSelectedProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsSkipBackwardButtonVisible() => new NProperty(nameof(NProperties.IsSkipBackwardButtonVisible)).
+        Property<MediaTransportControls>(MediaTransportControls.IsSkipBackwardButtonVisibleProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsSkipBackwardEnabled() => new NProperty(nameof(NProperties.IsSkipBackwardEnabled)).
+        Property<MediaTransportControls>(MediaTransportControls.IsSkipBackwardEnabledProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsSkipForwardButtonVisible() => new NProperty(nameof(NProperties.IsSkipForwardButtonVisible)).
+        Property<MediaTransportControls>(MediaTransportControls.IsSkipForwardButtonVisibleProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsSkipForwardEnabled() => new NProperty(nameof(NProperties.IsSkipForwardEnabled)).
+        Property<MediaTransportControls>(MediaTransportControls.IsSkipForwardEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateIsSpellCheckEnabled() => new NProperty(nameof(NProperties.IsSpellCheckEnabled)).
         Property<RichEditBox>(RichEditBox.IsSpellCheckEnabledProperty, NConverters.ToBool).
@@ -2733,6 +3006,9 @@ namespace NReact
         Property<FontIcon>(FontIcon.IsTextScaleFactorEnabledProperty, NConverters.ToBool).
         Property<Control>(Control.IsTextScaleFactorEnabledProperty, NConverters.ToBool).
         Property<TextElement>(TextElement.IsTextScaleFactorEnabledProperty, NConverters.ToBool);
+
+    public static NProperty CreateIsTextSearchEnabled() => new NProperty(nameof(NProperties.IsTextSearchEnabled)).
+        Property<ComboBox>(ComboBox.IsTextSearchEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateIsTextSelectionEnabled() => new NProperty(nameof(NProperties.IsTextSelectionEnabled)).
         Property<RichTextBlock>(RichTextBlock.IsTextSelectionEnabledProperty, NConverters.ToBool).
@@ -2836,6 +3112,10 @@ namespace NReact
         Property<AppBarButton>(AppBarButton.LabelProperty, NConverters.ToString).
         Property<AppBarToggleButton>(AppBarToggleButton.LabelProperty, NConverters.ToString);
 
+    public static NProperty CreateLabelPosition() => new NProperty(nameof(NProperties.LabelPosition)).
+        Property<AppBarButton>(AppBarButton.LabelPositionProperty, NConverters.ToEnum<CommandBarLabelPosition>).
+        Property<AppBarToggleButton>(AppBarToggleButton.LabelPositionProperty, NConverters.ToEnum<CommandBarLabelPosition>);
+
     public static NProperty CreateLandmarksVisible() => new NProperty(nameof(NProperties.LandmarksVisible)).
         Property<MapControl>(MapControl.LandmarksVisibleProperty, NConverters.ToBool);
 
@@ -2855,6 +3135,16 @@ namespace NReact
 
     public static NProperty CreateLeftHeaderTemplate() => new NProperty(nameof(NProperties.LeftHeaderTemplate)).
         Property<Pivot>(Pivot.LeftHeaderTemplateProperty, NConverters.ToDataTemplate);
+
+    public static NProperty CreateLightDismissOverlayMode() => new NProperty(nameof(NProperties.LightDismissOverlayMode)).
+        Property<Popup>(Popup.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<AppBar>(AppBar.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<ComboBox>(ComboBox.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<AutoSuggestBox>(AutoSuggestBox.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<CalendarDatePicker>(CalendarDatePicker.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<DatePicker>(DatePicker.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<SplitView>(SplitView.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>).
+        Property<TimePicker>(TimePicker.LightDismissOverlayModeProperty, NConverters.ToEnum<LightDismissOverlayMode>);
 
     public static NProperty CreateLineHeight() => new NProperty(nameof(NProperties.LineHeight)).
         Property<ContentPresenter>(ContentPresenter.LineHeightProperty, NConverters.ToDouble).
@@ -2952,6 +3242,9 @@ namespace NReact
         Property<RichTextBlock>(RichTextBlock.MaxLinesProperty, NConverters.ToInt32).
         Property<TextBlock>(TextBlock.MaxLinesProperty, NConverters.ToInt32);
 
+    public static NProperty CreateMaxStrokeWidth() => new NProperty(nameof(NProperties.MaxStrokeWidth)).
+        Property<InkToolbarPenButton>(InkToolbarPenButton.MaxStrokeWidthProperty, NConverters.ToDouble);
+
     public static NProperty CreateMaxSuggestionListHeight() => new NProperty(nameof(NProperties.MaxSuggestionListHeight)).
         Property<AutoSuggestBox>(AutoSuggestBox.MaxSuggestionListHeightProperty, NConverters.ToDouble);
 
@@ -2974,6 +3267,9 @@ namespace NReact
     public static NProperty CreateMediaOpened() => new NProperty(nameof(NProperties.MediaOpened)).
         Event<MediaElement>((s, a) => s.MediaOpened += a.EventHandlerAny);
 
+    public static NProperty CreateMediaPlayer() => new NProperty(nameof(NProperties.MediaPlayer)).
+        Property<MediaPlayerPresenter>(MediaPlayerPresenter.MediaPlayerProperty);
+
     public static NProperty CreateMinDate() => new NProperty(nameof(NProperties.MinDate)).
         Property<CalendarView>(CalendarView.MinDateProperty, NConverters.ToDateTimeOffset).
         Property<CalendarDatePicker>(CalendarDatePicker.MinDateProperty, NConverters.ToDateTimeOffset);
@@ -2984,6 +3280,9 @@ namespace NReact
 
     public static NProperty CreateMinimum() => new NProperty(nameof(NProperties.Minimum)).
         Property<RangeBase>(RangeBase.MinimumProperty, NConverters.ToDouble);
+
+    public static NProperty CreateMinStrokeWidth() => new NProperty(nameof(NProperties.MinStrokeWidth)).
+        Property<InkToolbarPenButton>(InkToolbarPenButton.MinStrokeWidthProperty, NConverters.ToDouble);
 
     public static NProperty CreateMinuteIncrement() => new NProperty(nameof(NProperties.MinuteIncrement)).
         Property<TimePicker>(TimePicker.MinuteIncrementProperty, NConverters.ToInt32);
@@ -3104,6 +3403,9 @@ namespace NReact
     public static NProperty CreateOutOfScopeForeground() => new NProperty(nameof(NProperties.OutOfScopeForeground)).
         Property<CalendarView>(CalendarView.OutOfScopeForegroundProperty, NConverters.ToBrush);
 
+    public static NProperty CreateOverflowButtonVisibility() => new NProperty(nameof(NProperties.OverflowButtonVisibility)).
+        Property<CommandBar>(CommandBar.OverflowButtonVisibilityProperty, NConverters.ToEnum<CommandBarOverflowButtonVisibility>);
+
     public static NProperty CreateOverflowContentTarget() => new NProperty(nameof(NProperties.OverflowContentTarget)).
         Property<RichTextBlockOverflow>(RichTextBlockOverflow.OverflowContentTargetProperty).
         Property<RichTextBlock>(RichTextBlock.OverflowContentTargetProperty);
@@ -3119,6 +3421,9 @@ namespace NReact
         Property<RichTextBlock>(RichTextBlock.PaddingProperty, NConverters.ToThickness).
         Property<TextBlock>(TextBlock.PaddingProperty, NConverters.ToThickness).
         Property<Control>(Control.PaddingProperty, NConverters.ToThickness);
+
+    public static NProperty CreatePalette() => new NProperty(nameof(NProperties.Palette)).
+        Property<InkToolbarPenButton>(InkToolbarPenButton.PaletteProperty);
 
     public static NProperty CreatePane() => new NProperty(nameof(NProperties.Pane)).
         Property<SplitView>(SplitView.PaneProperty);
@@ -3223,7 +3528,8 @@ namespace NReact
         Property<MediaElement>(MediaElement.PositionProperty, NConverters.ToTimeSpan);
 
     public static NProperty CreatePosterSource() => new NProperty(nameof(NProperties.PosterSource)).
-        Property<MediaElement>(MediaElement.PosterSourceProperty);
+        Property<MediaElement>(MediaElement.PosterSourceProperty, NConverters.ToImageSource).
+        Property<MediaPlayerElement>(MediaPlayerElement.PosterSourceProperty, NConverters.ToImageSource);
 
     public static NProperty CreatePressedBackground() => new NProperty(nameof(NProperties.PressedBackground)).
         Property<ListViewItemPresenter>(ListViewItemPresenter.PressedBackgroundProperty, NConverters.ToBrush);
@@ -3339,6 +3645,9 @@ namespace NReact
     public static NProperty CreateRequestedTheme() => new NProperty(nameof(NProperties.RequestedTheme)).
         Property<FrameworkElement>(FrameworkElement.RequestedThemeProperty, NConverters.ToEnum<ElementTheme>);
 
+    public static NProperty CreateRequiresPointer() => new NProperty(nameof(NProperties.RequiresPointer)).
+        Property<Control>(Control.RequiresPointerProperty, NConverters.ToEnum<RequiresPointer>);
+
     public static NProperty CreateResources() => new NProperty(nameof(NProperties.Resources)).
         Property<FrameworkElement>((t, v) => t.Resources = NConverters.ToResourceDictionaryT(v));
 
@@ -3432,6 +3741,8 @@ namespace NReact
     public static NProperty CreateSectionHeaders() => new NProperty(nameof(NProperties.SectionHeaders)).
         Property<Hub>((t, v) => NPatch.AssignListT(t.SectionHeaders, v));
 
+    public static NProperty CreateSections() => new NProperty(nameof(NProperties.Sections));
+
     public static NProperty CreateSectionsInViewChanged() => new NProperty(nameof(NProperties.SectionsInViewChanged)).
         Event<Hub>((s, a) => s.SectionsInViewChanged += a.EventHandlerAny);
 
@@ -3448,6 +3759,9 @@ namespace NReact
     public static NProperty CreateSelectedBorderThickness() => new NProperty(nameof(NProperties.SelectedBorderThickness)).
         Property<GridViewItemPresenter>(GridViewItemPresenter.SelectedBorderThicknessProperty, NConverters.ToThickness).
         Property<ListViewItemPresenter>(ListViewItemPresenter.SelectedBorderThicknessProperty, NConverters.ToThickness);
+
+    public static NProperty CreateSelectedBrushIndex() => new NProperty(nameof(NProperties.SelectedBrushIndex)).
+        Property<InkToolbarPenButton>(InkToolbarPenButton.SelectedBrushIndexProperty, NConverters.ToInt32);
 
     public static NProperty CreateSelectedForeground() => new NProperty(nameof(NProperties.SelectedForeground)).
         Property<GridViewItemPresenter>(GridViewItemPresenter.SelectedForegroundProperty, NConverters.ToBrush).
@@ -3480,6 +3794,9 @@ namespace NReact
 
     public static NProperty CreateSelectedPressedBorderBrush() => new NProperty(nameof(NProperties.SelectedPressedBorderBrush)).
         Property<CalendarView>(CalendarView.SelectedPressedBorderBrushProperty, NConverters.ToBrush);
+
+    public static NProperty CreateSelectedStrokeWidth() => new NProperty(nameof(NProperties.SelectedStrokeWidth)).
+        Property<InkToolbarPenButton>(InkToolbarPenButton.SelectedStrokeWidthProperty, NConverters.ToDouble);
 
     public static NProperty CreateSelectedText() => new NProperty(nameof(NProperties.SelectedText)).
         Property<TextBox>((t, v) => t.SelectedText = NConverters.ToStringT(v));
@@ -3537,6 +3854,10 @@ namespace NReact
     public static NProperty CreateShowsScrollingPlaceholders() => new NProperty(nameof(NProperties.ShowsScrollingPlaceholders)).
         Property<ListViewBase>(ListViewBase.ShowsScrollingPlaceholdersProperty, NConverters.ToBool);
 
+    public static NProperty CreateSingleSelectionFollowsFocus() => new NProperty(nameof(NProperties.SingleSelectionFollowsFocus)).
+        Property<ListViewBase>(ListViewBase.SingleSelectionFollowsFocusProperty, NConverters.ToBool).
+        Property<ListBox>(ListBox.SingleSelectionFollowsFocusProperty, NConverters.ToBool);
+
     public static NProperty CreateSizeChanged() => new NProperty(nameof(NProperties.SizeChanged)).
         Event<FrameworkElement>((s, a) => s.SizeChanged += a.EventHandlerAny);
 
@@ -3550,7 +3871,8 @@ namespace NReact
         Property<CaptureElement>(CaptureElement.SourceProperty).
         Property<Image>(Image.SourceProperty, NConverters.ToImageSource).
         Property<MediaElement>(MediaElement.SourceProperty, NConverters.ToUri).
-        Property<WebView>(WebView.SourceProperty, NConverters.ToUri);
+        Property<WebView>(WebView.SourceProperty, NConverters.ToUri).
+        Property<MediaPlayerElement>(MediaPlayerElement.SourceProperty);
 
     public static NProperty CreateSourcePageType() => new NProperty(nameof(NProperties.SourcePageType)).
         Property<Frame>(Frame.SourcePageTypeProperty);
@@ -3569,7 +3891,9 @@ namespace NReact
         Property<Image>(Image.StretchProperty, NConverters.ToEnum<Stretch>).
         Property<Viewbox>(Viewbox.StretchProperty, NConverters.ToEnum<Stretch>).
         Property<MediaElement>(MediaElement.StretchProperty, NConverters.ToEnum<Stretch>).
-        Property<Shape>(Shape.StretchProperty, NConverters.ToEnum<Stretch>);
+        Property<MediaPlayerPresenter>(MediaPlayerPresenter.StretchProperty, NConverters.ToEnum<Stretch>).
+        Property<Shape>(Shape.StretchProperty, NConverters.ToEnum<Stretch>).
+        Property<MediaPlayerElement>(MediaPlayerElement.StretchProperty, NConverters.ToEnum<Stretch>);
 
     public static NProperty CreateStretchDirection() => new NProperty(nameof(NProperties.StretchDirection)).
         Property<Viewbox>(Viewbox.StretchDirectionProperty, NConverters.ToEnum<StretchDirection>);
@@ -3622,6 +3946,9 @@ namespace NReact
 
     public static NProperty CreateTapped() => new NProperty(nameof(NProperties.Tapped)).
         Event<UIElement>(UIElement.TappedEvent, a => (TappedEventHandler)a.EventHandlerAny);
+
+    public static NProperty CreateTargetInkCanvas() => new NProperty(nameof(NProperties.TargetInkCanvas)).
+        Property<InkToolbar>(InkToolbar.TargetInkCanvasProperty);
 
     public static NProperty CreateTemplate() => new NProperty(nameof(NProperties.Template)).
         Property<Control>(Control.TemplateProperty, NConverters.ToControlTemplate);
@@ -3740,6 +4067,9 @@ namespace NReact
 
     public static NProperty CreateTransformOrigin() => new NProperty(nameof(NProperties.TransformOrigin)).
         Property<MapControl>(MapControl.TransformOriginProperty, NConverters.ToPoint);
+
+    public static NProperty CreateTransitFeaturesEnabled() => new NProperty(nameof(NProperties.TransitFeaturesEnabled)).
+        Property<MapControl>(MapControl.TransitFeaturesEnabledProperty, NConverters.ToBool);
 
     public static NProperty CreateTransitFeaturesVisible() => new NProperty(nameof(NProperties.TransitFeaturesVisible)).
         Property<MapControl>(MapControl.TransitFeaturesVisibleProperty, NConverters.ToBool);
@@ -3869,6 +4199,26 @@ namespace NReact
 
     public static NProperty CreateX2() => new NProperty(nameof(NProperties.X2)).
         Property<Line>(Line.X2Property, NConverters.ToDouble);
+
+    public static NProperty CreateXYFocusDown() => new NProperty(nameof(NProperties.XYFocusDown)).
+        Property<WebView>(WebView.XYFocusDownProperty).
+        Property<Control>(Control.XYFocusDownProperty).
+        Property<Hyperlink>(Hyperlink.XYFocusDownProperty);
+
+    public static NProperty CreateXYFocusLeft() => new NProperty(nameof(NProperties.XYFocusLeft)).
+        Property<WebView>(WebView.XYFocusLeftProperty).
+        Property<Control>(Control.XYFocusLeftProperty).
+        Property<Hyperlink>(Hyperlink.XYFocusLeftProperty);
+
+    public static NProperty CreateXYFocusRight() => new NProperty(nameof(NProperties.XYFocusRight)).
+        Property<WebView>(WebView.XYFocusRightProperty).
+        Property<Control>(Control.XYFocusRightProperty).
+        Property<Hyperlink>(Hyperlink.XYFocusRightProperty);
+
+    public static NProperty CreateXYFocusUp() => new NProperty(nameof(NProperties.XYFocusUp)).
+        Property<WebView>(WebView.XYFocusUpProperty).
+        Property<Control>(Control.XYFocusUpProperty).
+        Property<Hyperlink>(Hyperlink.XYFocusUpProperty);
 
     public static NProperty CreateY1() => new NProperty(nameof(NProperties.Y1)).
         Property<Line>(Line.Y1Property, NConverters.ToDouble);
