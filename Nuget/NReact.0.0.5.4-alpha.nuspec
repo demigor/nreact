@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>NReact</id>
-        <version>0.0.5.3-alpha</version>
+        <version>0.0.5.4-alpha</version>
         <title>NReact for C#/Xaml</title>
         <authors>Lex Lavnikov</authors>
         <owners>Lex Lavnikov</owners>
@@ -12,7 +12,9 @@
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
         <description>React/Flux principles for native C#/Xaml applications (Windows Store, Windows Phone, WPF, Silverlight)</description>
         <summary>Facebook React/Flux principles for native C#/Xaml applications</summary>
-        <releaseNotes>0.0.5.3 Xamarin support temporarily removed 
+        <releaseNotes>0.0.5.4 Bugfix in NElement.IsPatchingInProgress
+
+0.0.5.3 Xamarin support temporarily removed 
 
 Experimental version to play with React/Flux principles in familiar C#/Xaml world.</releaseNotes>
         <copyright>Alexey Lavnikov</copyright>

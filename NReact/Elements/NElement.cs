@@ -159,21 +159,33 @@ namespace NReact
 
     #region Patching Indicators
 
-    protected internal void BeginPatching() { _isPatching = true; _patchingDepth++; }
-    protected internal void EndPatching() { _isPatching = false; _patchingDepth--; }
+    protected internal void BeginPatching() { _isPatching = true; PatchTracker.Current.BeginPatching(); }
+    protected internal void EndPatching() { _isPatching = false; PatchTracker.Current.EndPatching(); }
 
     /// <summary>
     /// Indicates whether this instance undergoes property patching
     /// </summary>
-    protected bool IsPatching => _isPatching;
     bool _isPatching;
 
-    protected static bool IsPatchingInProgress = _patchingDepth > 0;
+    protected static bool IsPatchingInProgress => PatchTracker.Current.IsPatchingInProgress;
     static int _patchingDepth = 0;
 
     protected static bool IsElementPatching(NElement element) => element._isPatching;
 
     #endregion
     #endregion
+  }
+
+  class PatchTracker
+  {
+    public readonly static PatchTracker Current = new PatchTracker();
+
+    int _depth;
+
+    public bool IsPatchingInProgress => _depth > 0;
+
+    public void BeginPatching() => _depth++;
+
+    public void EndPatching() => _depth--;
   }
 }
